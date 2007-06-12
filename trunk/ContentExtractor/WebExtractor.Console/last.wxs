@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<ModelPersist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <CurrentPosition>
+    <Url>http://news.yandex.ru/yandpage?&amp;q=1017820416&amp;p=2&amp;ag=clutop&amp;qs=rpt%3Dnnews2%26grhow%3Dclutop%26text%3D%25DC%25CC%25C5%25CB%25D4%25D2%25CF%25CE%25CE%25D9%25C5%2B%2528%25D0%25C5%25D2%25D7%25CF%25C4%25DE%25C9%25CB%25C9%2B%257C%2B%25D3%25CC%25CF%25D7%25C1%25D2%25C9%2529</Url>
+  </CurrentPosition>
+  <SelectedNode>/html[1]/body[1]/table[3]/tr[2]/td[2]/div[2]/div[2]/A[4]</SelectedNode>
+  <Template>
+    <Rules>
+      <XPathDataRowRule xpath="/html[1]/body[1]/table[3]/tr[2]/td[2]/ol[1]/li" />
+    </Rules>
+    <Columns>
+      <XPathDataColumn xpath="span[1]/a[1]/text()[1]" />
+      <XPathDataColumn xpath="span[1]/a[1]/@href" function="Content" />
+    </Columns>
+  </Template>
+  <PositoinsList>
+    <WebPosition>
+      <Url>http://news.yandex.ru/yandsearch?rpt=nnews2&amp;grhow=clutop&amp;text=%FD%EB%E5%EA%F2%F0%EE%ED%ED%FB%E5+%28%EF%E5%F0%E2%EE%E4%F7%E8%EA%E8+%7C+%F1%EB%EE%E2%E0%F0%E8%29</Url>
+    </WebPosition>
+    <WebPosition>
+      <Url>http://news.yandex.ru/yandpage?&amp;q=1017820416&amp;p=1&amp;ag=clutop&amp;qs=rpt%3Dnnews2%26grhow%3Dclutop%26text%3D%25DC%25CC%25C5%25CB%25D4%25D2%25CF%25CE%25CE%25D9%25C5%2B%2528%25D0%25C5%25D2%25D7%25CF%25C4%25DE%25C9%25CB%25C9%2B%257C%2B%25D3%25CC%25CF%25D7%25C1%25D2%25C9%2529</Url>
+    </WebPosition>
+    <WebPosition>
+      <Url>http://news.yandex.ru/yandpage?&amp;q=1017820416&amp;p=2&amp;ag=clutop&amp;qs=rpt%3Dnnews2%26grhow%3Dclutop%26text%3D%25DC%25CC%25C5%25CB%25D4%25D2%25CF%25CE%25CE%25D9%25C5%2B%2528%25D0%25C5%25D2%25D7%25CF%25C4%25DE%25C9%25CB%25C9%2B%257C%2B%25D3%25CC%25CF%25D7%25C1%25D2%25C9%2529</Url>
+    </WebPosition>
+    <WebPosition>
+      <Url>http://news.yandex.ru/yandpage?&amp;q=1017820416&amp;p=3&amp;ag=clutop&amp;qs=rpt%3Dnnews2%26grhow%3Dclutop%26text%3D%25DC%25CC%25C5%25CB%25D4%25D2%25CF%25CE%25CE%25D9%25C5%2B%2528%25D0%25C5%25D2%25D7%25CF%25C4%25DE%25C9%25CB%25C9%2B%257C%2B%25D3%25CC%25CF%25D7%25C1%25D2%25C9%2529</Url>
+    </WebPosition>
+    <WebPosition>
+      <Url>http://news.yandex.ru/yandpage?&amp;q=1017820416&amp;p=4&amp;ag=clutop&amp;qs=rpt%3Dnnews2%26grhow%3Dclutop%26text%3D%25DC%25CC%25C5%25CB%25D4%25D2%25CF%25CE%25CE%25D9%25C5%2B%2528%25D0%25C5%25D2%25D7%25CF%25C4%25DE%25C9%25CB%25C9%2B%257C%2B%25D3%25CC%25CF%25D7%25C1%25D2%25C9%2529</Url>
+    </WebPosition>
+  </PositoinsList>
+  <WorkMode>Parse</WorkMode>
+  <cachedCurrentPosition>
+    <Url>http://news.yandex.ru/yandpage?&amp;q=1017820416&amp;p=2&amp;ag=clutop&amp;qs=rpt%3Dnnews2%26grhow%3Dclutop%26text%3D%25DC%25CC%25C5%25CB%25D4%25D2%25CF%25CE%25CE%25D9%25C5%2B%2528%25D0%25C5%25D2%25D7%25CF%25C4%25DE%25C9%25CB%25C9%2B%257C%2B%25D3%25CC%25CF%25D7%25C1%25D2%25C9%2529</Url>
+  </cachedCurrentPosition>
+</ModelPersist>
