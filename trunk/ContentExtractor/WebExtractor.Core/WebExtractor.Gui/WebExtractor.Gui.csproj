@@ -1,0 +1,334 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F544EC7B-3ABA-416A-9496-1CC186719CE8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ContentExtractor.Gui</RootNamespace>
+    <AssemblyName>ContentExtractor.Gui</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>contentextractor.pfx</AssemblyOriginatorKeyFile>
+    <ApplicationIcon>Content Extractor_Vista.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DockingExtender, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libraries\DockingExtender.dll</HintPath>
+    </Reference>
+    <Reference Include="MetaTech.Library, Version=1.0.2635.27212, Culture=neutral, PublicKeyToken=30bee47d2092c365, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libraries\MetaTech.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libraries\Microsoft.mshtml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SoftTech.Diagnostics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libraries\SoftTech.Diagnostics.dll</HintPath>
+    </Reference>
+    <Reference Include="SoftTech.Gui, Version=1.0.2398.30169, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libraries\SoftTech.Gui.dll</HintPath>
+    </Reference>
+    <Reference Include="SoftTech.Html, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libraries\SoftTech.Html.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=36931d9a03dde381, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Libraries\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BrowserPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BrowserPage.Designer.cs">
+      <DependentUpon>BrowserPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BrowsersView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BrowsersView.Designer.cs">
+      <DependentUpon>BrowsersView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridWrapper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridWrapper.Designer.cs">
+      <DependentUpon>GridWrapper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HtmlElementsHighlighter.cs" />
+    <Compile Include="HtmlElementWrapper.cs" />
+    <Compile Include="Layout\_Dummy.cs" />
+    <Compile Include="PagesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PagesPanel.Designer.cs">
+      <DependentUpon>PagesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridWrapper.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GridWrapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagesPanel.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PagesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectedNodeTextBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SelectedNodeTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TreeViewWrapper.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>TreeViewWrapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebBrowserWrapper.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WebBrowserWrapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="BrowserHtmlMap.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\myhtml.dtd" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SelectedNodeTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SelectedNodeTextBox.Designer.cs">
+      <DependentUpon>SelectedNodeTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="Splash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Splash.Designer.cs">
+      <DependentUpon>Splash.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateResultBrowser.cs" />
+    <Compile Include="TreeNodesHtmlMap.cs" />
+    <Compile Include="TreeViewWrapper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TreeViewWrapper.Designer.cs">
+      <DependentUpon>TreeViewWrapper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WebBrowserWrapper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WebBrowserWrapper.Designer.cs">
+      <DependentUpon>WebBrowserWrapper.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebExtractor.Core\WebExtractor.Core.csproj">
+      <Project>{9B7237EE-6664-4141-A0CD-E9AEC04DA347}</Project>
+      <Name>WebExtractor.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Attribute.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\forward.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\go.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\refresh.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RefreshDocViewHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit_RedoHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit_UndoHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NavBack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NavForward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NextPageHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\openHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ProtectFormHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HTMLPageHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\VSProject_xml.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1-office-excel.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BrowserPage.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BrowserPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BrowsersView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BrowsersView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Layout\Layout.user.config" />
+    <EmbeddedResource Include="Splash.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Splash.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Resources\excel_2003_2_01.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FillUpHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FillDownHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FillLeftHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FillRightHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddTableHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ActualSizeHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AlignTableCellMiddleLeftJustHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PasteHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CopyHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CutHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OK.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Resources\Critical.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content Extractor_Vista.ico" />
+    <Content Include="Content Extractor_XP.ico" />
+    <Content Include="Resources\AddFromFile.png" />
+    <Content Include="Resources\delete.bmp" />
+    <None Include="contentextractor.pfx" />
+    <None Include="Resources\splash.png" />
+    <None Include="Resources\SearchWebHS.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>cd "$(SolutionDir)"
+call MakeBinaries.bat "$(TargetDir)" Gui</PostBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties Spices_ObfuscationOptions="{Members=None}" Spices_IncludeToProject="0" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

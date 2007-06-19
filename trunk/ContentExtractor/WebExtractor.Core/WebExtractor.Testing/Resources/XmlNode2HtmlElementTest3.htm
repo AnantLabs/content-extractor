@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>Заголовок</title>
+</head>
+<body>
+  <table border="0" width="80%" cellspacing="0" cellpadding="0" class="search" bgcolor="#ffcc00">
+    <tr>
+      <form name="web" method="get" action="/yandsearch" class="search">
+        <input type="hidden" name="stype" value="" />
+        <input type="hidden" name="nl" value="0" />
+        <td width="99%">
+          <input type="text" name="text" value="" size="40" style="width: 100%;" />
+        </td>
+        <td>
+          <input type="submit" value="Найти" onclick="return search_type('www');" />
+        </td>
+        <td width="20" nowrap="nowrap">
+          <br />
+        </td>
+        <td rowspan="3" valign="bottom" style="background-image: url(http://img.yandex.net/i/arr-t.gif);
+          padding: 0; background-repeat: no-repeat; background-position: top left;">
+          <img src="http://img.yandex.net/i/arr-b.gif" width="30" height="60" />
+        </td>
+      </form>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding: 0 0 0 2px;">
+      </td>
+    </tr>
+    <tr id="toTest">
+      <td class="tune" style="height: 1em;">
+        <div style="float: right;">
+          <a href="http://www.yandex.ru/advanced.html" style="color: #666666;">расширенный поиск</a>
+        </div>
+        <!-- #echo var="CustomMordaGeoDomain" -->
+        <div style="float: left; padding: 0 1em 1px&#xA; 0;">
+          <noindex>Пример: <nobr><span style="cursor: pointer" onClick="document.forms['web'].text.value=unescape_opera(this.innerHTML); document.forms['web'].nl.value='1'; return false;">виталий севостьянов</span></nobr></noindex>
+        </div>
+      </td>
+      <td colspan="2">
+        <br />
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

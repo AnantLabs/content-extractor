@@ -1,0 +1,1 @@
+Ncover.Console nunit-console WebExtractor.Testing.exe //w . //a WebExtractor.Core;WebExtractor.Gui
