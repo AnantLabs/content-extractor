@@ -1,9 +1,0 @@
-WebExtractor console utility
-  usage: WebExtractor.Console.exe templateFile [-input url1 url2 ...] [-Excel excelFileName] [-Xml xmlFileName] [-Html htmlFileName]
-      templateFile  - path to template you made by WebExtractor 
-      url1, url2    - list of source URLs
-      
-      At least one export file names should be provided
-      excelFlieName - path to result in Excel. File will be owerwritten if exist
-      xmlFileName   - path to result in Xml. File will be owerwritten if exist
-      htmlFileName  - path to result in Html. File will be owerwritten if exist

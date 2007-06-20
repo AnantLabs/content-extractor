@@ -1,1 +1,0 @@
-webextractor.console.exe last.wxs -html output.html
