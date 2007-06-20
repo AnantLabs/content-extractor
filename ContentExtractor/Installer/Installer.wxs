@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<Wix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+	<Product Id="50D7761C-2FA0-4989-8476-3AEB511E9D6D" Codepage="1251" Language="1033" Manufacturer="contentextractor.com" 
+          Name="Content Extractor 1.0" UpgradeCode="FDABFEF5-2FA8-4D25-9D41-1F45343361AC" Version="1.0.0.0">
+		<Package Id="409514A0-7968-4362-942A-A2514AF8BEFC" Comments="Content Extractor installation package" Compressed="yes" InstallerVersion="200" Manufacturer="ContentExtractor.com" />
+		<Media Id="1" Cabinet="Product.cab" EmbedCab="yes" />
+		<Directory Id="ProgramMenuFolder" LongName="Programs" Name="PMenu">
+			<Directory Id="ProgramMenuDir" LongName="Content Extractor" Name="ContExtr" />
+		</Directory>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder" Name=".">
+				<Directory Id="INSTALLDIR" LongName="Content Extractor" Name="ContExtr" src="..\..\..\_Binaries\Gui">
+					<Component Id="Gui" DiskId="1" Guid="FA70B805-F099-4491-B827-7A86B6F462CD">
+						<CreateFolder />
+						<File Id="ContentExtarctor.Gui.exe" Name="cexGui.exe" LongName="ContentExtractor.Gui.exe">
+							<Shortcut Id="shortcut" Directory="ProgramMenuDir" Name="ContExtr" LongName="Content Extractor 1.0" 
+                  Icon="Icon" IconIndex="0" />
+						</File>
+						<File Id="ContentExtarctor.Gui.exe.config" Name="cexGui.con" LongName="ContentExtractor.Gui.exe.config" />
+						<File Id="ContentExtractor.Core.dll" Name="core.dll" LongName="ContentExtractor.Core.dll" />
+						<File Id="DockingExtender.dll" Name="dockext.dll" LongName="DockingExtender.dll" />
+						<File Id="MetaTech.Library.dll" Name="MetaTech.dll" LongName="MetaTech.Library.dll" />
+						<File Id="Microsoft.mshtml.dll" Name="mshtml.dll" LongName="Microsoft.mshtml.dll" />
+						<File Id="SoftTech.Diagnostics.dll" Name="Diagnost.dll" LongName="SoftTech.Diagnostics.dll" />
+						<File Id="SoftTech.Gui.dll" Name="SoftGui.dll" LongName="SoftTech.Gui.dll" />
+						<File Id="SoftTech.Html.dll" Name="SoftHtml.dll" LongName="SoftTech.Html.dll" />
+            <File Id="ContentExtractor.Console.exe" Name="Console.exe" LongName="ContentExtractor.Console.exe" 
+                  Source="..\..\..\_Binaries\Console\ContentExtractor.Console.exe"/>
+						<File Id="WeifenLuo.WinFormsUI.Docking.dll" Name="docking.dll" LongName="WeifenLuo.WinFormsUI.Docking.dll" />
+            <RemoveFile Id="LogFiles" On="uninstall" Name="log" LongName="ContentExtractor.Gui.log"/>
+            <RemoveFile Id="LogFilesConsole" On="uninstall" Name="console.log" LongName="ContentExtractor.Console.log"/>
+					</Component>
+				</Directory>
+			</Directory>
+		</Directory>
+		<Feature Id="GUI" ConfigurableDirectory="INSTALLDIR" Level="1" Title="Content Extractor GUI">
+			<ComponentRef Id="Gui" />
+		</Feature>
+
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+    <Icon Id="Icon" SourceFile="..\..\..\WebExtractor.Gui\Content Extractor_Vista.ico" />
+
+  </Product>
+</Wix>

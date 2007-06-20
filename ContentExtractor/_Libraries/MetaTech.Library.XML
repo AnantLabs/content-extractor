@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MetaTech.Library</name>
+    </assembly>
+    <members>
+        <member name="T:MetaTech.Library.Calculations.Interval`2">
+            <summary>
+            Summary description for Intervals.
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.Calculations.RectHlp.Merge(System.Drawing.Rectangle,System.Drawing.Rectangle)">
+            <summary>
+            Прямоугольник, в который "вписаны" только ненулевой толщины исходные
+            </summary>
+            <param name="Rects"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.Calculations.RectHlp.Merge(System.Drawing.Rectangle[])">
+            <summary>
+            Прямоугольник, в который "вписаны" только ненулевой толщины исходные
+            </summary>
+            <param name="Rects"></param>
+            <returns></returns>
+        </member>
+        <member name="P:MetaTech.Library.Calculations.RectHlp.NullRect">
+            <summary>
+            Rectangle(0,0,0,0)
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.Calculations.StringSeparation.Join(System.String[],System.Char,System.Char)">
+            <summary>
+            Склеить строки через separator. 
+            Если в склеиваемой строке встречается символ 'separator', 
+            он заменяется на 'commandCharacter''separator',
+            'commandCharacter' заменяется на двойной 'commandCharacter'
+            </summary>
+            <param name="inputs">склеиваемые строки</param>
+            <param name="separator">разделитель</param>
+            <param name="commandCharacter">управляющий символ</param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.Calculations.StringSeparation.Split(System.String,System.Char,System.Char)">
+            <summary>
+            функция, обратная Join
+            </summary>
+            <param name="input"></param>
+            <param name="separator"></param>
+            <param name="commandCharacter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.AssertionHlp.AssertCollectionSequenceEquals``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})">
+            <summary>
+            Проверяем, что коллекция содержат одиннаковые элементы в одном и том же порядке
+            </summary>
+            <param name="c1"></param>
+            <param name="c2"></param>
+        </member>
+        <member name="M:MetaTech.Library.DictionaryHlp.AssignIfNotExist``2(System.Collections.Generic.IDictionary{``0,``1},``0,``1)">
+            <summary>
+            Если в словаре нет такого ключа, то размещает под указанным ключом указанное значение
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="dict"></param>
+            <param name="key"></param>
+            <param name="defValue"></param>
+        </member>
+        <member name="M:MetaTech.Library.DictionaryHlp.AssignDefaultIfNotExist``2(System.Collections.Generic.IDictionary{``0,``1},``0)">
+            <summary>
+            Присваивает значение по умолчанию под указанным ключом, если под таким ключом в словаре еще нет значения
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="dict"></param>
+            <param name="key"></param>
+        </member>
+        <member name="T:MetaTech.Library.Collections.OrderedHashtable">
+            <summary>
+            То же, что Hashtable, только Values и Keys взвращаются в порядке, котором добавляли
+            </summary>
+        </member>
+        <member name="T:MetaTech.Library.Collections.PseudoDynamicCollection`1">
+            <summary>
+            класс, который на основе коллекции с фиксированной длиной эмулирует коллекцию с переменной длиной,
+            т.е. есть операции	Add, Remove и т.д. (Insert и RemoveAt не надо реализовывать).
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.Collections.PseudoDynamicCollection`1.MyIndex(System.Int32)">
+            <summary>
+            Аргумент index содержит порядковый номер элемента среди элементов не равных null
+            MyIndex(index) возвращает порядковый номер этого элемента во всём массиве
+            </summary>
+        </member>
+        <member name="T:MetaTech.Library.Collections.QueueHlp">
+            <summary>
+            Summary description for QueueHlp.
+            </summary>
+        </member>
+        <member name="T:MetaTech.Library.CollectionHlp">
+            <summary>
+            Алгоритмы/Методы для работы с типизированными коллекциями
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.CollectionHlp.MakeIndex``2(System.Collections.IEnumerable,MetaTech.Library.Getter{``0,``1})">
+            <summary>
+            Раскладывыет содержимое коллекции items по "ящикам". Два элемента поподают в один "ящик"(List), 
+            если у них совпадают ключи (т. е. значения extractor(item)) 
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.CollectionHlp.MakeUniqueIndex``2(System.Collections.IEnumerable,MetaTech.Library.Getter{``0,``1})">
+            <summary>
+            оставляем для каждого ключа только первое вхождение
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.CollectionHlp.Distinct``2(System.Collections.IEnumerable,MetaTech.Library.Getter{``0,``1})">
+            <summary>
+            оставляем для каждого ключа только первое вхождение
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.CollectionHlp.Distinct``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Оставляет только одно вхождение из коллекции
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.CollectionHlp.MakeIndex``2(System.Collections.Generic.ICollection{``1},MetaTech.Library.Getter{``0,``1})">
+            <summary>
+            Отображение extractor должно быть инъективно, т. е. ключи должны быть уникальны.
+            Если нет, то останется только последнее вхождение для каждого ключа.
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.CollectionHlp.Repeat``1(``0,System.Int32)">
+            <summary>
+            Значение при размножение не копируется (не клонируется)
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.CollectionHlp.Compare``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Выполняет лексикографическое сравнение двух коллекций. 
+            Предполагается, что элементы обеих коллекций сравнимы друг с другом
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.CollectionHlp.Top``1(System.Collections.Generic.IEnumerable{``0},System.Int32)">
+            <summary>
+            Возвращает первые count элементов коллекции.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MetaTech.Library.ArrayHlp2">
+            <summary>
+            Алгоритмы/Методы для работы с массивами
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.ArrayHlp2.GetElementsOfType(System.Collections.IEnumerable,System.Type)">
+            <summary>
+            Выделяет елементы нужного типа
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.ArrayHlp2.Sort``1(``0[],System.Comparison{``0})">
+            <summary>
+            Плохая функция. Конвертит массив в лист, сортирует, потом конвертит назад  в массив.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="arr"></param>
+            <param name="comparision"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MetaTech.Library.CollectionUntypedHlp">
+            <summary>
+            Алгоритмы/методы для работы с нетипизированными коллекциями
+            </summary>
+        </member>
+        <member name="T:MetaTech.Library.SynchronizedCollection`1">
+            <summary>
+            Summary description for SynchronizedCollection.
+            </summary>
+        </member>
+        <member name="T:MetaTech.Library.Countdown">
+            <summary>
+            Класс для отсчета интервалов времени
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.Countdown.Reset">
+            <summary>
+            Сбрасывает счетчик времени
+            </summary>
+        </member>
+        <member name="P:MetaTech.Library.Countdown.Interval">
+            <summary>
+            Интервал времени, который засекает данный счетчик
+            </summary>
+        </member>
+        <member name="P:MetaTech.Library.Countdown.IsElapsed">
+            <summary>
+            Проверяет, истек ли указанный интервал с момента последнего сброса счетчика времени
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.FileHlp.RelativePath(System.String,System.String)">
+            <summary>
+            Возвращает путь к файлу target относительно папки context
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.FileHlp.ActualDirectoryTime(System.String)">
+            <summary>
+            Возвращает время последнего изменения файла в заданной 
+            директории, включая все поддиректории
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.FileHlp.RemoveOldFiles(System.String,System.String,System.Int32)">
+            <summary>
+            Удаляет старые файлы. Имена файлов должны представлять собой время создания.
+            </summary>
+            <param name="dir"></param>
+            <param name="searchPattern">Шаблон. Например: "*.aspid_state"</param>
+            <param name="maxFiles"></param>
+        </member>
+        <member name="M:MetaTech.Library.FileHlp.DeleteDirectory(System.String)">
+            <summary>
+            Если директория существует, полностью удаляет ее, даже в случае, если
+            файлы имеют аттрибуты r/o или подобные
+            </summary>
+            <param name="dirName">Удаляемая директория</param>
+        </member>
+        <member name="M:MetaTech.Library.FileHlp.MakeValidFileName(System.String,System.Char)">
+            <summary>
+            Генерит валидное имя файла, заменяя невалидные символы на параметр validChar.
+            </summary>
+            <param name="name"></param>
+            <param name="validChar">Валидный символ. Не используйте символы: &quot;, &lt;, &gt;, |, :, *, ?, \, /</param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.FileHlp.MakeValidFileName(System.String)">
+            <summary>
+            Генерит валидное имя файла, заменяя невалидные символы на параметр _.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.IntervalChainHlp.Invert``1(``0,``0,``0[])">
+            <summary>
+            Возвращает дополнение к набору интервалов chains относительно интервала [min, max)
+            </summary>
+            <typeparam name="T">Любой тип, реализующий IComparable&lt;T&gt;</typeparam>
+            <param name="min">"Минус бесконечность"</param>
+            <param name="max">"Минус бесконечность"</param>
+            <param name="chain">Набор интервалов вида [a,b). 
+            Четные элементы (начиная с 0) - начала интервалов, нечетные - концы. 
+            Интвервалы должны не пересекаться и быть упорядочены по возрастанию начал.</param>
+            <returns>Дополнение к набору интевалов. Не содержит пустых интервалов.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MetaTech.Library.IntervalChainHlp.Intersect``1(``0[][])" -->
+        <!-- Badly formed XML comment ignored for member "M:MetaTech.Library.IntervalChainHlp.Combine``1(``0[][])" -->
+        <member name="T:MetaTech.Library.Native_Raw">
+            <summary>
+            Summary description for Win32.
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.Native.MsgWaitForMultipleObjects(System.IntPtr[],System.Boolean,System.TimeSpan,MetaTech.Library.Native.WakeMask)">
+            <summary>
+            
+            </summary>
+            <param name="waitHandles"></param>
+            <param name="isWaitAll"></param>
+            <param name="timeout">0 - вернуться сразу, Infitite - ждать бесконечно</param>
+            <param name="wakeMask">WakeMask.AllInput - ждем любое из событий</param>
+            <returns></returns>
+        </member>
+        <member name="T:MetaTech.Library.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MetaTech.Library.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MetaTech.Library.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.ResourceHlp.GetStream(System.Type,System.String)">
+            <summary>
+            Выкидается исключение, если ресурс не найден
+            </summary>
+            <param name="type"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.SecurityInitializer.CoInitializeSecurity">
+            <summary>
+            Функция инициализирует настройки безопасности DCOM. При использовании необходимо убрать атрибут [STAThread] (функция устаносит STA сама, иначе не работает)
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.StringHlp2.Intern(System.String)">
+            <summary>
+            Возвращает string.Intern(str), если str не равно null, и null в противном случае.
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.StringHlp2.Contains(System.String,System.String,System.Boolean)">
+            <summary>
+            Ишет в строке text строку value.
+            </summary>
+            <param name="text">Строка</param>
+            <param name="value">Подстрока</param>
+            <param name="ignoreCase">Игнорировать регистр</param>
+            <returns></returns>
+        </member>
+        <member name="M:MetaTech.Library.SystemHlp.getCpuFamily(System.Int32)">
+            <summary>
+            Processor family type.
+            </summary>
+            <param name="code">Processor family identifier.</param>
+            <returns>Returns the string represents CPU family.</returns>
+        </member>
+        <member name="T:MetaTech.Library.CollectionOperations">
+            <summary>
+            Summary description for CollectionOperation.
+            </summary>
+        </member>
+        <member name="T:MetaTech.Library.GetterHlp">
+            <summary>
+            Устарел: Используйте FunctorHlp
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.ObjectHlp2.NullCompare(System.Object,System.Object,System.Boolean@)">
+            <summary>
+            If returned value is true result is obsolete - you need to continue comparing
+            </summary>
+            <param name="o1"></param>
+            <param name="o2"></param>
+            <param name="Result of comparing "></param>
+            <returns>Whether you need to continue comparing</returns>
+        </member>
+        <member name="T:MetaTech.Library.StatisticBasic">
+            <summary>
+            Summary description for StatisticBasic.
+            </summary>
+        </member>
+        <member name="T:MetaTech.Library.ToLibrary">
+            <summary>
+            Аттрибут для выделения классов и функций, которые надо поместить в библиотеку. 
+            </summary>
+        </member>
+        <member name="F:MetaTech.Library.ToLibrary.description">
+            <summary>
+            Описание (например, в какую библиотеку поместить данный элемент).
+            </summary>
+        </member>
+        <member name="T:MetaTech.Library.TraceHlp2">
+            <summary>
+            Класс помощи для работы с Trace (сообщения, подписчики)
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.TraceHlp2.AddMessage(System.String,System.Object[])">
+            <summary>
+            Пишет в лог форматированный текст, при этом не выкидывает наверх исключение, 
+            если есть ошибки в формате
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MetaTech.Library.TreeCollectionHlp.WideVisit``1(``0,System.Converter{``0,System.Collections.IEnumerable},System.Action{``0})" -->
+        <member name="M:MetaTech.Library.TreeCollectionHlp.WideVisit``1(``0,System.Converter{``0,System.Collections.IEnumerable})">
+            <summary>
+            Обход дерева в ширину
+            <code><![CDATA[
+             foreach (XmlNode item in TreeCollectionHlp.WideVisit<XmlNode>(doc, delegate(XmlNode node) { return node.ChildNodes; }))
+               DoSomethingInteresting(item); 
+            ]]>
+            </code>
+            </summary>
+            <typeparam name="T">Тип вершин</typeparam>
+            <param name="root">Стартовая вершина (корень)</param>
+            <param name="childGetter">Делегат, возвращающий детей для заданной вершины</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MetaTech.Library.TreeCollectionHlp.DepthVisit``1(``0,System.Converter{``0,System.Collections.IEnumerable},System.Action{``0})" -->
+        <member name="M:MetaTech.Library.TreeCollectionHlp.DepthVisit``1(``0,System.Converter{``0,System.Collections.IEnumerable})">
+            <summary>
+            Обход дерева в глубину
+            <code><![CDATA[
+             foreach (XmlNode item in TreeCollectionHlp.DepthVisit<XmlNode>(doc, delegate(XmlNode node) { return node.ChildNodes; }))
+               DoSomethingInteresting(item); 
+            ]]>
+            </code>
+            </summary>
+            <typeparam name="T">Тип вершин</typeparam>
+            <param name="root">Стартовая вершина (корень)</param>
+            <param name="childGetter">Делегат, возвращающий детей для заданной вершины</param>
+        </member>
+        <member name="M:MetaTech.Library.VssHlp.LocalPath2VssPath(System.String)">
+            <summary>
+            Преобразует локальный путь к файлу в VSS путь (типа $/dir/file.data)
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.VssHlp.VssPath2LocalPath(System.String)">
+            <summary>
+            Преобразует VSS путь (типа $/dir/file.data) в локальный путь к файлу (типа .\dir\file.data)
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.XmlHlp2.GetFormatedOuterXml(System.Xml.XmlNode)">
+            <summary>
+            OuterXML вершины в с отступами
+            </summary>
+        </member>
+        <member name="M:MetaTech.Library.XmlHlp2.IsXmlEqual(System.Xml.XmlNode,System.Xml.XmlNode,System.Converter{System.String,System.Boolean})">
+            <summary>
+            Сравнивает две Xml-вершины
+            </summary>
+            <param name="expectedNode">Ожидаемое значение вершины</param>
+            <param name="actualNode">Актуальное значение вершины</param>
+            <param name="NeedContinueIfError">Делегат определяющий, продолжать ли сравнение, для данной ошибки</param>
+            <returns>true, если вершины совпадают</returns>
+        </member>
+        <member name="M:MetaTech.Library.XmlSerialization2.Save(System.Object,System.String)">
+            <summary>
+            For Safe Serialization
+            Add by Zorya using DarkGray Experience
+            </summary>
+            <param name="obj"></param>
+            <param name="fileName"></param>
+        </member>
+    </members>
+</doc>

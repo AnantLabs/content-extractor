@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<html>
+  <head>
+    <title>A string looks like title</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>
+          There is some text!
+        </td>
+        <td>
+          2
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
