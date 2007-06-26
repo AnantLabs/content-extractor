@@ -32,7 +32,7 @@ namespace WebExtractor_Testing.Core
         {
           Console.Write("{0} ", model.PositionsList[0].DocumentText.Length);
           System.Threading.Thread.Sleep(100);
-        } while (AsyncLoader.HasWork);
+        } while (AsyncLoader.Instance.HasWork);
         Console.WriteLine();
         Console.WriteLine(model.SourceTree.CreateNavigator().OuterXml);
 

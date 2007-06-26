@@ -47,9 +47,9 @@ namespace ContentExtractor.Console
       }
       System.Console.WriteLine(Properties.Resources.LoadingPages);
       XmlDocument result = model.Result;
-      while (AsyncLoader.HasWork)
+      while (AsyncLoader.Instance.HasWork)
       {
-        while (AsyncLoader.HasWork)
+        while (AsyncLoader.Instance.HasWork)
           Thread.Sleep(700);
         result = model.Result;
       }

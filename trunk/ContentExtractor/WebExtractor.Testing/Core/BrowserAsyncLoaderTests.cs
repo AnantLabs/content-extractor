@@ -8,6 +8,7 @@ using MetaTech.Library;
 
 namespace WebExtractor_Testing.Core
 {
+  [Ignore("Class BrowserAsyncLoader isn't used in current time")]
   [TestFixture]
   public class BrowserAsyncLoaderTests
   {

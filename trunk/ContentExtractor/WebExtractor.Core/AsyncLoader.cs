@@ -11,32 +11,45 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace ContentExtractor.Core
 {
+  
   /// <summary>
   /// Servise for asynchronic loading html pages 
   /// </summary>
-  public static class AsyncLoader
+  public class AsyncLoader
   {
-    private static Dictionary<WebPosition.PersistStruct, string> dataDict = new Dictionary<WebPosition.PersistStruct, string>();
-    private static Dictionary<WebPosition.PersistStruct, bool> requestsDict = new Dictionary<WebPosition.PersistStruct, bool>();
-
-    static AsyncLoader()
+    public static AsyncLoader Instance
+    {
+      get
+      {
+        if(_instance == null)
+          lock(typeof(AsyncLoader))
+            if(_instance == null)
+            {
+              _instance = new AsyncLoader();
+            }
+        return _instance;
+      }
+    }
+    private static AsyncLoader _instance = null;
+    
+    private AsyncLoader()
     {
       dataDict[WebPosition.EmptyPersist] = string.Empty;
       ServicePointManager.ServerCertificateValidationCallback = RemoteCertificateValidation;
     }
 
     /// <summary>
-    /// Servise function for accepting remote certificates
+    /// Service function for accepting remote certificates
     /// </summary>
-    private static bool RemoteCertificateValidation(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+    private bool RemoteCertificateValidation(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
     {
       return true;
     }
 
     /// <summary>
-    /// Is loader working on something
+    /// Is loader working on something?
     /// </summary>
-    public static bool HasWork
+    public bool HasWork
     {
       get
       {
@@ -47,7 +60,7 @@ namespace ContentExtractor.Core
       }
     }
 
-    internal static string GetDocumentCode(WebPosition position)
+    public string GetDocumentCode(WebPosition position)
     {
       lock (dataDict)
       {
@@ -65,6 +78,103 @@ namespace ContentExtractor.Core
       }
     }
 
+    public string Load(WebPosition position)
+    {
+      try
+      {
+        WebRequest request = WebRequest.Create(position.Url);
+        request.Proxy = DefaultProxy;
+        using(WebResponse response = request.GetResponse())
+        {
+          return ReadResponse(response);
+        }
+      }
+      catch(Exception exc)
+      {
+        throw new Exception("Could not process request to " 
+                            + position.Url.ToString(),
+                            exc);
+      }
+    }
+    
+    private string ReadResponse(WebResponse response)
+    {
+      string documentText = string.Empty;
+      Encoding encoding = Encoding.Default;
+      if (response is HttpWebResponse)
+      {
+        FlowHlp.SafeBlock("", delegate { encoding = Encoding.GetEncoding(((HttpWebResponse)response).CharacterSet); });
+      }
+
+      using (MemoryStream memory = new MemoryStream())
+      {
+        using (Stream responseStream = response.GetResponseStream())
+        {
+          byte[] buffer = new byte[1024];
+          int lenRead;
+          do
+          {
+            lenRead = responseStream.Read(buffer, 0, buffer.Length);
+            memory.Write(buffer, 0, lenRead);
+          } while (lenRead > 0);
+        }
+        documentText = ReadStreamUsingEncoding(encoding, memory);
+        Regex contentCode = new Regex(@"<meta[^>]*content=[""'][^'"">]*charset=(?<coding>[^""'>]*)[""']",
+          RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        Match match = contentCode.Match(documentText);
+        if (match.Success)
+        {
+          encoding = Encoding.GetEncoding(match.Groups["coding"].Value);
+          documentText = ReadStreamUsingEncoding(encoding, memory);
+        }
+      }
+      return documentText;
+    }
+    
+    private void CallBack(IAsyncResult asyncResult)
+    {
+      RequestState state = (RequestState)asyncResult.AsyncState;
+      try
+      {
+        string documentText;
+        using (WebResponse response = state.Request.EndGetResponse(asyncResult))
+        {
+          documentText = ReadResponse(response);
+        }
+        lock (dataDict)
+          dataDict[state.Position] = documentText;
+      }
+      catch (WebException exc)
+      {
+        TraceHlp2.WriteException(exc);
+        if (IsProxyFailed(exc))
+          MarkProxyAsFailed();
+      }
+      catch (Exception exc)
+      { TraceHlp2.WriteException(exc); }
+      finally
+      {
+        lock (requestsDict)
+          requestsDict.Remove(state.Position);
+      }
+    }
+
+    private void StartGetting(WebPosition.PersistStruct position)
+    {
+      try
+      {
+        WebRequest request = WebRequest.Create(position.Url);
+        request.Proxy = DefaultProxy;
+        request.BeginGetResponse(new AsyncCallback(CallBack), new RequestState(position, request));
+      }
+      catch (Exception exc)
+      {
+        lock (requestsDict)
+          requestsDict.Remove(position);
+        TraceHlp2.WriteException(exc);
+      }
+    }
+
     internal class RequestState
     {
       // This class stores the state of the request.
@@ -77,7 +187,8 @@ namespace ContentExtractor.Core
       }
     }
 
-    private static IWebProxy DefaultProxy
+    #region Proxy-related functions
+    private IWebProxy DefaultProxy
     {
       get
       {
@@ -116,12 +227,12 @@ namespace ContentExtractor.Core
       }
     }
 
-    public static bool ProxyFailed
+    public bool ProxyFailed
     {
       get { return proxyStatus == ProxyLocatingStatus.Failed; }
     }
 
-    private static void MarkProxyAsFailed()
+    private void MarkProxyAsFailed()
     {
       if (proxyStatus == ProxyLocatingStatus.Default)
       {
@@ -144,7 +255,7 @@ namespace ContentExtractor.Core
         proxyStatus = ProxyLocatingStatus.Failed;
       }
     }
-    private static ProxyLocatingStatus proxyStatus = ProxyLocatingStatus.Default;
+    private ProxyLocatingStatus proxyStatus = ProxyLocatingStatus.Default;
 
     private enum ProxyLocatingStatus
     {
@@ -155,122 +266,22 @@ namespace ContentExtractor.Core
       Failed
     }
 
-
-    private static void StartGetting(WebPosition.PersistStruct position)
-    {
-      try
-      {
-        WebRequest request = WebRequest.Create(position.Url);
-        request.Proxy = DefaultProxy;
-        //if (!proxySaved)
-        //{
-        //  Uri yandex = new Uri("http://www.yandex.ru");
-        //  IWebProxy p = request.Proxy;
-        //  Type type = p.GetType();
-        //  System.Reflection.PropertyInfo prop = type.GetProperty("WebProxy", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        //  WebProxy proxy = prop.GetValue(p, null) as WebProxy;
-        //  if (proxy != null)
-        //  {
-        //    TraceHlp2.AddMessage("Url: {0}", proxy.Address);
-        //    TraceHlp2.AddMessage(string.Join("; ", proxy.BypassList));
-        //    TraceHlp2.AddMessage("BypassProxyOnLocal: {0}", proxy.BypassProxyOnLocal);
-        //    TraceHlp2.AddMessage("UseDefaultCredentials: {0}", proxy.UseDefaultCredentials);
-        //    TraceHlp2.AddMessage("Credentials: {0}", proxy.Credentials);
-        //  }
-        //  TraceHlp2.AddMessage("Bypassed {0}", p.IsBypassed(yandex));
-        //  TraceHlp2.AddMessage("Yandex :{0}", p.GetProxy(yandex));
-        //  TraceHlp2.AddMessage("Credentails :{0}", p.Credentials);
-        //  proxySaved = true;
-        //}
-        ////request.Proxy = Proxy;
-        //Console.WriteLine(request.Proxy);
-
-        request.BeginGetResponse(new AsyncCallback(CallBack), new RequestState(position, request));
-      }
-      catch (Exception exc)
-      {
-        lock (requestsDict)
-          requestsDict.Remove(position);
-        TraceHlp2.WriteException(exc);
-      }
-    }
-
-    private static void CallBack(IAsyncResult asyncResult)
-    {
-      RequestState state = (RequestState)asyncResult.AsyncState;
-      try
-      {
-        string documentText = string.Empty;
-
-        using (WebResponse response = state.Request.EndGetResponse(asyncResult))
-        {
-          Encoding encoding = Encoding.Default;
-          if (response is HttpWebResponse)
-          {
-            FlowHlp.SafeBlock("", delegate { encoding = Encoding.GetEncoding(((HttpWebResponse)response).CharacterSet); });
-          }
-
-          using (MemoryStream memory = new MemoryStream())
-          {
-            using (Stream responseStream = response.GetResponseStream())
-            {
-              byte[] buffer = new byte[1024];
-              int lenRead;
-              do
-              {
-                lenRead = responseStream.Read(buffer, 0, buffer.Length);
-                memory.Write(buffer, 0, lenRead);
-              } while (lenRead > 0);
-            }
-            documentText = ReadStreamUsingEncoding(encoding, memory);
-            Regex contentCode = new Regex(@"<meta[^>]*content=[""'][^'"">]*charset=(?<coding>[^""'>]*)[""']",
-              RegexOptions.IgnoreCase | RegexOptions.Compiled);
-            Match match = contentCode.Match(documentText);
-            if (match.Success)
-            {
-              encoding = Encoding.GetEncoding(match.Groups["coding"].Value);
-              documentText = ReadStreamUsingEncoding(encoding, memory);
-            }
-          }
-        }
-        lock (dataDict)
-          dataDict[state.Position] = documentText;
-      }
-      catch (WebException exc)
-      {
-        //StringBuilder message = new StringBuilder();
-        //message.AppendFormat("WebExceptionStatus {0}\r\n", exc.Status);
-        //message.AppendFormat("Status {0}\r\n", exc.);
-
-        TraceHlp2.WriteException(exc);
-        if (IsProxyFailed(exc))
-          MarkProxyAsFailed();
-        //TraceHlp2.AddMessage(message.ToString());
-      }
-      catch (Exception exc)
-      { TraceHlp2.WriteException(exc); }
-      finally
-      {
-        lock (requestsDict)
-          requestsDict.Remove(state.Position);
-      }
-    }
-
-    private static bool IsProxyFailed(WebException exc)
+    private bool IsProxyFailed(WebException exc)
     {
       HttpWebResponse webReponse = exc.Response as HttpWebResponse;
       return exc.Status == WebExceptionStatus.ProtocolError && webReponse != null && webReponse.StatusCode == HttpStatusCode.ProxyAuthenticationRequired ||
              exc.Status == WebExceptionStatus.RequestProhibitedByProxy ||
              exc.Status == WebExceptionStatus.ProxyNameResolutionFailure;
     }
+    #endregion
 
     private static string ReadStreamUsingEncoding(Encoding encoding, MemoryStream memory)
     {
       memory.Position = 0;
-      return encoding.GetString(memory.GetBuffer());
-      //using (StreamReader reader = new StreamReader(memory, encoding, true))
-      //  return reader.ReadToEnd();
+      return encoding.GetString(memory.ToArray());
     }
 
+    private Dictionary<WebPosition.PersistStruct, string> dataDict = new Dictionary<WebPosition.PersistStruct, string>();
+    private Dictionary<WebPosition.PersistStruct, bool> requestsDict = new Dictionary<WebPosition.PersistStruct, bool>();
   }
 }

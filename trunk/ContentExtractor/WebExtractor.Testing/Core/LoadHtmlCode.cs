@@ -17,21 +17,26 @@ namespace WebExtractor_Testing.Core
   [TestFixture]
   public class LoadHtmlCode
   {
+    private XmlDocument LoadDocument(string code)
+    {
+      return XmlHlp.HtmlDocFromNavigable(WebExtractorHlp.LoadHtmlCode(code));
+    }
+    
     [Test]
     public void BuildTreeTest()
     {
-      XmlDocument doc = XmlHlp.HtmlDocFromNavigable(WebExtractorHlp.LoadHtmlCode(Properties.Resources.BuildTreeTest));
+      XmlDocument doc = LoadDocument(Properties.Resources.BuildTreeTest);
       TestUtils.XmlAssertEqual(XmlHlp2.XmlDocFromString(Properties.Resources.BuildTreeTestResult), doc);
     }
 
     [Test]
     public void TwoRootsDocument()
     {
-      XmlDocument doc = XmlHlp.HtmlDocFromNavigable(WebExtractorHlp.LoadHtmlCode(
-                    @"<script language='JavaScript'>var a = 0;</script><html><body>text</body></html>"));
+      XmlDocument doc = LoadDocument(@"<script language='JavaScript'>var a = 0;</script><html><body>text</body></html>");
+      Console.WriteLine("__" + XmlHlp2.GetFormatedOuterXml(doc));
       TestUtils.XmlAssertEqual(XmlHlp2.XmlDocFromString("<html><body>text</body></html>"), doc);
-
     }
+    
     [Test]
     public void EmptyDocument()
     {
@@ -69,7 +74,7 @@ namespace WebExtractor_Testing.Core
       Assert.IsNotNull(doc.DocumentElement, "Не удалось разобрать документ");
     }
 
-    [Ignore("Пока не готов переписывать framework распознавания страниц")]
+    [Ignore("The html parser should be recoded to fit this test")]
     [Test]
     public void NotClosedTags()
     {
