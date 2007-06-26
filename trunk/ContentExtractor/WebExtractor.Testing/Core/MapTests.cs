@@ -39,8 +39,7 @@ namespace WebExtractor_Testing.Core
       do
       {
         TestUtils.DoSomeEvents();
-      }
-      while (Browser.IsBusy);
+      } while (Browser.IsBusy);
       //Map.Init(Browser, WebExtractorHlp.LoadHtmlCode(WebExtractorHlp.DocumentText(Browser)));
     }
 
@@ -55,7 +54,6 @@ namespace WebExtractor_Testing.Core
         WebExtractorHlp.DocumentText(Browser))), xpath);
     }
   }
-
 
   [TestFixture]
   public class HtmlElement2XmlElement : MapTestsBase
@@ -76,9 +74,8 @@ namespace WebExtractor_Testing.Core
     }
 
     [Test]
-    public void HtmlElement2XmlNode_Сильная_вложенность()
+    public void HtmlElement2XmlNode_Deeply_Nested()
     {
-
       Init(@"<html><body><table>
                                       <tr><td>1</td>
                                       <td> <table><tr><td>
