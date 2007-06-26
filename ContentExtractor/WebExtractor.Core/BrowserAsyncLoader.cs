@@ -86,7 +86,7 @@ namespace ContentExtractor.Core
         try
         {
           browser.Navigate(persistStruct.Url);
-          for (int i = 0; i < 30; i++)
+          for (int i = 0; i < 2; i++)
             System.Windows.Forms.Application.DoEvents();
           do
           {
@@ -113,6 +113,5 @@ namespace ContentExtractor.Core
 
     private static Dictionary<WebPosition.PersistStruct, string> dataCache = new Dictionary<WebPosition.PersistStruct, string>();
     private static Queue<WebPosition.PersistStruct> workQueue = new Queue<WebPosition.PersistStruct>();
-
   }
 }
