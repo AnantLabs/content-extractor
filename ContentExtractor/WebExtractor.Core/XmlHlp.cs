@@ -295,6 +295,12 @@ namespace ContentExtractor.Core
       return new XmlDocument();
     }
 
+    public static XmlDocument LoadXml(string content)
+    {
+      XmlDocument result = new XmlDocument();
+      result.LoadXml(content);
+      return result;
+    }
 
   }
 }

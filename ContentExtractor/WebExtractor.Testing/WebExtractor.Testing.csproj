@@ -65,12 +65,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BrowserTestFixture.cs" />
+    <Compile Include="Core\AsyncLoaderTests.cs" />
     <Compile Include="Core\BrowserAsyncLoaderTests.cs" />
     <Compile Include="Core\GetPath.cs" />
     <Compile Include="Core\MapTests.cs" />
     <Compile Include="Core\ModelTests.cs" />
     <Compile Include="Core\Select.cs" />
     <Compile Include="Core\TreeViewTests.cs" />
+    <Compile Include="Core\WebDocumentTests.cs" />
+    <Compile Include="Core\WebPositionTests.cs" />
     <Compile Include="Core\XPathPart.cs" />
     <Compile Include="Functions\BestContentNodeTests.cs" />
     <Compile Include="Gui\BrowserPageTests.cs" />

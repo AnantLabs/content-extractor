@@ -91,8 +91,8 @@ namespace ContentExtractor.Core
     {
       get
       {
-        return BrowserAsyncLoader.GetDocumentCode(this);
-        //return AsyncLoader.GetDocumentCode(this);
+        //return BrowserAsyncLoader.GetDocumentCode(this);
+        return AsyncLoader.Instance.GetDocumentCode(this);
       }
     }
 
@@ -114,6 +114,7 @@ namespace ContentExtractor.Core
     private static Regex XmlnsRemover = new Regex(@"xmlns\s*=\s*['""][^'""]*['""]", RegexOptions.Compiled);
 
     private string cachedText = string.Empty;
+    
     public IXPathNavigable XPathNavigable
     {
       get
@@ -126,7 +127,7 @@ namespace ContentExtractor.Core
         {
           lock (xPathNavigableCache)
           {
-            //Hack - аттрибут xmlns уничтожаем
+            //Hack - delete xmlns attribute
             xPathNavigableCache[this.Persist] =
               new KeyValuePair<string, IXPathNavigable>(text, WebExtractorHlp.LoadHtmlCode(XmlnsRemover.Replace(text, "")));
           }
@@ -135,6 +136,7 @@ namespace ContentExtractor.Core
           return xPathNavigableCache[this.Persist].Value;
       }
     }
+    
     public XmlDocument XmlDocument
     {
       get
@@ -145,32 +147,10 @@ namespace ContentExtractor.Core
       }
     }
 
-    //public override bool Equals(object obj)
-    //{
-    //  if (obj is WebPosition)
-    //  {
-    //    WebPosition other = (WebPosition)obj;
-    //    return Uri.Equals(this.Url, other.Url);
-    //  }
-    //  return false;
-    //}
-
-    //public override int GetHashCode()
-    //{
-    //  return Url.GetHashCode();
-    //}
-
     public override string ToString()
     {
       return string.Format("> {0}", Url.AbsoluteUri);
     }
-
-    //public object Clone()
-    //{
-    //  WebPosition result = new WebPosition();
-    //  result.Set(this);
-    //  return result;
-    //}
 
     public void Set(WebPosition source)
     {
