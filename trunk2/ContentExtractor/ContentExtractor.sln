@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+# SharpDevelop 2.1.0.2429
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentExtractor.Core", "ContentExtractor.Core\ContentExtractor.Core.csproj", "{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B3F80CA-17F7-4649-9403-375FBBBD1CED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B3F80CA-17F7-4649-9403-375FBBBD1CED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B3F80CA-17F7-4649-9403-375FBBBD1CED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B3F80CA-17F7-4649-9403-375FBBBD1CED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+EndGlobal
