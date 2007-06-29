@@ -82,6 +82,7 @@
     <Compile Include="SaveLoadView.cs" />
     <Compile Include="SGMLReader.cs" />
     <Compile Include="Template.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="WebDocument.cs" />
     <Compile Include="WebExtractorHlp.cs" />
     <Compile Include="WebPosition.cs" />

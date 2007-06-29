@@ -136,9 +136,6 @@
   <data name="LoadHtmlTest1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\LoadHtmlTest1.htm;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
-  <data name="mambo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mambo.htm;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
-  </data>
   <data name="NotClosedTags" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NotClosedTags.htm;System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
