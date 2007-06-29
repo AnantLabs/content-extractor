@@ -129,7 +129,6 @@
     <Content Include="Resources\BuildTreeTestResult.xml" />
     <Content Include="Resources\download_com.htm" />
     <Content Include="Resources\LoadHtmlTest1.htm" />
-    <Content Include="Resources\mambo.htm" />
     <Content Include="Resources\NotClosedTags.htm" />
     <Content Include="Resources\TempalteTest1.xml" />
     <Content Include="Resources\XmlNode2HtmlElementTest3.htm" />

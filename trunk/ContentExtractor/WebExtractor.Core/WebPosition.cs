@@ -68,34 +68,6 @@ namespace ContentExtractor.Core
     [XmlIgnore]
     public string htmlCode = string.Empty;
 
-    public string DocumentTitle
-    {
-      get
-      {
-        XPathNavigator html = XmlHlp.SelectElement(this.XPathNavigable, "html");
-        if (html != null)
-        {
-          XPathNavigator head = XmlHlp.SelectElement(html, "head");
-          if (head != null)
-          {
-            XPathNavigator title = XmlHlp.SelectElement(head, "title");
-            if (title != null)
-              return title.Value.Trim();
-          }
-        }
-        return string.Empty;
-      }
-    }
-
-    public string DocumentText
-    {
-      get
-      {
-        //return BrowserAsyncLoader.GetDocumentCode(this);
-        return AsyncLoader.Instance.GetDocumentCode(this);
-      }
-    }
-
     public PersistStruct Persist
     {
       get
@@ -107,11 +79,6 @@ namespace ContentExtractor.Core
         this.Url = new Uri(value.Url);
       }
     }
-
-    private static Dictionary<WebPosition.PersistStruct, KeyValuePair<string, IXPathNavigable>> xPathNavigableCache =
-      new Dictionary<WebPosition.PersistStruct, KeyValuePair<string, IXPathNavigable>>();
-
-    private static Regex XmlnsRemover = new Regex(@"xmlns\s*=\s*['""][^'""]*['""]", RegexOptions.Compiled);
 
     private string cachedText = string.Empty;
     

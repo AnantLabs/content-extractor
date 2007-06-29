@@ -8,6 +8,8 @@
 
 using System;
 using System.Xml;
+using System.Windows.Forms;
+using System.IO;
 
 namespace ContentExtractor.Core
 {
@@ -19,27 +21,55 @@ namespace ContentExtractor.Core
 	  public static WebDocument Load(WebPosition position)
 	  {
 	    string content = AsyncLoader.Instance.Load(position);
-	    return new WebDocument(content);
+	    using( ExtendedWebBrowser browser = new ExtendedWebBrowser())
+	    {
+  	    browser.DocumentText = content;
+  	    browser.IsWebBrowserContextMenuEnabled = false;
+  	    // WARNING!! this can cause problems when certificate approval needed!
+  	    browser.ScriptErrorsSuppressed = true;
+        System.Windows.Forms.Application.DoEvents();
+  	    while (browser.IsBusy)
+  	      System.Windows.Forms.Application.DoEvents();
+  	    return new WebDocument(DOMTreeToXml(browser.Document));
+	    }
 	  }
 	  
-	  private WebDocument(string sourceContent)
+	  private static XmlDocument DOMTreeToXml(HtmlDocument htmlDoc)
 	  {
-	    content_ = SyncLoad(sourceContent);
+  	  XmlDocument result = new XmlDocument();
+	    if(htmlDoc != null && 
+	       htmlDoc.Body != null &&
+	       htmlDoc.Body.Parent != null)
+	    {
+  	    HtmlElement topHtml = htmlDoc.Body.Parent;
+  	    using (StringReader sReader = new StringReader(topHtml.OuterHtml))
+  	    {
+  	      using (StringWriter errorLog = new StringWriter())
+  	      {
+  	        Sgml.SgmlReader reader = new Sgml.SgmlReader();
+  	        reader.ErrorLog = errorLog;
+  	        reader.InputStream = sReader;
+  	        using (StringReader dtdReader = new StringReader(Properties.Resources.WeakHtml))
+  	          reader.Dtd = Sgml.SgmlDtd.Parse(null, "HTML", null, dtdReader, null, null, reader.NameTable);
+
+  	        result.Load(reader);
+  	        errorLog.Flush();
+  	        Console.WriteLine(errorLog.ToString());
+  	      }
+  	    }
+	    }
+  	  return result;
 	  }
 	  
-	  private static string SyncLoad(string source)
+	  private WebDocument(XmlDocument doc)
 	  {
-	    return source;
+	    xml_ = doc;
 	  }
 	  
 	  public XmlDocument AsXml
 	  {
 	    get
 	    {
-	      if(xml_ == null)
-	      {
-	        xml_ = XmlHlp.LoadXml(content_);
-	      }
   	    return xml_;
 	    }
 	  }
@@ -49,9 +79,8 @@ namespace ContentExtractor.Core
 	  {
 	    get
 	    {
-	      return content_;  
+	      return xml_.OuterXml;  
 	    }
 	  }
-	  private string content_;
 	}
 }

@@ -164,17 +164,6 @@ namespace WebExtractor_Testing.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;Windows-1251&quot;?&gt;
-        ///&lt;html&gt;
-        ///&lt;/html&gt;.
-        /// </summary>
-        internal static string mambo {
-            get {
-                return ResourceManager.GetString("mambo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &lt;html&gt;&lt;head&gt;&lt;title&gt;Энциклопедия кино - награды и номинации премий и кинофестивалей: Ника - 2004&lt;/title&gt;&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=windows-1251&quot;&gt;&lt;meta http-equiv=&quot;Content-Language&quot; content=&quot;ru&quot;&gt;&lt;META name=&quot;Description&quot; content=&quot;Энциклопедия кино: награды и номинации премий и кинофестивалей, Ника - 2004&quot;&gt;&lt;META name=&quot;Keywords&quot; content=&quot;энциклопедия, кино, фильм, награда, номинация, премия, кинофестиваль, фестиваль, Ника - 2004&quot;&gt;&lt;LINK href=&quot;/styles/main.css&quot; type=&quot;text/css&quot; rel= [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string NotClosedTags {

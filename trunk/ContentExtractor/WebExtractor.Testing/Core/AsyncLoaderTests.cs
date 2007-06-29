@@ -31,7 +31,6 @@ namespace WebExtractor_Testing.Core
 	      File.WriteAllText(filename, expectedContent);
 	      WebPosition position = WebPosition.Parse(Path.GetFullPath(filename));
   	    string actualContent = AsyncLoader.Instance.Load(position);
-  	    Console.WriteLine(actualContent.Length + " <> " + expectedContent.Length);
   	    Assert.AreEqual(expectedContent, actualContent);
 	    }
 	    finally
