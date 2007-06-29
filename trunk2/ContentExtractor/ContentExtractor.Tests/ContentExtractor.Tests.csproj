@@ -1,11 +1,11 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}</ProjectGuid>
+    <ProjectGuid>{47F5578D-F4C5-4D81-8CEA-E4D442C98D75}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>ContentExtractor.Core</RootNamespace>
-    <AssemblyName>ContentExtractor.Core</AssemblyName>
+    <RootNamespace>ContentExtractorTests</RootNamespace>
+    <AssemblyName>ContentExtractor.Tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -23,23 +23,26 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\_Libraries\nunit.framework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Data\_Dummy.cs" />
-    <Compile Include="ExtendedWebBrowser.cs" />
-    <Compile Include="Resources.cs" />
-    <Compile Include="SGMLReader.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="WebDocument.cs" />
-    <Compile Include="WebPosition.cs" />
-    <Compile Include="XmlUtils.cs" />
-    <EmbeddedResource Include="Data\weak.dtd" />
+    <Compile Include="TestUtils.cs" />
+    <Compile Include="WebDocumentTests.cs" />
+    <Compile Include="WebPositionTests.cs" />
+    <None Include="ContentExtractor.Tests.dll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data" />
+    <ProjectReference Include="..\ContentExtractor.Core\ContentExtractor.Core.csproj">
+      <Project>{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}</Project>
+      <Name>ContentExtractor.Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

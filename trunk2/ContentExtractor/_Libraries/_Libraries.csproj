@@ -1,11 +1,11 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}</ProjectGuid>
+    <ProjectGuid>{7D2560B6-BD8E-4F4E-9669-D17F61976F93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>ContentExtractor.Core</RootNamespace>
-    <AssemblyName>ContentExtractor.Core</AssemblyName>
+    <RootNamespace>_Libraries</RootNamespace>
+    <AssemblyName>_Libraries</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -24,22 +24,10 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Data\_Dummy.cs" />
-    <Compile Include="ExtendedWebBrowser.cs" />
-    <Compile Include="Resources.cs" />
-    <Compile Include="SGMLReader.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="WebDocument.cs" />
-    <Compile Include="WebPosition.cs" />
-    <Compile Include="XmlUtils.cs" />
-    <EmbeddedResource Include="Data\weak.dtd" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data" />
+    <None Include="nunit.framework.dll" />
+    <Compile Include="_Dummy.cs" />
   </ItemGroup>
 </Project>
