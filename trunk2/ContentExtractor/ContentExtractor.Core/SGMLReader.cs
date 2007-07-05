@@ -548,10 +548,10 @@ namespace Sgml
             path = this.current.ResolvedUri.AbsolutePath;
           }
           ErrorLog.WriteLine("### Error in " +
-              path + "#" +
-              this.current.Name +
-              ", line " + this.current.Line + ", position " + this.current.LinePosition + ": " +
-              err);
+                             path + "#" +
+                             this.current.Name +
+                             ", line " + this.current.Line + ", position " + this.current.LinePosition + ": " +
+                             err);
         }
       }
     }
@@ -1116,12 +1116,12 @@ namespace Sgml
         }
       }
       if (!foundRoot && (this.NodeType == XmlNodeType.Element ||
-              this.NodeType == XmlNodeType.Text ||
-              this.NodeType == XmlNodeType.CDATA))
+                         this.NodeType == XmlNodeType.Text ||
+                         this.NodeType == XmlNodeType.CDATA))
       {
         foundRoot = true;
         if (this.IsHtml && (this.NodeType != XmlNodeType.Element ||
-            string.Compare(this.LocalName, "html", true, System.Globalization.CultureInfo.InvariantCulture) != 0))
+                            string.Compare(this.LocalName, "html", true, System.Globalization.CultureInfo.InvariantCulture) != 0))
         {
           // Simulate an HTML root element!
           this.node.CurrentState = this.state;
@@ -1679,17 +1679,17 @@ namespace Sgml
                 this.partial = '!';
                 break;
               }
-#if FIX
-                        } else if (ch == '['){
-                            // We are about to wrap this node as a CDATA block because of it's
-                            // type in the DTD, but since we found a CDATA block in the input
-                            // we have to parse it as a CDATA block, otherwise we will attempt
-                            // to output nested CDATA blocks which of course is illegal.
-                            if (this.ParseConditionalBlock()){
-                                this.partial = ' ';
-                                return true;
-                            }
-#endif
+              #if FIX
+            } else if (ch == '['){
+              // We are about to wrap this node as a CDATA block because of it's
+              // type in the DTD, but since we found a CDATA block in the input
+              // we have to parse it as a CDATA block, otherwise we will attempt
+              // to output nested CDATA blocks which of course is illegal.
+              if (this.ParseConditionalBlock()){
+                this.partial = ' ';
+                return true;
+              }
+              #endif
             }
             else
             {
@@ -1780,7 +1780,7 @@ namespace Sgml
       {
         this.name.Length = 0;
         while (ch != Entity.EOF &&
-            (Char.IsLetter(ch) || ch == '_' || ch == '-'))
+               (Char.IsLetter(ch) || ch == '_' || ch == '-'))
         {
           this.name.Append(ch);
           ch = this.current.ReadChar();
@@ -2286,7 +2286,7 @@ namespace Sgml
       if (nmtoken && ch != '_' && !Char.IsLetter(ch))
       {
         throw new Exception(
-            String.Format("Invalid name start character '{0}'", ch));
+          String.Format("Invalid name start character '{0}'", ch));
       }
       while (ch != Entity.EOF && term.IndexOf(ch) < 0)
       {
@@ -2297,7 +2297,7 @@ namespace Sgml
         else
         {
           throw new Exception(
-              String.Format("Invalid name character '{0}'", ch));
+            String.Format("Invalid name character '{0}'", ch));
         }
         ch = ReadChar();
       }
@@ -2476,11 +2476,11 @@ namespace Sgml
     }
 
     static int[] CtrlMap = new int[] {
-                                             // This is the windows-1252 mapping of the code points 0x80 through 0x9f.
-                                             8364, 129, 8218, 402, 8222, 8230, 8224, 8225, 710, 8240, 352, 8249, 338, 141,
-                                             381, 143, 144, 8216, 8217, 8220, 8221, 8226, 8211, 8212, 732, 8482, 353, 8250,
-                                             339, 157, 382, 376
-                                         };
+      // This is the windows-1252 mapping of the code points 0x80 through 0x9f.
+      8364, 129, 8218, 402, 8222, 8230, 8224, 8225, 710, 8240, 352, 8249, 338, 141,
+      381, 143, 144, 8216, 8217, 8220, 8221, 8226, 8211, 8212, 732, 8482, 353, 8250,
+      339, 157, 382, 376
+    };
 
     public void Error(string msg)
     {
@@ -3081,10 +3081,10 @@ namespace Sgml
 
       if (byteIndex >= 0)
         for (; byteIndex < byteCount; byteIndex++)
-        {
-          temp[tempBytes] = bytes[byteIndex];
-          tempBytes++;
-        }
+      {
+        temp[tempBytes] = bytes[byteIndex];
+        tempBytes++;
+      }
       return i;
     }
     internal char UnicodeToUTF16(UInt32 code)
@@ -3294,7 +3294,7 @@ namespace Sgml
           break;
         default:
           throw new Exception(
-              String.Format("Declared content type '{0}' is not supported", dc));
+            String.Format("Declared content type '{0}' is not supported", dc));
       }
     }
 
@@ -3356,8 +3356,8 @@ namespace Sgml
       if (!Mixed && Members.Count == 0)
       {
         throw new Exception(
-            String.Format("Missing token before connector '{0}'.", c)
-            );
+          String.Format("Missing token before connector '{0}'.", c)
+         );
       }
       GroupType gt = GroupType.None;
       switch (c)
@@ -3375,8 +3375,8 @@ namespace Sgml
       if (GroupType != GroupType.None && GroupType != gt)
       {
         throw new Exception(
-            String.Format("Connector '{0}' is inconsistent with {1} group.", c, GroupType.ToString())
-            );
+          String.Format("Connector '{0}' is inconsistent with {1} group.", c, GroupType.ToString())
+         );
       }
       GroupType = gt;
     }
@@ -3628,7 +3628,7 @@ namespace Sgml
       }
       catch (Exception e)
       {
-        throw new Exception(e.Message + dtd.current.Context());
+        throw new Exception(e.Message + dtd.current.Context(), e);
       }
       return dtd;
     }

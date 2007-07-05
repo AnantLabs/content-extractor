@@ -11,12 +11,12 @@ namespace ContentExtractorTests
 	/// Tests for WebDocument class
 	/// </summary>
 	[TestFixture]
-	public class WebDocumentTests
+	public class HtmlParseTests
 	{
 	  [Test]
 	  public void ParseSimpleCode()
 	  {
-      XmlDocument doc = WebDocument.HtmlParse("<html><body><p>code</p></body></html>");
+      XmlDocument doc = Utils.HtmlParse("<html><body><p>code</p></body></html>");
       TestUtils.AssertXmlAreEqual(
         "<HTML><HEAD></HEAD><BODY><P>code</P></BODY></HTML>", 
         doc);
@@ -25,7 +25,7 @@ namespace ContentExtractorTests
 	  [Test]
 	  public void ParseDocWithTwoRoots()
 	  {
-      XmlDocument doc = WebDocument.HtmlParse(
+      XmlDocument doc = Utils.HtmlParse(
 	      @"<script language=""JavaScript""> var a = 0;</script><html><body>text</body></html>");
       TestUtils.AssertXmlAreEqual(
         @"<HTML><HEAD><SCRIPT language='JavaScript'>var a = 0;</SCRIPT></HEAD><BODY>text</BODY></HTML>",
@@ -35,7 +35,7 @@ namespace ContentExtractorTests
 	  [Test]
     public void EmptyDocument()
     {
-      XmlDocument doc = WebDocument.HtmlParse(string.Empty);
+      XmlDocument doc = Utils.HtmlParse(string.Empty);
       Assert.IsNotNull(doc.DocumentElement, "doc.Document is null");
       Assert.AreEqual("HTML", doc.DocumentElement.Name);
     }
@@ -43,7 +43,7 @@ namespace ContentExtractorTests
     [Test]
     public void XmlHeaderAndEncodingHtml()
     {
-      XmlDocument doc = WebDocument.HtmlParse(
+      XmlDocument doc = Utils.HtmlParse(
         @"<?xml version=""1.0"" encoding=""Windows-1251""?><html></html>");
       Assert.IsNotNull(doc, "doc is null.");
       Assert.IsNotNull(doc.DocumentElement, 
@@ -53,7 +53,7 @@ namespace ContentExtractorTests
     [Test]
     public void NotClosedDocument()
     {
-      XmlDocument doc = WebDocument.HtmlParse("<html><body><div class='asd");
+      XmlDocument doc = Utils.HtmlParse("<html><body><div class='asd");
       Assert.IsNotNull(doc, "doc is null.");
       Assert.IsNotNull(doc.DocumentElement, 
                        "doc.DocumentElement wasn't initialized");
@@ -82,7 +82,7 @@ namespace ContentExtractorTests
 <body bgcolor='#ffffff' text='#505050' style='margin: 0px; padding: 0px;'>
 <пред&nbsp;&bull;&nbsp;след></body>
 </html>";
-      XmlDocument doc = WebDocument.HtmlParse(content);
+      XmlDocument doc = Utils.HtmlParse(content);
       Assert.IsNotNull(doc, "doc is null.");
       Assert.IsNotNull(doc.DocumentElement, 
                        "doc.DocumentElement wasn't initialized");
@@ -144,7 +144,7 @@ alt='Рейтинг@Mail.ru'/></a><!--/LOGO-->
  <SCRIPT src='http://autocontext.begun.ru/autocontext.js' type='text/javascript'>
  </SCRIPT></table><td><tr height='10'><td class='m'><td class='ih'><td><td></table></body></html>";
 
-      XmlDocument doc = WebDocument.HtmlParse(content);
+      XmlDocument doc = Utils.HtmlParse(content);
       Assert.IsNotNull(doc, "doc is null.");
       Assert.IsNotNull(doc.DocumentElement, 
                        "doc.DocumentElement wasn't initialized");
