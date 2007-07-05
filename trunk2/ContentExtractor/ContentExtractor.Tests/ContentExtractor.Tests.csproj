@@ -32,6 +32,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="LoaderTest.cs" />
+    <Compile Include="TemplateTests.cs" />
     <Compile Include="TestUtils.cs" />
     <Compile Include="HtmlParseTests.cs" />
     <Compile Include="UtilsTests.cs" />

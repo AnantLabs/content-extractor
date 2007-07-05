@@ -40,13 +40,16 @@ namespace ContentExtractorTests
       {
         case XmlNodeType.Element:
           XmlElement el = (XmlElement) node;
-          writer.WriteStartElement(el.Name);
+          writer.WriteStartElement(el.Prefix, el.LocalName, el.NamespaceURI);
           List<XmlAttribute> attrs = Utils.CastList<XmlAttribute>(el.Attributes);
           if(attrs.Count > 0)
           {
             attrs.Sort(delegate(XmlAttribute left, XmlAttribute right) {return left.Name.CompareTo(right.Name);} );
             foreach(XmlAttribute at in attrs)
-              writer.WriteAttributeString(at.Name, at.Value);
+              writer.WriteAttributeString(at.Prefix, 
+                                          at.LocalName, 
+                                          at.NamespaceURI, 
+                                          at.Value);
           }
           foreach(XmlNode child in el.ChildNodes)
             WriteXmlNode(child, writer);

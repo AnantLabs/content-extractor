@@ -46,8 +46,10 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ExtendedWebBrowser.cs" />
+    <Compile Include="Loader.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="SGMLReader.cs" />
+    <Compile Include="Template.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="XmlUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

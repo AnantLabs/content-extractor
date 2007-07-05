@@ -28,6 +28,7 @@ namespace ContentExtractor.Core
         result.Add((T)item);
       return result;
     }
+    
     public static Uri ParseUrl(string address)
     {
       Uri uri = null;
@@ -71,40 +72,17 @@ namespace ContentExtractor.Core
             reader.DocType = "HTML";
             
             using (StringReader dtdReader = new StringReader(Encoding.UTF8.GetString(Resources.weak))) 
+              //Resources.WeakDtd
               reader.Dtd = Sgml.SgmlDtd.Parse(null, "HTML", null, dtdReader, null, null, reader.NameTable);
             
             result.Load(reader);
-            errorLog.Flush();
-            Console.WriteLine(errorLog.ToString());
+            // TODO: log to INFO
+            //errorLog.Flush();
+            //Console.WriteLine(errorLog.ToString());
           }
         }
       }
       return result;
     }
-    
-    public static XmlDocument ParseHtmlContent(string content)
-    {
-      XmlDocument result = new XmlDocument();
-      using (StringReader sReader = new StringReader(content))
-      {
-        using (StringWriter errorLog = new StringWriter())
-        {
-          Sgml.SgmlReader reader = new Sgml.SgmlReader();
-          reader.ErrorLog = errorLog;
-          reader.InputStream = sReader;
-          //reader.Dtd = DTD;
-//          using (StringReader dtdReader = new StringReader(Resources.WeakDtd))
-//            //using (StringReader dtdReader = new StringReader(SoftTech.Html.HtmlDtd.Loose))
-//            reader.Dtd = Sgml.SgmlDtd.Parse(null, "HTML", null, dtdReader, null, null, reader.NameTable);
-
-          //reader.DocType = "HTML";
-          result.Load(reader);
-          errorLog.Flush();
-          Console.WriteLine(errorLog.ToString());
-        }
-      }
-      return result;
-    }
-
   }
 }
