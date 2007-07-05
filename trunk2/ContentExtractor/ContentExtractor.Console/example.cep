@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ScrapingProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Template>
+    <RowXPath>/HTML/BODY/DIV[2]/DIV[1]/TABLE[1]/TBODY/TR[1]/TD[4]/NOINDEX[1]/OL[1]/LI</RowXPath>
+    <Columns>
+      <string>text()|.//*/text()</string>
+    </Columns>
+  </Template>
+  <Url>http://www.yandex.ru/</Url>
+</ScrapingProject>

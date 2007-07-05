@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace ContentExtractor.Core
 {
@@ -31,6 +32,14 @@ namespace ContentExtractor.Core
     
     public string RowXPath = ".";
     
+    [XmlArray("Columns")]
+    public string[] XmlColumns
+    {
+      get { return Columns.ToArray(); }
+      set { Columns = new List<string>(value); }
+    }
+    
+    [XmlIgnore]
     public List<string> Columns = new List<string>();
     
     public XmlDocument Transform(XmlNode input)
@@ -60,12 +69,14 @@ namespace ContentExtractor.Core
         outDoc.AppendChild(outRow);
         foreach (string cellXPath in Columns)
         {
-          XmlNode inCell = inRow.SelectSingleNode(cellXPath);
           XmlElement outCell = outDoc.OwnerDocument.CreateElement(CEXPrefix,
                                                                   CellTag,
                                                                   CEXNamespace);
           outRow.AppendChild(outCell);
-          outCell.AppendChild(outDoc.OwnerDocument.ImportNode(inCell, true));
+          foreach (XmlNode subNode in inRow.SelectNodes(cellXPath))
+          {
+            outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
+          }
         }
       }
     }

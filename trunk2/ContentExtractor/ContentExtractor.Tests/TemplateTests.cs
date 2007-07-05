@@ -97,5 +97,18 @@ namespace ContentExtractorTests
 		      Row("number", "+1114.0")),
 		    result);
     }
+    
+    [Test]
+    public void AllowNotUniqueColumn()
+    {
+      XmlDocument input = XmlUtils.LoadXml("<A><B>text<tag>other</tag></B></A>");
+      template.RowXPath = "/A/B";
+      template.Columns.Add("*|text()");
+      
+      XmlDocument result = template.Transform(input);
+      TestUtils.AssertXmlAreEqual(
+        Result(Row("text<tag>other</tag>")),
+        result);
+    }
   }
 }
