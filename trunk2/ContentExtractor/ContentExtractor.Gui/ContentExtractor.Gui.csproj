@@ -1,11 +1,12 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <ProjectGuid>{47F5578D-F4C5-4D81-8CEA-E4D442C98D75}</ProjectGuid>
+    <ProjectGuid>{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <OutputType>Library</OutputType>
-    <RootNamespace>ContentExtractorTests</RootNamespace>
-    <AssemblyName>ContentExtractor.Tests</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ContentExtractor.Gui</RootNamespace>
+    <AssemblyName>ContentExtractor.Gui</AssemblyName>
+    <ApplicationIcon>Content Extractor_Vista.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -23,36 +24,36 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\_Libraries\nunit.framework.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Core\HtmlParseTests.cs" />
-    <Compile Include="Core\LoaderTest.cs" />
-    <Compile Include="Core\TemplateTests.cs" />
-    <Compile Include="Core\UtilsTests.cs" />
-    <Compile Include="Gui\MarkingBrowserTests.cs" />
-    <Compile Include="TestUtils.cs" />
-    <None Include="ContentExtractor.Tests.dll.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarkingBrowser.cs" />
+    <Compile Include="MarkingBrowser.Designer.cs">
+      <DependentUpon>MarkingBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="State.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarkingBrowser.resx">
+      <DependentUpon>MarkingBrowser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resource.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties" />
     <ProjectReference Include="..\ContentExtractor.Core\ContentExtractor.Core.csproj">
       <Project>{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}</Project>
       <Name>ContentExtractor.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ContentExtractor.Gui\ContentExtractor.Gui.csproj">
-      <Project>{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}</Project>
-      <Name>ContentExtractor.Gui</Name>
-    </ProjectReference>
-    <Folder Include="Core" />
-    <Folder Include="Gui" />
   </ItemGroup>
 </Project>
