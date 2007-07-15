@@ -38,6 +38,7 @@
     <Compile Include="Core\TemplateTests.cs" />
     <Compile Include="Core\UtilsTests.cs" />
     <Compile Include="Gui\MarkingBrowserTests.cs" />
+    <Compile Include="Gui\UrlsListBoxTests.cs" />
     <Compile Include="TestUtils.cs" />
     <None Include="ContentExtractor.Tests.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

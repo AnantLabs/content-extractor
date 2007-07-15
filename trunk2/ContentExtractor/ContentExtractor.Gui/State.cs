@@ -49,10 +49,11 @@ namespace ContentExtractor.Gui
 		}
 		#endregion
 		
-		public ScrapingProject Project;
+		public ScrapingProject Project = new ScrapingProject();
 		
 		public bool IsParseMode = false;
 		
 		public event EventHandler BrowserUriChanged;
+		
 	}
 }

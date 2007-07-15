@@ -8,6 +8,7 @@
 
 using System;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace ContentExtractor.Core
 {
@@ -28,19 +29,18 @@ namespace ContentExtractor.Core
     {
       get
       {
-        return Array.ConvertAll<Uri, string>(
-          SourceUrls,
-          delegate(Uri u) { return u.AbsoluteUri; } );
+        return SourceUrls.ConvertAll<string>(
+          delegate(Uri u) { return u.AbsoluteUri; } ).ToArray();
       }
       set
       {
-        SourceUrls = Array.ConvertAll<string, Uri>(
-          value,
-          delegate(string s) { return new Uri(s);});
+        SourceUrls = new List<Uri>(value.Length);
+        foreach(string uri in value)
+          SourceUrls.Add(Utils.ParseUrl(uri));
       }
     }
     
     [XmlIgnore]
-    public Uri[] SourceUrls;
+    public List<Uri> SourceUrls = new List<Uri>();
   }
 }

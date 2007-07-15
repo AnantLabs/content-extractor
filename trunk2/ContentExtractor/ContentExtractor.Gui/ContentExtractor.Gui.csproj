@@ -41,6 +41,10 @@
       <DependentUpon>MarkingBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="State.cs" />
+    <Compile Include="UrlsListBox.cs" />
+    <Compile Include="UrlsListBox.Designer.cs">
+      <DependentUpon>UrlsListBox.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -48,6 +52,9 @@
       <DependentUpon>MarkingBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resource.resx" />
+    <EmbeddedResource Include="UrlsListBox.resx">
+      <DependentUpon>UrlsListBox.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties" />

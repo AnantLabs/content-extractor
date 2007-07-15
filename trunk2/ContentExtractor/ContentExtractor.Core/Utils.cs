@@ -84,5 +84,11 @@ namespace ContentExtractor.Core
       }
       return result;
     }
+    
+    public static void CheckNotNull(object value)
+    {
+      if(value == null)
+        throw new ArgumentException("Value mustn't be null");
+    }
   }
 }

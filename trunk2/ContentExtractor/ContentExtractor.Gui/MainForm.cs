@@ -39,7 +39,9 @@ namespace ContentExtractor.Gui
 			state = new State();
 			browser = new MarkingBrowser(state);
 			browser.Dock = DockStyle.Fill;
-			this.Controls.Add(browser);
+			rightSplitContainer.Panel2.Controls.Add(browser);
+			
+			urlsListBox1.SetState(state);
 		}
 	}
 }
