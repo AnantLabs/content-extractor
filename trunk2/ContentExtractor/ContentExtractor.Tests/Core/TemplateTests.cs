@@ -14,7 +14,7 @@ using System.Text;
 
 using ContentExtractor.Core;
 
-namespace ContentExtractorTests
+namespace ContentExtractorTests.Core
 {
   [TestFixture]
   public class TemplateTests

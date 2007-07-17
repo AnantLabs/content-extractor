@@ -32,16 +32,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="MainForm.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MarkingBrowser.cs" />
+    <Compile Include="MarkingBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="MarkingBrowser.Designer.cs">
       <DependentUpon>MarkingBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="ResultsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ResultsView.Designer.cs">
+      <DependentUpon>ResultsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="State.cs" />
-    <Compile Include="UrlsListBox.cs" />
+    <Compile Include="UrlsListBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UrlsListBox.Designer.cs">
       <DependentUpon>UrlsListBox.cs</DependentUpon>
     </Compile>
@@ -52,15 +64,21 @@
       <DependentUpon>MarkingBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resource.resx" />
+    <EmbeddedResource Include="ResultsView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ResultsView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UrlsListBox.resx">
       <DependentUpon>UrlsListBox.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties" />
     <ProjectReference Include="..\ContentExtractor.Core\ContentExtractor.Core.csproj">
       <Project>{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}</Project>
       <Name>ContentExtractor.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\CustomList.datasource" />
   </ItemGroup>
 </Project>

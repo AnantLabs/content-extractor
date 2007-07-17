@@ -14,7 +14,7 @@ using System.Windows.Forms;
 using ContentExtractor.Gui;
 using ContentExtractor.Core;
 
-namespace ContentExtractorTests
+namespace ContentExtractorTests.Gui
 {
   [TestFixture]
   public class UrlsListBoxTests
@@ -57,14 +57,36 @@ namespace ContentExtractorTests
     {
     }
 
+    public Uri TestUrl(int index)
+    {
+      return Utils.ParseUrl(string.Format(@"c:\data{0}.txt", index));
+    }
+
     [Test]
     public void SelectUrl()
     {
-      urlsBox.AddUri(Utils.ParseUrl(@"c:\data0.txt"));
-      urlsBox.AddUri(Utils.ParseUrl(@"c:\data1.txt"));
-      urlsBox.AddUri(Utils.ParseUrl(@"c:\data2.txt"));
+      urlsBox.AddUri(TestUrl(0));
+      urlsBox.AddUri(TestUrl(1));
+      urlsBox.AddUri(TestUrl(2));
+      AssertAllUrlsVisible();
       urlsBox.SelectUri(1);
-      Assert.AreEqual(Utils.ParseUrl(@"c:\data1.txt"), state.BrowserUri);
+      AssertAllUrlsVisible();
+      Assert.AreEqual(TestUrl(1), state.BrowserUri);
+      AssertAllUrlsVisible();
+    }
+
+    [Test]
+    public void DeleteUrl()
+    {
+      AssertAllUrlsVisible();
+      urlsBox.AddUri(TestUrl(0));
+      urlsBox.AddUri(TestUrl(1));
+      urlsBox.AddUri(TestUrl(2));
+      AssertAllUrlsVisible();
+      urlsBox.Delete(1);
+      Assert.AreEqual(2, state.Project.SourceUrls.Count);
+      Assert.AreEqual(TestUrl(0), state.Project.SourceUrls[0]);
+      Assert.AreEqual(TestUrl(2), state.Project.SourceUrls[1]);
     }
   }
 }

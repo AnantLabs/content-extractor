@@ -5,7 +5,7 @@ using System.Xml;
 using NUnit.Framework;
 using ContentExtractor.Core;
 
-namespace ContentExtractorTests
+namespace ContentExtractorTests.Core
 {
 	/// <summary>
 	/// Tests for WebDocument class

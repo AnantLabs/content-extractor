@@ -12,7 +12,7 @@ using System.IO;
 
 using ContentExtractor.Core;
 
-namespace ContentExtractorTests
+namespace ContentExtractorTests.Core
 {
   [TestFixture]
   public class LoaderTest

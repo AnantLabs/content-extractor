@@ -90,5 +90,10 @@ namespace ContentExtractor.Core
       if(value == null)
         throw new ArgumentException("Value mustn't be null");
     }
+
+    public static string ApplicationMapPath(string localFileName)
+    {
+      return Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), localFileName);
+    }
   }
 }

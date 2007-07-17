@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 
 namespace ContentExtractor.Gui
 {
@@ -27,7 +28,8 @@ namespace ContentExtractor.Gui
 		}
 		
 		private ContentExtractor.Gui.State state;
-		private MarkingBrowser browser;
+    private readonly string statePath = Core.Utils.ApplicationMapPath("content-extractor.state"); 
+    //private MarkingBrowser browser;
 		
 		public MainForm()
 		{
@@ -35,13 +37,29 @@ namespace ContentExtractor.Gui
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
-		  
-			state = new State();
-			browser = new MarkingBrowser(state);
-			browser.Dock = DockStyle.Fill;
-			rightSplitContainer.Panel2.Controls.Add(browser);
+
+      state = new State();
+      if (File.Exists(statePath))
+      {
+        try
+        {
+          state = Core.XmlUtils.Deserialize<State>(statePath);
+        }
+        catch (Exception exc)
+        {
+          //TODO: Should log to WARNING
+          Console.WriteLine("Cannot load saved state:\r\n{0}", exc);
+        }
+      }
+      browser.SetState(state);
+      //rightSplitContainer.Panel2.Controls.Add(browser);
 			
 			urlsListBox1.SetState(state);
 		}
+
+    private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+    {
+      Core.XmlUtils.Serialize(statePath, state);
+    }
 	}
 }
