@@ -45,7 +45,7 @@ Run specified template over URLs
         {
           try
           {
-            input.Add(Utils.HtmlParse(Loader.Instance.LoadSync(url)));
+            input.Add(Utils.HtmlParse(Loader.Instance.LoadContentSync(url)));
           }
           catch(Exception exc)
           {

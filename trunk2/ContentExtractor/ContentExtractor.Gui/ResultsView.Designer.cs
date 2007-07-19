@@ -31,6 +31,7 @@ namespace ContentExtractor.Gui
       this.components = new System.ComponentModel.Container();
       this.dataGrid = new System.Windows.Forms.DataGridView();
       this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
+      this.timer1 = new System.Windows.Forms.Timer(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
       this.SuspendLayout();
@@ -53,6 +54,12 @@ namespace ContentExtractor.Gui
       // 
       this.bindingSource.AllowNew = false;
       // 
+      // timer1
+      // 
+      this.timer1.Enabled = true;
+      this.timer1.Interval = 500;
+      this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+      // 
       // ResultsView
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -70,5 +77,6 @@ namespace ContentExtractor.Gui
 
     private System.Windows.Forms.DataGridView dataGrid;
     private System.Windows.Forms.BindingSource bindingSource;
+    private System.Windows.Forms.Timer timer1;
   }
 }

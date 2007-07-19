@@ -96,4 +96,6 @@ namespace ContentExtractor.Core
       return Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), localFileName);
     }
   }
+
+  public delegate void Callback<T>(T value);
 }

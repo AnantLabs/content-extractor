@@ -38,7 +38,7 @@ namespace ContentExtractorTests.Core
       string code = "Some wonderful text!";
       File.WriteAllText(filename, code);
       Uri url = Utils.ParseUrl(filename);
-      Assert.AreEqual(code, Loader.Instance.LoadSync(url));
+      Assert.AreEqual(code, Loader.Instance.LoadContentSync(url));
     }
   }
 }

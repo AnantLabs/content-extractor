@@ -17,124 +17,165 @@ namespace ContentExtractor.Gui
       InitializeComponent();
 
       dataGrid.AutoGenerateColumns = true;
-      bindingSource.DataSource = new CustomList();
+      //bindingSource.DataSource = new CustomList();
+    }
+
+    private State state;
+
+    public void SetState(State state)
+    {
+      if (this.state == null)
+      {
+        this.state = state;
+        rows = new ResultRows(state);
+        bindingSource.DataSource = rows;
+      }
+      else
+        //TODO: Should log to warning
+        throw new InvalidOperationException("Cannot assign state twice");
+    }
+    private ResultRows rows;
+
+    private void timer1_Tick(object sender, EventArgs e)
+    {
+      rows.Refresh();
     }
   }
 
-  public class CustomList : System.Collections.Generic.List<XmlNode>, ITypedList, IBindingList
+  public class ResultRows : List<XmlNode>, ITypedList, IBindingList
   {
-    public CustomList()
-      :base()
+    public ResultRows(State state)
     {
-      this.doc = XmlUtils.LoadXml("<s><row><cell>123</cell><cell>345</cell></row></s>");
-      foreach (XmlNode node in doc.SelectNodes("/s/row"))
-        this.Add(node);
+      this.state = state;
     }
-    private XmlDocument doc;
+    private State state;
+
+    internal void Refresh()
+    {
+      this.Clear();
+      List<XmlDocument> documents = state.Project.SourceUrls.ConvertAll<XmlDocument>(
+          delegate(Uri u) { return state.GetXmlAsync(u); });
+      XmlDocument result = state.Project.Template.Transform(documents);
+      XmlNamespaceManager nsManager = new XmlNamespaceManager(result.NameTable);
+      nsManager.AddNamespace(Template.CEXPrefix, Template.CEXNamespace);
+      string rowXPath = string.Format("/{0}:{1}/{0}:{2}",
+                                      Template.CEXPrefix,
+                                      Template.DocumentTag,
+                                      Template.RowTag);
+      foreach (XmlNode row in result.SelectNodes(rowXPath, nsManager))
+        this.Add(row);
+      if (ListChanged != null)
+        ListChanged(this, new ListChangedEventArgs(ListChangedType.Reset, null));
+    }
 
     #region ITypedList Members
 
-    PropertyDescriptorCollection ITypedList.GetItemProperties(PropertyDescriptor[] listAccessors)
+    public PropertyDescriptorCollection GetItemProperties(PropertyDescriptor[] listAccessors)
     {
       PropertyDescriptorCollection result = new PropertyDescriptorCollection(null);
-      result.Add(new XPathPropertyDescriptor("cell[1]"));
-      result.Add(new XPathPropertyDescriptor("cell[2]"));
+      int index = 1;
+      foreach (string localXPath in state.Project.Template.Columns)
+      {
+        result.Add(new XPathPropertyDescriptor(localXPath,
+          string.Format("{0}:{1}[{2}]", Template.CEXPrefix, Template.CellTag, index)));
+        index++;
+      }
       return result;
     }
 
-    string ITypedList.GetListName(PropertyDescriptor[] listAccessors)
+    public string GetListName(PropertyDescriptor[] listAccessors)
     {
-      return typeof(CustomList).Name;
+      return typeof(ResultRows).Name;
     }
 
     #endregion
 
-    //#region IBindingList Members
+    #region IBindingList Members
 
-    //public void AddIndex(PropertyDescriptor property)
-    //{
-    //  throw new Exception("The method or operation is not implemented.");
-    //}
+    public void AddIndex(PropertyDescriptor property)
+    {
+      throw new NotImplementedException();
+    }
 
-    //public object AddNew()
-    //{
-    //  throw new Exception("The method or operation is not implemented.");
-    //}
+    public object AddNew()
+    {
+      throw new NotImplementedException();
+    }
 
-    //public bool AllowEdit
-    //{
-    //  get { return false; }
-    //}
+    public bool AllowEdit
+    {
+      get { return false; }
+    }
 
-    //public bool AllowNew
-    //{
-    //  get { return false; }
-    //}
+    public bool AllowNew
+    {
+      get { return false; }
+    }
 
-    //public bool AllowRemove
-    //{
-    //  get { return false; }
-    //}
+    public bool AllowRemove
+    {
+      get { return false; }
+    }
 
-    //public void ApplySort(PropertyDescriptor property, ListSortDirection direction)
-    //{
-    //  throw new Exception("The method or operation is not implemented.");
-    //}
+    public void ApplySort(PropertyDescriptor property, ListSortDirection direction)
+    {
+      throw new NotImplementedException();
+    }
 
-    //public int Find(PropertyDescriptor property, object key)
-    //{
-    //  throw new Exception("The method or operation is not implemented.");
-    //}
+    public int Find(PropertyDescriptor property, object key)
+    {
+      throw new NotImplementedException();
+    }
 
-    //public bool IsSorted
-    //{
-    //  get { return false; }
-    //}
+    public bool IsSorted
+    {
+      get { return false; }
+    }
 
-    //public event ListChangedEventHandler ListChanged;
+    public event ListChangedEventHandler ListChanged;
 
-    //public void RemoveIndex(PropertyDescriptor property)
-    //{
-    //  throw new Exception("The method or operation is not implemented.");
-    //}
+    public void RemoveIndex(PropertyDescriptor property)
+    {
+      throw new NotImplementedException();
+    }
 
-    //public void RemoveSort()
-    //{
-    //  throw new Exception("The method or operation is not implemented.");
-    //}
+    public void RemoveSort()
+    {
+      throw new NotImplementedException();
+    }
 
-    //public ListSortDirection SortDirection
-    //{
-    //  get { throw new Exception("The method or operation is not implemented."); }
-    //}
+    public ListSortDirection SortDirection
+    {
+      get { throw new NotImplementedException(); }
+    }
 
-    //public PropertyDescriptor SortProperty
-    //{
-    //  get { throw new Exception("The method or operation is not implemented."); }
-    //}
+    public PropertyDescriptor SortProperty
+    {
+      get { throw new NotImplementedException(); }
+    }
 
-    //public bool SupportsChangeNotification
-    //{
-    //  get { return false; }
-    //}
+    public bool SupportsChangeNotification
+    {
+      get { return true; }
+    }
 
-    //public bool SupportsSearching
-    //{
-    //  get { return false; }
-    //}
+    public bool SupportsSearching
+    {
+      get { return false; }
+    }
 
-    //public bool SupportsSorting
-    //{
-    //  get { return false; }
-    //}
+    public bool SupportsSorting
+    {
+      get { return false; }
+    }
 
-    //#endregion
+    #endregion
   }
 
   public class XPathPropertyDescriptor : PropertyDescriptor
   {
-    public XPathPropertyDescriptor(string xpath)
-      : base(xpath, null)
+    public XPathPropertyDescriptor(string name, string xpath)
+      : base(name, null)
     {
       this.xpath = xpath;
     }
@@ -155,8 +196,15 @@ namespace ContentExtractor.Gui
       XmlNode node = component as XmlNode;
       if (node != null)
       {
-        XmlNode cell = node.SelectSingleNode(xpath);
-        return cell.InnerXml;
+        XmlNamespaceManager nsManager = new XmlNamespaceManager(node.OwnerDocument.NameTable);
+        nsManager.AddNamespace(Template.CEXPrefix, Template.CEXNamespace);
+        StringBuilder result = new StringBuilder();
+        foreach (XmlNode cellMatch in node.SelectNodes(xpath, nsManager))
+        {
+          result.Append(cellMatch.InnerXml);
+          result.Append(" ");
+        }
+        return result.ToString().Trim();
       }
       return null;
     }

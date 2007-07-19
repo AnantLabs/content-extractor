@@ -52,9 +52,8 @@ namespace ContentExtractor.Gui
         }
       }
       browser.SetState(state);
-      //rightSplitContainer.Panel2.Controls.Add(browser);
-			
 			urlsListBox1.SetState(state);
+      resultsView1.SetState(state);
 		}
 
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

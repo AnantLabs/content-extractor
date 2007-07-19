@@ -11,6 +11,8 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Xml;
+using System.Threading;
 
 namespace ContentExtractor.Core
 {
@@ -31,7 +33,7 @@ namespace ContentExtractor.Core
     {
     }
     
-    public string LoadSync(Uri uri)
+    public string LoadContentSync(Uri uri)
     {
       try
       {
@@ -50,6 +52,40 @@ namespace ContentExtractor.Core
                             exc);
       }
     }
+
+    public XmlDocument LoadXmlSync(Uri uri)
+    {
+      string content = LoadContentSync(uri);
+      return Utils.HtmlParse(content);
+    }
+
+    /// <summary>
+    /// Warning! callback is called in other thread
+    /// </summary>
+    /// <param name="uri">Url to get content and parse</param>
+    /// <param name="callback">This callback will be called from another thread
+    /// than parsing is done.</param>
+    public void LoadXmlAsync(Uri uri, Callback<XmlDocument> callback)
+    {
+      Thread loadThread = new Thread(new ThreadStart(
+        delegate
+        {
+          XmlDocument result = LoadXmlSync(uri);
+          callback(result);
+        }));
+      loadThread.SetApartmentState(ApartmentState.STA);
+      loadThread.Start();
+    }
+
+    public bool IsWorking
+    {
+      get
+      {
+        return false;
+      }
+    }
+
+
     
     private string ReadResponse(WebResponse response)
     {

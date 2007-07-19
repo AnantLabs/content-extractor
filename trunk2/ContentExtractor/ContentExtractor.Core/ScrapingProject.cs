@@ -22,7 +22,7 @@ namespace ContentExtractor.Core
     {
     }
 
-    public Template Template;
+    public Template Template = new Template();
 
     [XmlElement("Url")]
     public string[] XmlUrls

@@ -28,6 +28,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -38,6 +39,7 @@
     <Compile Include="Core\TemplateTests.cs" />
     <Compile Include="Core\UtilsTests.cs" />
     <Compile Include="Gui\MarkingBrowserTests.cs" />
+    <Compile Include="Gui\ResultViewTests.cs" />
     <Compile Include="Gui\UrlsListBoxTests.cs" />
     <Compile Include="TestUtils.cs" />
     <None Include="ContentExtractor.Tests.dll.config">
@@ -53,7 +55,5 @@
       <Project>{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}</Project>
       <Name>ContentExtractor.Gui</Name>
     </ProjectReference>
-    <Folder Include="Core" />
-    <Folder Include="Gui" />
   </ItemGroup>
 </Project>

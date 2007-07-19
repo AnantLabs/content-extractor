@@ -20,7 +20,7 @@ namespace ContentExtractorTests.Gui
     private const string filename = "test.html";
     private State state;
     private MarkingBrowser browser;
-    private Uri pos;
+    private readonly Uri pos = Utils.ParseUrl(Path.GetFullPath(filename));
     
     [SetUp]
     public void SetUp()
@@ -29,7 +29,6 @@ namespace ContentExtractorTests.Gui
       browser = new MarkingBrowser(state);
       File.WriteAllText(filename,
                         "<html><body>Some text here <p> Hello world!</html>");
-      pos = Utils.ParseUrl(Path.GetFullPath(filename));
     }
 
     [TearDown]
