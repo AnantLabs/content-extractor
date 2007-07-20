@@ -40,5 +40,65 @@ namespace ContentExtractor.Core
       using(Stream stream = File.Create(filename))
         serializer.Serialize(stream, obj);
     }
+
+    public static string GetXPath(XmlNode node)
+    {
+      string result = "";
+      XmlNode currentNode = node;
+      while (currentNode != null)
+      {
+        if (currentNode.NodeType != XmlNodeType.Document)
+        {
+          string nodeName = string.Empty;
+          switch (currentNode.NodeType)
+          {
+            case XmlNodeType.Element:
+              nodeName = currentNode.Name + GetIndex(currentNode);
+              break;
+            case XmlNodeType.Attribute:
+              nodeName = "@" + currentNode.Name;
+              break;
+            case XmlNodeType.CDATA:
+            case XmlNodeType.Text:
+              nodeName = "text()" + GetIndex(currentNode);
+              break;
+          }
+          //if (string.IsNullOrEmpty(result))
+          //  result = nodeName;
+          //else
+          result = "/" + nodeName + result;
+        }
+        if (currentNode.NodeType == XmlNodeType.Attribute)
+          currentNode = ((XmlAttribute)currentNode).OwnerElement;
+        else
+          currentNode = currentNode.ParentNode;
+      }
+      //result = "/" + result;
+      return result;
+    }
+
+    static string GetIndex(XmlNode node)
+    {
+      if (node != null)
+      {
+        XmlNode parent = node.ParentNode;
+        if (parent != null)
+        {
+          int index = 0;
+          foreach (XmlNode childNode in parent.ChildNodes)
+            if ((childNode.NodeType & (XmlNodeType.Element | XmlNodeType.Text | XmlNodeType.CDATA)) != 0)
+            {
+              if (childNode == node)
+                break;
+              if (childNode.Name == node.Name && childNode.NamespaceURI == node.NamespaceURI)
+                ++index;
+            }
+          return string.Format("[{0}]", index + 1);
+        }
+      }
+      return string.Empty;
+    }
+
+
 	}
 }

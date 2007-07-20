@@ -80,6 +80,26 @@ namespace ContentExtractor.Gui
 
     private Dictionary<Uri, XmlDocument> docCache = new Dictionary<Uri, XmlDocument>();
 
+    [XmlIgnore]
+    public string SelectedNodeXPath
+    {
+      get
+      {
+        return selectedNodePath;
+      }
+      set
+      {
+        if (value != selectedNodePath)
+        {
+          selectedNodePath = value;
+          if (SelectedNodeChanged != null)
+            SelectedNodeChanged(this, EventArgs.Empty);
+        }
+      }
+    }
+    private string selectedNodePath = null;
+
+    public event EventHandler SelectedNodeChanged;
 
 	}
 }

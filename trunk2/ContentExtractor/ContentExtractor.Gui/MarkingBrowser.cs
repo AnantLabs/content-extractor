@@ -31,6 +31,7 @@ namespace ContentExtractor.Gui
       {
         this.state = state;
         state.BrowserUriChanged += new EventHandler(BrowserUriChanged);
+        state.SelectedNodeChanged += new EventHandler(SelectedNodeChanged);
         this.BrowserUriChanged(this, EventArgs.Empty);
       }
       else
@@ -79,7 +80,7 @@ namespace ContentExtractor.Gui
       doc.Click += doc_Click;
       doc.MouseMove += doc_MouseMove;
       currentHighlighter = new BrowserHighlighter("BACKGROUND-COLOR: #CCFF99");
-      selectedHighlighter = new BrowserHighlighter("BACKGROUND-COLOR: #880000");
+      selectedHighlighter = new BrowserHighlighter("BACKGROUND-COLOR: #FFAAAA");
     }
     private void DeInitDocument(HtmlDocument doc)
     {
@@ -93,7 +94,7 @@ namespace ContentExtractor.Gui
     {
       e.BubbleEvent = false;
       HtmlElement element = Browser.Document.GetElementFromPoint(e.ClientMousePosition);
-      selectedHighlighter.Highlight(element);
+      state.SelectedNodeXPath = Utils.HtmlElementXPath(element);
     }
 
     void doc_MouseMove(object sender, HtmlElementEventArgs e)
@@ -104,6 +105,12 @@ namespace ContentExtractor.Gui
         HtmlElement element = Browser.Document.GetElementFromPoint(e.ClientMousePosition);
         currentHighlighter.Highlight(element);
       }
+    }
+
+    void SelectedNodeChanged(object sender, EventArgs e)
+    {
+      HtmlElement element = Utils.SelectHtmlElement(Browser.Document, state.SelectedNodeXPath);
+      selectedHighlighter.Highlight(element);
     }
 
     private BrowserHighlighter currentHighlighter;

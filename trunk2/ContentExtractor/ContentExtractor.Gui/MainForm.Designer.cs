@@ -42,6 +42,7 @@ namespace ContentExtractor.Gui
       this.urlsListBox1 = new ContentExtractor.Gui.UrlsListBox();
       this.browser = new ContentExtractor.Gui.MarkingBrowser();
       this.resultsView1 = new ContentExtractor.Gui.ResultsView();
+      this.docTreeView = new ContentExtractor.Gui.DocTreeView();
       this.totalSplitContainer.Panel1.SuspendLayout();
       this.totalSplitContainer.Panel2.SuspendLayout();
       this.totalSplitContainer.SuspendLayout();
@@ -77,6 +78,10 @@ namespace ContentExtractor.Gui
       this.leftSplitContainer.Location = new System.Drawing.Point(0, 0);
       this.leftSplitContainer.Name = "leftSplitContainer";
       this.leftSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+      // 
+      // leftSplitContainer.Panel1
+      // 
+      this.leftSplitContainer.Panel1.Controls.Add(this.docTreeView);
       // 
       // leftSplitContainer.Panel2
       // 
@@ -128,6 +133,14 @@ namespace ContentExtractor.Gui
       this.resultsView1.Size = new System.Drawing.Size(653, 215);
       this.resultsView1.TabIndex = 0;
       // 
+      // docTreeView
+      // 
+      this.docTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.docTreeView.Location = new System.Drawing.Point(0, 0);
+      this.docTreeView.Name = "docTreeView";
+      this.docTreeView.Size = new System.Drawing.Size(653, 215);
+      this.docTreeView.TabIndex = 0;
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -155,5 +168,6 @@ namespace ContentExtractor.Gui
 		private System.Windows.Forms.SplitContainer rightSplitContainer;
     private MarkingBrowser browser;
     private ResultsView resultsView1;
+    private DocTreeView docTreeView;
 	}
 }

@@ -38,6 +38,7 @@
     <Compile Include="Core\LoaderTest.cs" />
     <Compile Include="Core\TemplateTests.cs" />
     <Compile Include="Core\UtilsTests.cs" />
+    <Compile Include="Core\XmlUtilsTests.cs" />
     <Compile Include="Gui\MarkingBrowserTests.cs" />
     <Compile Include="Gui\ResultViewTests.cs" />
     <Compile Include="Gui\UrlsListBoxTests.cs" />

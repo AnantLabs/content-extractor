@@ -54,6 +54,7 @@ namespace ContentExtractor.Gui
       browser.SetState(state);
 			urlsListBox1.SetState(state);
       resultsView1.SetState(state);
+      docTreeView.SetState(state);
 		}
 
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
