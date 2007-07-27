@@ -69,21 +69,24 @@ namespace ContentExtractor.Core
 
     private void TransformNode(XmlNode outDoc, XmlNode input)
     {
-      foreach (XmlNode inRow in input.SelectNodes(_rowXPath))
+      if (Columns.Count > 0)
       {
-        XmlElement outRow = outDoc.OwnerDocument.CreateElement(CEXPrefix,
-                                                               RowTag,
-                                                               CEXNamespace);
-        outDoc.AppendChild(outRow);
-        foreach (string cellXPath in Columns)
+        foreach (XmlNode inRow in input.SelectNodes(RowXPath))
         {
-          XmlElement outCell = outDoc.OwnerDocument.CreateElement(CEXPrefix,
-                                                                  CellTag,
-                                                                  CEXNamespace);
-          outRow.AppendChild(outCell);
-          foreach (XmlNode subNode in inRow.SelectNodes(cellXPath))
+          XmlElement outRow = outDoc.OwnerDocument.CreateElement(CEXPrefix,
+                                                                 RowTag,
+                                                                 CEXNamespace);
+          outDoc.AppendChild(outRow);
+          foreach (string cellXPath in Columns)
           {
-            outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
+            XmlElement outCell = outDoc.OwnerDocument.CreateElement(CEXPrefix,
+                                                                    CellTag,
+                                                                    CEXNamespace);
+            outRow.AppendChild(outCell);
+            foreach (XmlNode subNode in inRow.SelectNodes(cellXPath))
+            {
+              outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
+            }
           }
         }
       }

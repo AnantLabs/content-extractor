@@ -60,6 +60,11 @@ namespace ContentExtractor.Gui
 
     void SelectedNodeChanged(object sender, EventArgs e)
     {
+      ApplySelectedNode();
+    }
+
+    private void ApplySelectedNode()
+    {
       bool isSameNode;
       if (treeView1.SelectedNode == null)
         isSameNode = string.IsNullOrEmpty(state.SelectedNodeXPath);
@@ -74,7 +79,12 @@ namespace ContentExtractor.Gui
 
     private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
     {
-      state.SelectedNodeXPath = (string)e.Node.Tag;
+      InvokeSelectNode(e.Node);
+    }
+
+    private void InvokeSelectNode(TreeNode node)
+    {
+      state.SelectedNodeXPath = (string)node.Tag;
     }
 
     private void Rebuild(TreeNodeCollection collection, XmlDocument doc)
@@ -83,6 +93,7 @@ namespace ContentExtractor.Gui
       nodeIndex.Clear();
       if (doc != null)
         LoadXmlNode(collection, doc.ChildNodes);
+      ApplySelectedNode();
     }
 
     private void LoadXmlNode(TreeNodeCollection collection, IEnumerable list)
@@ -149,6 +160,20 @@ namespace ContentExtractor.Gui
       public const string Attribute = "attribute";
       public const string Tag = "tag";
       public const string Text = "text";
+    }
+
+    private void addColumnMenuItem_Click(object sender, EventArgs e)
+    {
+      if (treeView1.SelectedNode != null)
+      {
+        state.Project.Template.AddColumn((string)treeView1.SelectedNode.Tag);
+      }
+    }
+
+    private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+    {
+      if (e.Button == MouseButtons.Right)
+        InvokeSelectNode(e.Node);
     }
 
   }

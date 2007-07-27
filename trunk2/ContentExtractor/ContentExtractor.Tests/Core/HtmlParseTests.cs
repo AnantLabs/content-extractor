@@ -155,7 +155,8 @@ alt='Рейтинг@Mail.ru'/></a><!--/LOGO-->
         "Parsing was mistaken");
       Assert.IsNotNull(
         doc.SelectSingleNode(
-          "/HTML[1]/BODY[1]/TABLE[1]/TBODY[1]/TR[6]/TD[3]/TABLE[1]/TBODY[1]/TR[1]/TD[4]/INDEX[1]/TABLE[1]/TBODY[1]/TR[1]/TD[1]/UL[1]/LI[1]"),
+          "/HTML[1]/BODY[1]/TABLE[1]/TBODY[1]/TR[6]/TD[3]/TABLE[1]/TBODY[1]/TR[1]/TD[4]"+/*/INDEX[1]*/
+          "/TABLE[1]/TBODY[1]/TR[1]/TD[1]/UL[1]/LI[1]"),
         "Parsing was mistaken");
     }
 
@@ -165,7 +166,6 @@ alt='Рейтинг@Mail.ru'/></a><!--/LOGO-->
       XmlDocument doc = Utils.HtmlParse(Properties.Resources.sheremetyevo);
       XmlNode node = doc.SelectSingleNode("/HTML[1]/BODY[1]/TABLE[1]/TBODY[1]/TR[4]/TD[1]/TABLE[1]/TBODY[1]/TR[1]/TD[1]/TABLE[1]/TBODY[1]/TR[1]/TD[2]/TABLE[1]/TBODY[1]/TR[1]/TD[1]/TABLE[2]/TBODY[1]/TR[1]/TD[1]/TABLE[1]/TBODY[1]/TR[2]/TD[5]/NOBR[1]");
       Assert.IsNotNull(node, "Document hasn't been parsed correctly");
-      Console.WriteLine(doc.OuterXml);
     }
 
 	}

@@ -112,6 +112,14 @@ namespace ContentExtractorTests.Core
     }
 
     [Test]
+    public void EmptyTemplateReturnsNoRows()
+    {
+      XmlDocument result = template.Transform(new XmlDocument());
+      Assert.IsNotNull(result.DocumentElement, "Result document hasn't been created");
+      Assert.AreEqual(0, result.DocumentElement.ChildNodes.Count);
+    }
+
+    [Test]
     public void AddOneColumn()
     {
       template.AddColumn("/html[1]/body[1]/p[1]");

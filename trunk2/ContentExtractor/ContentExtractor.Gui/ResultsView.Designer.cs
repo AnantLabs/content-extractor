@@ -30,28 +30,32 @@ namespace ContentExtractor.Gui
     {
       this.components = new System.ComponentModel.Container();
       this.dataGrid = new System.Windows.Forms.DataGridView();
+      this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.timer1 = new System.Windows.Forms.Timer(this.components);
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
       this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-      this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
-      this.toolStrip1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
+      this.toolStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // dataGrid
       // 
       this.dataGrid.AllowUserToAddRows = false;
       this.dataGrid.AllowUserToDeleteRows = false;
-      this.dataGrid.AutoGenerateColumns = false;
       this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      this.dataGrid.DataSource = this.bindingSource;
       this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.dataGrid.Location = new System.Drawing.Point(0, 25);
       this.dataGrid.Name = "dataGrid";
+      this.dataGrid.ReadOnly = true;
       this.dataGrid.Size = new System.Drawing.Size(609, 338);
       this.dataGrid.TabIndex = 0;
       this.dataGrid.VirtualMode = true;
+      this.dataGrid.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dataGrid_CellValueNeeded);
+      // 
+      // bindingSource
+      // 
+      this.bindingSource.AllowNew = false;
       // 
       // timer1
       // 
@@ -78,10 +82,6 @@ namespace ContentExtractor.Gui
       this.toolStripButton2.Text = "Clear template";
       this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
       // 
-      // bindingSource
-      // 
-      this.bindingSource.AllowNew = false;
-      // 
       // ResultsView
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -91,9 +91,9 @@ namespace ContentExtractor.Gui
       this.Name = "ResultsView";
       this.Size = new System.Drawing.Size(609, 363);
       ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
       this.toolStrip1.ResumeLayout(false);
       this.toolStrip1.PerformLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 
