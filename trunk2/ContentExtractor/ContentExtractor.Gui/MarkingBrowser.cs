@@ -124,7 +124,7 @@ namespace ContentExtractor.Gui
 
     private void toolStripButton1_Click(object sender, EventArgs e)
     {
-
+      state.Project.Template.AddColumn(state.SelectedNodeXPath);
     }
   }
 

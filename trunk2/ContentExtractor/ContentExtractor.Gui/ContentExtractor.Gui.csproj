@@ -50,6 +50,11 @@
     <Compile Include="MarkingBrowser.Designer.cs">
       <DependentUpon>MarkingBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="ResultsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -74,6 +79,11 @@
       <DependentUpon>MarkingBrowser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resource.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="ResultsView.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ResultsView.cs</DependentUpon>
@@ -89,6 +99,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\DataSources\CustomList.datasource" />
+    <None Include="Resources\DeleteHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
 </Project>

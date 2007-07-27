@@ -42,6 +42,11 @@
     <Compile Include="Gui\MarkingBrowserTests.cs" />
     <Compile Include="Gui\ResultViewTests.cs" />
     <Compile Include="Gui\UrlsListBoxTests.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="TestUtils.cs" />
     <None Include="ContentExtractor.Tests.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -56,5 +61,15 @@
       <Project>{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}</Project>
       <Name>ContentExtractor.Gui</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sheremetyevo.htm" />
   </ItemGroup>
 </Project>

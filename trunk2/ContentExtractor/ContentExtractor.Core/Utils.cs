@@ -62,28 +62,83 @@ namespace ContentExtractor.Core
          htmlDoc.Body != null &&
          htmlDoc.Body.Parent != null)
       {
-        HtmlElement topHtml = htmlDoc.Body.Parent;
-        using (StringReader sReader = new StringReader(topHtml.OuterHtml))
+        HtmlElement html = htmlDoc.GetElementsByTagName("HTML")[0];
+        XmlElement htmlXml = result.CreateElement("HTML");
+        result.AppendChild(htmlXml);
+        ImportHtml2Xml(html.DomElement, htmlXml);
+
+        //HtmlElement topHtml = htmlDoc.Body.Parent;
+        //using (StringReader sReader = new StringReader(topHtml.OuterHtml))
+        //{
+        //  using (StringWriter errorLog = new StringWriter())
+        //  {
+        //    Sgml.SgmlReader reader = new Sgml.SgmlReader();
+        //    reader.ErrorLog = errorLog;
+        //    reader.InputStream = sReader;
+        //    reader.DocType = "HTML";
+
+        //    using (StringReader dtdReader = new StringReader(Encoding.UTF8.GetString(Resources.weak)))
+        //      //Resources.WeakDtd
+        //      reader.Dtd = Sgml.SgmlDtd.Parse(null, "HTML", null, dtdReader, null, null, reader.NameTable);
+
+        //    result.Load(reader);
+        //    // TODO: log to INFO
+        //    //errorLog.Flush();
+        //    //Console.WriteLine(errorLog.ToString());
+        //  }
+        //}
+      }
+      return result;
+    }
+
+    private static void ImportHtml2Xml(object html, XmlElement xml)
+    {
+      mshtml.IHTMLDOMNode node = html as mshtml.IHTMLDOMNode;
+      if (node != null)
+      {
+        mshtml.IHTMLAttributeCollection attCol = node.attributes as mshtml.IHTMLAttributeCollection;
+        if (attCol != null)
         {
-          using (StringWriter errorLog = new StringWriter())
+          foreach (mshtml.IHTMLDOMAttribute attr in attCol)
+            if (attr.specified && attr.nodeValue != null)
+            {
+              CheckNotNull(attr.nodeName);
+              xml.SetAttribute(attr.nodeName, attr.nodeValue.ToString());
+            }
+        }
+        IEnumerable childsEnum = node.childNodes as IEnumerable;
+        foreach (object objChild in childsEnum)
+        {
+          mshtml.IHTMLElement element = objChild as mshtml.IHTMLElement;
+          if (element != null)
           {
-            Sgml.SgmlReader reader = new Sgml.SgmlReader();
-            reader.ErrorLog = errorLog;
-            reader.InputStream = sReader;
-            reader.DocType = "HTML";
-
-            using (StringReader dtdReader = new StringReader(Encoding.UTF8.GetString(Resources.weak)))
-              //Resources.WeakDtd
-              reader.Dtd = Sgml.SgmlDtd.Parse(null, "HTML", null, dtdReader, null, null, reader.NameTable);
-
-            result.Load(reader);
-            // TODO: log to INFO
-            //errorLog.Flush();
-            //Console.WriteLine(errorLog.ToString());
+            if (!element.tagName.StartsWith("!"))
+            {
+              if (element.tagName.StartsWith("/"))
+              {
+                Console.WriteLine(element.tagName);
+              }
+              else
+              {
+                XmlElement xmlChild = xml.OwnerDocument.CreateElement(element.tagName);
+                xml.AppendChild(xmlChild);
+                ImportHtml2Xml(element, xmlChild);
+              }
+            }
+          }
+          else
+          {
+            mshtml.IHTMLDOMTextNode text = objChild as mshtml.IHTMLDOMTextNode;
+            if (text != null)
+            {
+              XmlText xmlText = xml.OwnerDocument.CreateTextNode(text.data);
+              xml.AppendChild(xmlText);
+            }
+            else
+              Console.WriteLine(objChild.ToString());
           }
         }
       }
-      return result;
     }
 
     public static void CheckNotNull(object value)
@@ -103,7 +158,7 @@ namespace ContentExtractor.Core
       {
         if (element.Parent != null)
         {
-          return string.Format("{0}/{1}[{2}]", 
+          return string.Format("{0}/{1}[{2}]",
             HtmlElementXPath(element.Parent),
             element.TagName,
             HtmlElementIndexToParent(element));
@@ -169,8 +224,8 @@ namespace ContentExtractor.Core
           index--;
           if (index == 0)
             return child;
-       }
-     return null;
+        }
+      return null;
     }
   }
 

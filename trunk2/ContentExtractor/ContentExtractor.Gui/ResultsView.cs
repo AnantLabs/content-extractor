@@ -40,6 +40,11 @@ namespace ContentExtractor.Gui
     {
       rows.Refresh();
     }
+
+    private void toolStripButton2_Click(object sender, EventArgs e)
+    {
+      state.Project.Template = new Template();
+    }
   }
 
   public class ResultRows : List<XmlNode>, ITypedList, IBindingList

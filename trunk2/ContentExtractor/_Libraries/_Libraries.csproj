@@ -30,4 +30,7 @@
     <None Include="nunit.framework.dll" />
     <Compile Include="_Dummy.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Microsoft.mshtml.dll" />
+  </ItemGroup>
 </Project>

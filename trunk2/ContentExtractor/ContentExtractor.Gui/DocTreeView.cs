@@ -60,9 +60,11 @@ namespace ContentExtractor.Gui
 
     void SelectedNodeChanged(object sender, EventArgs e)
     {
-      bool isSameNode = treeView1.SelectedNode == null && string.IsNullOrEmpty(state.SelectedNodeXPath);
-      if (!isSameNode)
-        isSameNode &= !object.Equals(state.SelectedNodeXPath, treeView1.SelectedNode.Tag);
+      bool isSameNode;
+      if (treeView1.SelectedNode == null)
+        isSameNode = string.IsNullOrEmpty(state.SelectedNodeXPath);
+      else
+        isSameNode = object.Equals(state.SelectedNodeXPath, treeView1.SelectedNode.Tag);
       if (!isSameNode && nodeIndex.ContainsKey(state.SelectedNodeXPath))
       {
         treeView1.SelectedNode = nodeIndex[state.SelectedNodeXPath];
