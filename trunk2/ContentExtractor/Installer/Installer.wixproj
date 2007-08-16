@@ -1,0 +1,31 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{25A48B5E-5C97-4856-B3DC-24500C066FBA}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>package</OutputType>
+    <RootNamespace>Installer</RootNamespace>
+    <OutputName>Installer</OutputName>
+    <WixToolPath Condition=" '$(WixToolPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixToolPath>
+    <ToolPath>$(WixToolPath)</ToolPath>
+    <WixMSBuildExtensionsPath Condition=" '$(WixMSBuildExtensionsPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixMSBuildExtensionsPath>
+    <LocalizedStringFile>$(WixToolPath)\WixUI_en-us.wxl</LocalizedStringFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+  <Import Project="$(WixMSBuildExtensionsPath)\wix.targets" />
+  <ItemGroup>
+    <WixLibrary Include="$(WixToolPath)\wixui.wixlib" />
+    <Compile Include="Files.wxs" />
+    <Compile Include="Setup.wxs" />
+    <None Include="license.rtf" />
+  </ItemGroup>
+</Project>

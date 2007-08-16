@@ -115,15 +115,16 @@ namespace ContentExtractor.Core
             memory.Write(buffer, 0, lenRead);
           } while (lenRead > 0);
         }
+
         documentText = ReadStreamUsingEncoding(encoding, memory);
-        Regex contentCode = new Regex(@"<meta[^>]*content=[""'][^'"">]*charset=(?<coding>[^""'>]*)[""']",
-          RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        Match match = contentCode.Match(documentText);
-        if (match.Success)
-        {
-          encoding = Encoding.GetEncoding(match.Groups["coding"].Value);
-          documentText = ReadStreamUsingEncoding(encoding, memory);
-        }
+        //Regex contentCode = new Regex(@"<meta[^>]*content=[""'][^'"">]*charset=(?<coding>[^""'>]*)[""']",
+        //  RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        //Match match = contentCode.Match(documentText);
+        //if (match.Success)
+        //{
+        //  encoding = Encoding.GetEncoding(match.Groups["coding"].Value);
+        //  documentText = ReadStreamUsingEncoding(encoding, memory);
+        //}
       }
       return documentText;
     }

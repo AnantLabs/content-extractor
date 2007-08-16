@@ -42,5 +42,11 @@ namespace ContentExtractor.Core
     
     [XmlIgnore]
     public List<Uri> SourceUrls = new List<Uri>();
+
+    public static void SaveProject(string filename, ScrapingProject project)
+    {
+      XmlUtils.Serialize(filename, project);
+    }
+
   }
 }

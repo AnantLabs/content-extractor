@@ -14,51 +14,61 @@ using System.Collections.Generic;
 
 namespace ContentExtractor.Gui
 {
-	/// <summary>
-	/// Description of State.
-	/// </summary>
-	public class State
-	{
-		public State()
-		{
-		}
-		
-		[XmlIgnore]
-		public Uri BrowserUri
-		{
-		  get
-		  {
-		    return browserUri_;
-		  }
-		  set
-		  {
-		    if(!Uri.Equals(value, browserUri_))
-		    {
-		      browserUri_ = value;
-		      if(BrowserUriChanged != null)
-		        BrowserUriChanged(this, EventArgs.Empty);
-		    }
-		  }
-		}
+  /// <summary>
+  /// Description of State.
+  /// </summary>
+  public class State
+  {
+    public State()
+    {
+    }
 
-		private Uri browserUri_ = null;
-		
-		#region XmlHelpers
-		public string XmlBrowserUri
-		{
-		  get { return BrowserUri.AbsoluteUri; }
-		  set { BrowserUri = Utils.ParseUrl(value); }
-		}
-		#endregion
-		
-		public ScrapingProject Project = new ScrapingProject();
-		
-		public bool IsParseMode = false;
-		
-		public event EventHandler BrowserUriChanged;
+    [XmlIgnore]
+    public Uri BrowserUri
+    {
+      get
+      {
+        return browserUri_;
+      }
+      set
+      {
+        if (!Uri.Equals(value, browserUri_))
+        {
+          browserUri_ = value;
+          if (BrowserUriChanged != null)
+            BrowserUriChanged(this, EventArgs.Empty);
+        }
+      }
+    }
+
+    private Uri browserUri_ = null;
+
+    #region XmlHelpers
+    public string XmlBrowserUri
+    {
+      get
+      {
+        return BrowserUri != null ? BrowserUri.AbsoluteUri : "";
+      }
+      set
+      {
+        BrowserUri = value != null ? Utils.ParseUrl(value) : null;
+      }
+    }
+    #endregion
+
+    public ScrapingProject Project = new ScrapingProject();
+
+    public bool IsParseMode = false;
+
+    public event EventHandler BrowserUriChanged;
 
     internal XmlDocument GetXmlAsync(Uri uri)
     {
+      if (uri == null)
+      {
+        return new XmlDocument();
+      }
       bool shouldGet = false;
       lock (docCache)
       {
@@ -101,5 +111,5 @@ namespace ContentExtractor.Gui
 
     public event EventHandler SelectedNodeChanged;
 
-	}
+  }
 }

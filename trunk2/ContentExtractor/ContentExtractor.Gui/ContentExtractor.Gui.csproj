@@ -91,6 +91,7 @@
     <EmbeddedResource Include="UrlsListBox.resx">
       <DependentUpon>UrlsListBox.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="setup.wxs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContentExtractor.Core\ContentExtractor.Core.csproj">

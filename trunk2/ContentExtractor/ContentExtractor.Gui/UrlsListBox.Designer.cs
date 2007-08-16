@@ -37,6 +37,7 @@ namespace ContentExtractor.Gui
 		{
       this.listBox1 = new System.Windows.Forms.ListBox();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.label1 = new System.Windows.Forms.Label();
       this.SuspendLayout();
       // 
       // listBox1
@@ -44,9 +45,9 @@ namespace ContentExtractor.Gui
       this.listBox1.AllowDrop = true;
       this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.listBox1.FormattingEnabled = true;
-      this.listBox1.Location = new System.Drawing.Point(0, 0);
+      this.listBox1.Location = new System.Drawing.Point(0, 13);
       this.listBox1.Name = "listBox1";
-      this.listBox1.Size = new System.Drawing.Size(252, 277);
+      this.listBox1.Size = new System.Drawing.Size(252, 264);
       this.listBox1.TabIndex = 0;
       this.listBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListBox1DragEnter);
       this.listBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListBox1DragDrop);
@@ -61,11 +62,21 @@ namespace ContentExtractor.Gui
       this.panel1.Size = new System.Drawing.Size(252, 47);
       this.panel1.TabIndex = 2;
       // 
+      // label1
+      // 
+      this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+      this.label1.Location = new System.Drawing.Point(0, 0);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(252, 13);
+      this.label1.TabIndex = 3;
+      this.label1.Text = "Drag file or URL here";
+      // 
       // UrlsListBox
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.Controls.Add(this.listBox1);
+      this.Controls.Add(this.label1);
       this.Controls.Add(this.panel1);
       this.Name = "UrlsListBox";
       this.Size = new System.Drawing.Size(252, 327);
@@ -74,5 +85,6 @@ namespace ContentExtractor.Gui
 		}
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.ListBox listBox1;
+    private System.Windows.Forms.Label label1;
 	}
 }

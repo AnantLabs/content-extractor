@@ -85,7 +85,10 @@ namespace ContentExtractor.Core
             outRow.AppendChild(outCell);
             foreach (XmlNode subNode in inRow.SelectNodes(cellXPath))
             {
-              outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
+              if (subNode.NodeType != XmlNodeType.Attribute)
+                outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
+              else
+                outCell.AppendChild(outDoc.OwnerDocument.CreateTextNode(subNode.Value));
             }
           }
         }
@@ -126,6 +129,24 @@ namespace ContentExtractor.Core
       //  col.RelativeXPath = XPathInfo.Relative(xpath, rowPath);
       //  this.Columns.Insert(Math.Min(columnIndex, this.Columns.Count), col);
       //}
+    }
+
+    public bool CheckRowXPath(string xpath)
+    {
+      try
+      {
+        System.Xml.XPath.XPathExpression.Compile(xpath);
+        return true;
+      }
+      catch (System.Xml.XPath.XPathException)
+      {
+        return false;
+      }
+    }
+
+    public bool CheckColumnXPath(string xpath)
+    {
+      return !xpath.Trim().StartsWith("/") && CheckRowXPath(xpath);
     }
   }
 }

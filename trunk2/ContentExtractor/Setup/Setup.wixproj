@@ -1,0 +1,51 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{E995A5E4-5464-4A6E-8CE0-42A7EC877D04}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>package</OutputType>
+    <RootNamespace>Setup</RootNamespace>
+    <OutputName>Setup</OutputName>
+    <WixToolPath Condition=" '$(WixToolPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixToolPath>
+    <ToolPath>$(WixToolPath)</ToolPath>
+    <WixMSBuildExtensionsPath Condition=" '$(WixMSBuildExtensionsPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixMSBuildExtensionsPath>
+    <DefineConstants>DATADIR=$(SharpDevelopBinPath)\..\data\resources\InstallerBitmaps</DefineConstants>
+    <LocalizedStringFile>..\..\..\Program Files\Windows Installer XML\WixUI_en-us.wxl</LocalizedStringFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+  </PropertyGroup>
+  <Import Project="$(WixMSBuildExtensionsPath)\wix.targets" />
+  <ItemGroup>
+    <Compile Include="BrowseDialog.wxs" />
+    <Compile Include="CancelDialog.wxs" />
+    <Compile Include="ExitDialog.wxs" />
+    <Compile Include="FatalErrorDialog.wxs" />
+    <Compile Include="Files.wxs" />
+    <Compile Include="OutOfDiskSpaceDialog.wxs" />
+    <Compile Include="OutOfRollbackDiskSpaceDialog.wxs" />
+    <Compile Include="ProgressDialog.wxs" />
+    <Compile Include="SelectFolderDialog.wxs" />
+    <Compile Include="Setup.wxs" />
+    <Compile Include="UserExitDialog.wxs" />
+    <Compile Include="UserInterface.wxs" />
+    <Compile Include="VerifyReadyDialog.wxs" />
+    <Compile Include="ViewLicenseAgreementDialog.wxs" />
+    <Compile Include="WelcomeDialog.wxs" />
+    <None Include="content-extractor.state" />
+    <None Include="license.rtf" />
+    <None Include="NOTICE.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <LinkExtension Include="WixNetFxExtension">
+      <Class>Microsoft.Tools.WindowsInstallerXml.Extensions.NetFxCompiler</Class>
+    </LinkExtension>
+  </ItemGroup>
+</Project>

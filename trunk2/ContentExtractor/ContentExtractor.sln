@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-# SharpDevelop 2.1.0.2429
+# SharpDevelop 2.2.0.2595
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentExtractor.Core", "ContentExtractor.Core\ContentExtractor.Core.csproj", "{5ABF487F-EAAF-463E-9276-D3FD0E76CF90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentExtractor.Tests", "ContentExtractor.Tests\ContentExtractor.Tests.csproj", "{47F5578D-F4C5-4D81-8CEA-E4D442C98D75}"
@@ -11,6 +11,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentExtractor.Console", "ContentExtractor.Console\ContentExtractor.Console.csproj", "{2E6276B7-BE47-4F11-AF2E-4C07C2C1276F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentExtractor.Gui", "ContentExtractor.Gui\ContentExtractor.Gui.csproj", "{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}"
+EndProject
+Project("{CFEE4113-1246-4D54-95CB-156813CB8593}") = "Setup", "Setup\Setup.wixproj", "{E995A5E4-5464-4A6E-8CE0-42A7EC877D04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +44,13 @@ Global
 		{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25A48B5E-5C97-4856-B3DC-24500C066FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25A48B5E-5C97-4856-B3DC-24500C066FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25A48B5E-5C97-4856-B3DC-24500C066FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25A48B5E-5C97-4856-B3DC-24500C066FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E995A5E4-5464-4A6E-8CE0-42A7EC877D04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E995A5E4-5464-4A6E-8CE0-42A7EC877D04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E995A5E4-5464-4A6E-8CE0-42A7EC877D04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E995A5E4-5464-4A6E-8CE0-42A7EC877D04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 EndGlobal

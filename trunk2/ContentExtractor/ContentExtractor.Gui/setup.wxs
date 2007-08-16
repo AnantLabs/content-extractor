@@ -1,0 +1,8 @@
+﻿<?xml version="1.0"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+<Product Id="D6AD2929-1C34-4a0d-9DB2-2B7372910620" Language="en-us" Version="1.0.0.0"
+  Name="Content Extractor 1.0" Manufacturer="Sergey Babenko" UpgradeCode="FCCDC462-B0C1-42a4-89EE-105EC5F9C96A">
+  <Package Id="E299003E-23CC-4d74-8AE0-5EF9BCE90B4E" Comments="Content Extractor installation package"
+         Compressed="yes" Manufacturer="Sergey Babenko"
+  </Product>
+</Wix>

@@ -1,0 +1,37 @@
+﻿<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir" />
+    <DirectoryRef Id="TARGETDIR">
+      <Directory Id="ProgramMenuFolder" Name="PMFolder">
+        <Directory Id="ProgramMenuDir" LongName="Content Extractor" Name="ContExtr" />
+      </Directory>
+
+      <Directory Id="ProgramFilesFolder" Name="PFiles">
+        <Directory Id="INSTALLDIR" Name="ContntEx" LongName="Content Extractor">
+          <Component Id="Gui" Guid="BF02C3C6-C640-49F0-B3AF-A29AB7B6E808" DiskId="1">
+            <File Id="LicenseFile" Name="LICENSE.rtf" Source="license.rtf" />
+            <File Id="NoticeFile" Name="NOTICE.txt" Source="NOTICE.txt" />
+            <File Id="State" Name="cextstat.sta" 
+                  LongName="content-extractor.state" Source="content-extractor.state" />
+            <File Source="..\ContentExtractor.Gui\bin\Release\ContentExtractor.Core.dll" Name="CONTEN_1.DLL" Id="ContentExtractor.Core.dll" LongName="ContentExtractor.Core.dll" />
+            <File Source="..\ContentExtractor.Gui\bin\Release\ContentExtractor.Gui.exe" Name="CONTEN_1.EXE" Id="ContentExtractor.Gui.exe" LongName="ContentExtractor.Gui.exe">
+               <Shortcut Id="GuiShortcut" Directory="ProgramMenuDir" Name="CntntExt" LongName="Content Extractor" />
+            </File>
+          <Shortcut Name="Cmd_line" LongName="Content Extractor Command Prompt"
+                    Id="CommandLine" Directory="ProgramMenuDir" 
+                    Target="[System64Folder]cmd.exe" WorkingDirectory="INSTALLDIR" />
+           <Shortcut Id="UninstallProduct"
+                     Name="Uninstal" LongName="Uninstall"
+                     Target="[System64Folder]msiexec.exe"
+                     Arguments="/x [ProductCode]"
+                     Directory="ProgramMenuDir"
+                     Description="Uninstalls Content Extractor" />
+          </Component>
+          <Component Guid="67605F7B-B785-4788-ADFE-161EB891831C" Id="Console" DiskId="1">
+            <File Source="..\ContentExtractor.Console\bin\Release\ContentExtractor.Console.exe" Name="CONTEN_2.EXE" Id="ContentExtractor.Console.exe" LongName="ContentExtractor.Console.exe" />
+          </Component>
+        </Directory>
+      </Directory>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

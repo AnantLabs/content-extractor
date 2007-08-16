@@ -79,8 +79,8 @@ namespace ContentExtractor.Gui
       this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
       this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.toolStripButton1.Name = "toolStripButton1";
-      this.toolStripButton1.Size = new System.Drawing.Size(66, 22);
-      this.toolStripButton1.Text = "Add column";
+      this.toolStripButton1.Size = new System.Drawing.Size(180, 22);
+      this.toolStripButton1.Text = "Add column from the selected node";
       this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
       // 
       // MarkingBrowser
