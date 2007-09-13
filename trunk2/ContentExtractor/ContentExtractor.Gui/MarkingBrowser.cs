@@ -55,7 +55,10 @@ namespace ContentExtractor.Gui
 
     private void BrowserUriChanged(object sender, EventArgs e)
     {
-      Browser.Navigate(state.BrowserUri);
+      if (state.BrowserUri != null)
+        Browser.Navigate(state.BrowserUri.AbsoluteUri);
+      else
+        Browser.Navigate(ScrapingProject.EmptyUri);
     }
 
     private void webBrowser1_BeforeNavigate(object sender, ExtendedNavigatingEventArgs e)

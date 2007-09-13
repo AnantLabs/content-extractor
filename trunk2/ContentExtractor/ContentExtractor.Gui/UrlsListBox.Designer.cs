@@ -36,8 +36,12 @@ namespace ContentExtractor.Gui
 		private void InitializeComponent()
 		{
       this.listBox1 = new System.Windows.Forms.ListBox();
-      this.panel1 = new System.Windows.Forms.Panel();
       this.label1 = new System.Windows.Forms.Label();
+      this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+      this.delButton = new System.Windows.Forms.Button();
+      this.downButton = new System.Windows.Forms.Button();
+      this.upButton = new System.Windows.Forms.Button();
+      this.tableLayoutPanel1.SuspendLayout();
       this.SuspendLayout();
       // 
       // listBox1
@@ -47,20 +51,12 @@ namespace ContentExtractor.Gui
       this.listBox1.FormattingEnabled = true;
       this.listBox1.Location = new System.Drawing.Point(0, 13);
       this.listBox1.Name = "listBox1";
-      this.listBox1.Size = new System.Drawing.Size(252, 264);
+      this.listBox1.Size = new System.Drawing.Size(252, 277);
       this.listBox1.TabIndex = 0;
       this.listBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListBox1DragEnter);
       this.listBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListBox1DragDrop);
       this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1SelectedIndexChanged);
       this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyDown);
-      // 
-      // panel1
-      // 
-      this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.panel1.Location = new System.Drawing.Point(0, 280);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(252, 47);
-      this.panel1.TabIndex = 2;
       // 
       // label1
       // 
@@ -71,20 +67,77 @@ namespace ContentExtractor.Gui
       this.label1.TabIndex = 3;
       this.label1.Text = "Drag file or URL here";
       // 
+      // tableLayoutPanel1
+      // 
+      this.tableLayoutPanel1.ColumnCount = 3;
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+      this.tableLayoutPanel1.Controls.Add(this.delButton, 0, 0);
+      this.tableLayoutPanel1.Controls.Add(this.downButton, 2, 0);
+      this.tableLayoutPanel1.Controls.Add(this.upButton, 1, 0);
+      this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+      this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 297);
+      this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+      this.tableLayoutPanel1.RowCount = 1;
+      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+      this.tableLayoutPanel1.Size = new System.Drawing.Size(252, 30);
+      this.tableLayoutPanel1.TabIndex = 4;
+      // 
+      // delButton
+      // 
+      this.delButton.Image = global::ContentExtractor.Gui.Properties.Resources.DeleteHS;
+      this.delButton.Location = new System.Drawing.Point(3, 3);
+      this.delButton.Name = "delButton";
+      this.delButton.Size = new System.Drawing.Size(75, 23);
+      this.delButton.TabIndex = 0;
+      this.delButton.Text = "Delete";
+      this.delButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+      this.delButton.UseVisualStyleBackColor = true;
+      this.delButton.Click += new System.EventHandler(this.delButton_Click);
+      // 
+      // downButton
+      // 
+      this.downButton.Image = global::ContentExtractor.Gui.Properties.Resources.down;
+      this.downButton.Location = new System.Drawing.Point(169, 3);
+      this.downButton.Name = "downButton";
+      this.downButton.Size = new System.Drawing.Size(75, 23);
+      this.downButton.TabIndex = 1;
+      this.downButton.Text = "Down";
+      this.downButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+      this.downButton.UseVisualStyleBackColor = true;
+      this.downButton.Click += new System.EventHandler(this.downButton_Click);
+      // 
+      // upButton
+      // 
+      this.upButton.Image = global::ContentExtractor.Gui.Properties.Resources.up;
+      this.upButton.Location = new System.Drawing.Point(86, 3);
+      this.upButton.Name = "upButton";
+      this.upButton.Size = new System.Drawing.Size(75, 23);
+      this.upButton.TabIndex = 2;
+      this.upButton.Text = "Up";
+      this.upButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+      this.upButton.UseVisualStyleBackColor = true;
+      this.upButton.Click += new System.EventHandler(this.upButton_Click);
+      // 
       // UrlsListBox
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.Controls.Add(this.listBox1);
       this.Controls.Add(this.label1);
-      this.Controls.Add(this.panel1);
+      this.Controls.Add(this.tableLayoutPanel1);
       this.Name = "UrlsListBox";
       this.Size = new System.Drawing.Size(252, 327);
+      this.tableLayoutPanel1.ResumeLayout(false);
       this.ResumeLayout(false);
 
-		}
-		private System.Windows.Forms.Panel panel1;
+    }
 		private System.Windows.Forms.ListBox listBox1;
     private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+    private System.Windows.Forms.Button delButton;
+    private System.Windows.Forms.Button downButton;
+    private System.Windows.Forms.Button upButton;
 	}
 }

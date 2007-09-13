@@ -226,8 +226,15 @@ namespace ContentExtractor.Core
             return child;
         }
       return null;
+   }
+
+    public static bool IsIndexOk(int index, ICollection collection)
+    {
+      return (0 <= index) && (index < collection.Count);
     }
+
   }
 
   public delegate void Callback<T>(T value);
+
 }

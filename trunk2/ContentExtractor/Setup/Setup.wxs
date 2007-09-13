@@ -1,7 +1,39 @@
 ﻿<?xml version="1.0"?>
+
+<?define ProductVersion = "1.0.2812.33014"?>
+<?define UpgradeCode = "173EEA21-7A44-48B1-935D-B1948DE9D363" ?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
-  <Product Id="C508F47B-C2F8-4274-A700-7D8B4C8E12D2" Name="Content Extractor" Language="1033" Version="1.0.0.0" UpgradeCode="173EEA21-7A44-48B1-935D-B1948DE9D363" Manufacturer="Sergey Babenko">
-    <Package Id="42E31696-03CB-417C-A4B8-B26403DC0C37" Description="#Description" Comments="Comments" InstallerVersion="200" Compressed="yes" />
+  <Product Id="C508F47B-C2F8-4274-A700-7D8B4C8E12D2" Name="Content Extractor" Language="1033"
+           Version="$(var.ProductVersion)"
+           UpgradeCode="$(var.UpgradeCode)" Manufacturer="Sergey Babenko">
+
+    <!-- BF209FE7-D60A-435e-9E31-BA2C7591056E   new -->
+    <!-- 42E31696-03CB-417C-A4B8-B26403DC0C37  old -->
+    <Package Id="42E31696-03CB-417C-A4B8-B26403DC0C37"
+             Description="#Description" Comments="Comments"
+             InstallerVersion="200" Compressed="yes" />
+
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="$(var.ProductVersion)"
+                      OnlyDetect="yes"
+                      Property="NEWERVERSIONDETECTED" />
+      <UpgradeVersion Minimum="0.0.0.0" IncludeMinimum="yes"
+                      Maximum="$(var.ProductVersion)" IncludeMaximum="no"
+                      Property="OLDERVERSIONBEINGUPGRADED" />
+    </Upgrade>
+
+    <!--      Check for .NET 2.0      --> 
+    <Condition Message="This setup requires the .NET Framework 2.0 or higher."> 
+     Installed OR MsiNetAssemblySupport &gt;= "2.0.50727" 
+    </Condition> 
+    <!--    Check for the operating system is at least Windows 2000 (VersionNT = 500).    --> 
+    <Condition Message="The operating system you are using is not supported (95/98/ME/NT3.x/NT4.x)."> 
+     Installed OR VersionNT &gt;= 500 
+    </Condition> 
+    <Condition Message="A later version of [ProductName] is already installed."> NOT NEWERVERSIONDETECTED </Condition>
+
+    
     <Property Id="AcceptLicense">No</Property>
     <!--BUTTON TEXT-->
     <Property Id="Button_Back">&lt; &amp;Back</Property>
@@ -23,6 +55,7 @@
     <Property Id="Button_No">&amp;No</Property>
     <!--END BUTTON TEXT-->
     <CustomAction Id="SET_INSTALLDIR" Property="INSTALLDIR" Value="[INSTALLDIR]" Execute="firstSequence" />
+
     <!-- INSTALL DESCRIPTION -->
     <Media Id="1" Cabinet="contents.cab" EmbedCab="yes" />
         
@@ -35,10 +68,15 @@
       </Feature>
     </Feature>
     <!-- END INSTALL DESCRIPTION -->
-    <AdminExecuteSequence>
-    </AdminExecuteSequence>
+        
     <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize" />
     </InstallExecuteSequence>
+    <InstallUISequence>
+      <!-- Because we have a launch condition that uses the results of FindRelatedProducts, put it first. -->
+      <LaunchConditions After="FindRelatedProducts" />
+    </InstallUISequence>
+
     <UIRef Id="UserInterface" />
 <!--    <Icon Id="Icon" SourceFile="..\ContentExtractor.Gui\Content Extractor_Vista.ico" />-->
   </Product>

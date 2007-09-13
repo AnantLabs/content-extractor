@@ -37,6 +37,9 @@ namespace ContentExtractor.Core
     {
       try
       {
+        if (uri == ScrapingProject.EmptyUri)
+          return string.Empty;
+        
         WebRequest request = WebRequest.Create(uri);
         request.Proxy = WebRequest.DefaultWebProxy;
         // ToDo: Consider more complex proxy set up

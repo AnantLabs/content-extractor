@@ -115,7 +115,7 @@ namespace ContentExtractor.Gui
           state.Project.Template.RowXPath = xpath;
         else
           MessageBox.Show(
-            string.Format("Can't apply xpath: '{0}' to template rows",xpath),
+            string.Format("Can't apply xpath: '{0}' to template rows", xpath),
             "XPath error");
       }
     }
@@ -148,6 +148,26 @@ namespace ContentExtractor.Gui
       {
         ScrapingProject.SaveProject(saveFileDialog2.FileName, state.Project);
       }
+    }
+
+    private void addColumnToolStripButton_Click(object sender, EventArgs e)
+    {
+      state.Project.Template.AddEmptyColumn();
+    }
+
+    private void deleteColumnToolStripButton_Click(object sender, EventArgs e)
+    {
+      if (Utils.IsIndexOk(lastColumnIndex, state.Project.Template.Columns))
+      {
+        state.Project.Template.Columns.RemoveAt(lastColumnIndex);
+      }
+    }
+
+    const int kDefaultColumnWidth = 150;
+
+    private void dataGrid_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+    {
+      e.Column.Width = kDefaultColumnWidth;
     }
 
   }

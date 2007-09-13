@@ -48,5 +48,13 @@ namespace ContentExtractor.Core
       XmlUtils.Serialize(filename, project);
     }
 
+    public static Uri EmptyUri
+    {
+      get
+      {
+        return new Uri("about:blank");
+      }
+    }
+
   }
 }

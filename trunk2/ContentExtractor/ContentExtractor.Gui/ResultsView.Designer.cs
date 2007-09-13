@@ -29,22 +29,25 @@ namespace ContentExtractor.Gui
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultsView));
       this.dataGrid = new System.Windows.Forms.DataGridView();
       this.timer1 = new System.Windows.Forms.Timer(this.components);
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-      this.clearTemplateToolStripButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+      this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.rowsTextBox = new System.Windows.Forms.TextBox();
       this.columnTextBox = new System.Windows.Forms.TextBox();
-      this.saveResultButton = new System.Windows.Forms.ToolStripButton();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-      this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-      this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
       this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+      this.clearTemplateToolStripButton = new System.Windows.Forms.ToolStripButton();
+      this.addColumnToolStripButton = new System.Windows.Forms.ToolStripButton();
+      this.saveResultButton = new System.Windows.Forms.ToolStripButton();
+      this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+      this.deleteColumnToolStripButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
       this.toolStrip1.SuspendLayout();
       this.tableLayoutPanel1.SuspendLayout();
@@ -54,7 +57,16 @@ namespace ContentExtractor.Gui
       // 
       this.dataGrid.AllowUserToAddRows = false;
       this.dataGrid.AllowUserToDeleteRows = false;
+      this.dataGrid.AllowUserToOrderColumns = true;
       this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+      dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+      dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+      dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+      dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.dataGrid.DefaultCellStyle = dataGridViewCellStyle1;
       this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.dataGrid.Location = new System.Drawing.Point(0, 81);
       this.dataGrid.MultiSelect = false;
@@ -66,6 +78,7 @@ namespace ContentExtractor.Gui
       this.dataGrid.TabIndex = 0;
       this.dataGrid.VirtualMode = true;
       this.dataGrid.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.dataGrid_CellValueNeeded);
+      this.dataGrid.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGrid_ColumnAdded);
       // 
       // timer1
       // 
@@ -77,6 +90,8 @@ namespace ContentExtractor.Gui
       // 
       this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.clearTemplateToolStripButton,
+            this.addColumnToolStripButton,
+            this.deleteColumnToolStripButton,
             this.toolStripSeparator1,
             this.saveResultButton,
             this.toolStripSeparator2,
@@ -87,19 +102,15 @@ namespace ContentExtractor.Gui
       this.toolStrip1.TabIndex = 1;
       this.toolStrip1.Text = "toolStrip1";
       // 
-      // clearTemplateToolStripButton
-      // 
-      this.clearTemplateToolStripButton.Image = global::ContentExtractor.Gui.Properties.Resources.DeleteHS;
-      this.clearTemplateToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.clearTemplateToolStripButton.Name = "clearTemplateToolStripButton";
-      this.clearTemplateToolStripButton.Size = new System.Drawing.Size(97, 22);
-      this.clearTemplateToolStripButton.Text = "Clear template";
-      this.clearTemplateToolStripButton.Click += new System.EventHandler(this.clearTemplateToolStripButton_Click);
-      // 
       // toolStripSeparator1
       // 
       this.toolStripSeparator1.Name = "toolStripSeparator1";
       this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+      // 
+      // toolStripSeparator2
+      // 
+      this.toolStripSeparator2.Name = "toolStripSeparator2";
+      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
       // 
       // tableLayoutPanel1
       // 
@@ -159,6 +170,34 @@ namespace ContentExtractor.Gui
       this.columnTextBox.TabIndex = 2;
       this.columnTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.columnTextBox_KeyDown);
       // 
+      // saveFileDialog1
+      // 
+      this.saveFileDialog1.DefaultExt = "xml";
+      this.saveFileDialog1.Filter = "Xml files|*.xml";
+      // 
+      // saveFileDialog2
+      // 
+      this.saveFileDialog2.DefaultExt = "cet";
+      this.saveFileDialog2.Filter = "Content Extractor templates|*.cet";
+      // 
+      // clearTemplateToolStripButton
+      // 
+      this.clearTemplateToolStripButton.Image = global::ContentExtractor.Gui.Properties.Resources.DeleteHS;
+      this.clearTemplateToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.clearTemplateToolStripButton.Name = "clearTemplateToolStripButton";
+      this.clearTemplateToolStripButton.Size = new System.Drawing.Size(97, 22);
+      this.clearTemplateToolStripButton.Text = "Clear template";
+      this.clearTemplateToolStripButton.Click += new System.EventHandler(this.clearTemplateToolStripButton_Click);
+      // 
+      // addColumnToolStripButton
+      // 
+      this.addColumnToolStripButton.Image = global::ContentExtractor.Gui.Properties.Resources.AddTableHS;
+      this.addColumnToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.addColumnToolStripButton.Name = "addColumnToolStripButton";
+      this.addColumnToolStripButton.Size = new System.Drawing.Size(82, 22);
+      this.addColumnToolStripButton.Text = "Add column";
+      this.addColumnToolStripButton.Click += new System.EventHandler(this.addColumnToolStripButton_Click);
+      // 
       // saveResultButton
       // 
       this.saveResultButton.Image = ((System.Drawing.Image)(resources.GetObject("saveResultButton.Image")));
@@ -167,16 +206,6 @@ namespace ContentExtractor.Gui
       this.saveResultButton.Size = new System.Drawing.Size(81, 22);
       this.saveResultButton.Text = "Save result";
       this.saveResultButton.Click += new System.EventHandler(this.saveResultButton_Click);
-      // 
-      // saveFileDialog1
-      // 
-      this.saveFileDialog1.DefaultExt = "xml";
-      this.saveFileDialog1.Filter = "Xml files|*.xml";
-      // 
-      // toolStripSeparator2
-      // 
-      this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
       // 
       // toolStripButton1
       // 
@@ -187,10 +216,14 @@ namespace ContentExtractor.Gui
       this.toolStripButton1.Text = "Save Template";
       this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
       // 
-      // saveFileDialog2
+      // deleteColumnToolStripButton
       // 
-      this.saveFileDialog2.DefaultExt = "cet";
-      this.saveFileDialog2.Filter = "Content Extractor templates|*.cet";
+      this.deleteColumnToolStripButton.Image = global::ContentExtractor.Gui.Properties.Resources.DelTableHS;
+      this.deleteColumnToolStripButton.ImageTransparentColor = System.Drawing.Color.White;
+      this.deleteColumnToolStripButton.Name = "deleteColumnToolStripButton";
+      this.deleteColumnToolStripButton.Size = new System.Drawing.Size(94, 22);
+      this.deleteColumnToolStripButton.Text = "Delete column";
+      this.deleteColumnToolStripButton.Click += new System.EventHandler(this.deleteColumnToolStripButton_Click);
       // 
       // ResultsView
       // 
@@ -228,5 +261,7 @@ namespace ContentExtractor.Gui
     private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     private System.Windows.Forms.ToolStripButton toolStripButton1;
     private System.Windows.Forms.SaveFileDialog saveFileDialog2;
+    private System.Windows.Forms.ToolStripButton addColumnToolStripButton;
+    private System.Windows.Forms.ToolStripButton deleteColumnToolStripButton;
   }
 }

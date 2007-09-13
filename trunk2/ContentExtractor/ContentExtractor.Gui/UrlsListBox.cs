@@ -75,8 +75,15 @@ namespace ContentExtractor.Gui
 
     public void SelectUri(int index)
     {
+      if (0 <= index && index < state.Project.SourceUrls.Count)
+      {
+        state.BrowserUri = state.Project.SourceUrls[index];
+      }
+      else
+      {
+        state.BrowserUri = ScrapingProject.EmptyUri;
+      }
       //listBox1.SelectedIndex = index;
-      state.BrowserUri = state.Project.SourceUrls[index];
     }
 
     void ListBox1DragEnter(object sender, DragEventArgs e)
@@ -117,13 +124,54 @@ namespace ContentExtractor.Gui
       UpdateListBox();
     }
 
+    public void Swap(int leftIndex, int rightIndex)
+    {
+      Uri old_position = state.Project.SourceUrls[leftIndex];
+      state.Project.SourceUrls[leftIndex] = state.Project.SourceUrls[rightIndex];
+      state.Project.SourceUrls[rightIndex] = old_position;
+      UpdateListBox();
+    }
+
+    private bool IsSelectedIndexProper
+    {
+      get
+      {
+        return 0 <= listBox1.SelectedIndex &&
+          listBox1.SelectedIndex < listBox1.Items.Count;
+      }
+    }
+
     private void listBox1_KeyDown(object sender, KeyEventArgs e)
     {
-      if (e.KeyCode == Keys.Delete &&
-          0 <= listBox1.SelectedIndex &&
-          listBox1.SelectedIndex < listBox1.Items.Count)
+      if (e.KeyCode == Keys.Delete && IsSelectedIndexProper)
       {
         Delete(listBox1.SelectedIndex);
+      }
+    }
+
+    private void delButton_Click(object sender, EventArgs e)
+    {
+      if (IsSelectedIndexProper)
+        Delete(listBox1.SelectedIndex);
+    }
+
+    private void upButton_Click(object sender, EventArgs e)
+    {
+      if (IsSelectedIndexProper && listBox1.SelectedIndex > 0)
+      {
+        int old_index = listBox1.SelectedIndex;
+        Swap(old_index, old_index - 1);
+        listBox1.SelectedIndex = old_index - 1;
+      }
+    }
+
+    private void downButton_Click(object sender, EventArgs e)
+    {
+      if (IsSelectedIndexProper && listBox1.SelectedIndex < listBox1.Items.Count - 1)
+      {
+        int old_index = listBox1.SelectedIndex;
+        Swap(old_index, old_index + 1);
+        listBox1.SelectedIndex = old_index + 1;
       }
     }
   }

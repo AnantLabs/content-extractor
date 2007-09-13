@@ -103,6 +103,18 @@
     <None Include="Resources\DeleteHS.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddTableHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DelTableHS.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Properties\DataSources\" />
   </ItemGroup>
 </Project>

@@ -89,6 +89,7 @@ namespace ContentExtractor.Core
                 outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
               else
                 outCell.AppendChild(outDoc.OwnerDocument.CreateTextNode(subNode.Value));
+              outCell.AppendChild(outDoc.OwnerDocument.CreateWhitespace(" "));
             }
           }
         }
@@ -104,31 +105,23 @@ namespace ContentExtractor.Core
 
     public void AddColumn(string xpath)
     {
-      //List<XPathDataColumn> xColumns = this.XColumns;
-      //bool insert = true;
       string rowPath = xpath;
       for (int i = 0; i < Columns.Count; i++)
       {
         string absPath = XPathInfo.CombineXPaths(_rowXPath, Columns[i]);
-        //XPathInfo.Combine(RowRule.RowsXPath, xColumns[i].RelativeXPath);
         rowPath = XPathInfo.GetXPathsCommonPart(rowPath, absPath);
       }
 
       for (int i = 0; i < Columns.Count; i++)
         Columns[i] = XPathInfo.GetRelativeXPath(XPathInfo.CombineXPaths(_rowXPath, Columns[i]), rowPath);
-      //XPathInfo.Relative(XPathInfo.Combine(RowRule.RowsXPath, xColumns[i].RelativeXPath), rowPath);
 
-      //if (RowRule == null)
-      //  Rules.Add(new XPathDataRowRule());
-      //RowRule.RowsXPath = rowPath;
       _rowXPath = rowPath;
       Columns.Add(XPathInfo.GetRelativeXPath(xpath, rowPath));
-      //if (insert)
-      //{
-      //  XPathDataColumn col = new XPathDataColumn();
-      //  col.RelativeXPath = XPathInfo.Relative(xpath, rowPath);
-      //  this.Columns.Insert(Math.Min(columnIndex, this.Columns.Count), col);
-      //}
+    }
+
+    public void AddEmptyColumn()
+    {
+      Columns.Add(".");
     }
 
     public bool CheckRowXPath(string xpath)
