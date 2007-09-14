@@ -67,6 +67,42 @@ namespace ContentExtractor.Gui.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t apply xpath: &apos;{0}&apos; to column.
+        /// </summary>
+        internal static string CantApplyColumnXPathWarning {
+            get {
+                return ResourceManager.GetString("CantApplyColumnXPathWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XPath error.
+        /// </summary>
+        internal static string CantApplyColumnXPathWarningCaption {
+            get {
+                return ResourceManager.GetString("CantApplyColumnXPathWarningCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t apply xpath: &apos;{0}&apos; to template rows.
+        /// </summary>
+        internal static string CantApplyRowXPathWarning {
+            get {
+                return ResourceManager.GetString("CantApplyRowXPathWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XPath error.
+        /// </summary>
+        internal static string CantApplyRowXPathWarningCaption {
+            get {
+                return ResourceManager.GetString("CantApplyRowXPathWarningCaption", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap DeleteHS {
             get {
                 object obj = ResourceManager.GetObject("DeleteHS", resourceCulture);
@@ -85,6 +121,24 @@ namespace ContentExtractor.Gui.Properties {
             get {
                 object obj = ResourceManager.GetObject("down", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I&apos;m not able to add given cell to template. Try to add an empty column and then specify xpath you need..
+        /// </summary>
+        internal static string NotAbleToAddSpecificColumnWarning {
+            get {
+                return ResourceManager.GetString("NotAbleToAddSpecificColumnWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add column warning.
+        /// </summary>
+        internal static string NotAbleToAddSpecificColumnWarningCaption {
+            get {
+                return ResourceManager.GetString("NotAbleToAddSpecificColumnWarningCaption", resourceCulture);
             }
         }
         

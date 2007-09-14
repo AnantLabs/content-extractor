@@ -103,7 +103,13 @@ namespace ContentExtractor.Core
       return result;
     }
 
-    public void AddColumn(string xpath)
+    /// <summary>
+    /// Adds new column to the template. The template row xpath and column xpaths
+    /// are changing like all added columns and the new one was in one row.
+    /// </summary>
+    /// <param name="xpath">XPath for adding cell</param>
+    /// <returns>true if column was successfully added.</returns>
+    public bool AddColumn(string xpath)
     {
       string rowPath = xpath;
       for (int i = 0; i < Columns.Count; i++)
@@ -117,6 +123,7 @@ namespace ContentExtractor.Core
 
       _rowXPath = rowPath;
       Columns.Add(XPathInfo.GetRelativeXPath(xpath, rowPath));
+      return true;
     }
 
     public void AddEmptyColumn()
@@ -140,6 +147,18 @@ namespace ContentExtractor.Core
     public bool CheckColumnXPath(string xpath)
     {
       return !xpath.Trim().StartsWith("/") && CheckRowXPath(xpath);
+    }
+
+    public bool CanAutoModifyTemplate
+    {
+      get
+      {
+        bool result = XPathInfo.Parse(_rowXPath).IsParsedRight;
+        if (result)
+          foreach (string column_xpath in Columns)
+            result &= XPathInfo.Parse(column_xpath).IsParsedRight;
+        return result;
+      }
     }
   }
 }

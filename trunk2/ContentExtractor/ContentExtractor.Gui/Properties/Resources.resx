@@ -121,6 +121,18 @@
   <data name="AddTableHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AddTableHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CantApplyColumnXPathWarning" xml:space="preserve">
+    <value>Can't apply xpath: '{0}' to column</value>
+  </data>
+  <data name="CantApplyColumnXPathWarningCaption" xml:space="preserve">
+    <value>XPath error</value>
+  </data>
+  <data name="CantApplyRowXPathWarning" xml:space="preserve">
+    <value>Can't apply xpath: '{0}' to template rows</value>
+  </data>
+  <data name="CantApplyRowXPathWarningCaption" xml:space="preserve">
+    <value>XPath error</value>
+  </data>
   <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -129,6 +141,12 @@
   </data>
   <data name="down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\down.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NotAbleToAddSpecificColumnWarning" xml:space="preserve">
+    <value>I'm not able to add given cell to template. Try to add an empty column and then specify xpath you need.</value>
+  </data>
+  <data name="NotAbleToAddSpecificColumnWarningCaption" xml:space="preserve">
+    <value>Add column warning</value>
   </data>
   <data name="up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

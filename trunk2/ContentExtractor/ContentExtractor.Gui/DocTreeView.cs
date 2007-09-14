@@ -165,9 +165,12 @@ namespace ContentExtractor.Gui
     private void addColumnMenuItem_Click(object sender, EventArgs e)
     {
       if (treeView1.SelectedNode != null)
-      {
-        state.Project.Template.AddColumn((string)treeView1.SelectedNode.Tag);
-      }
+        if (state.Project.Template.CanAutoModifyTemplate)
+          state.Project.Template.AddColumn((string)treeView1.SelectedNode.Tag);
+        else
+          MessageBox.Show(Properties.Resources.NotAbleToAddSpecificColumnWarning,
+              Properties.Resources.NotAbleToAddSpecificColumnWarningCaption,
+              MessageBoxButtons.OK);
     }
 
     private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)

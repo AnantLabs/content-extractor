@@ -132,18 +132,9 @@ namespace ContentExtractor.Gui
       UpdateListBox();
     }
 
-    private bool IsSelectedIndexProper
-    {
-      get
-      {
-        return 0 <= listBox1.SelectedIndex &&
-          listBox1.SelectedIndex < listBox1.Items.Count;
-      }
-    }
-
     private void listBox1_KeyDown(object sender, KeyEventArgs e)
     {
-      if (e.KeyCode == Keys.Delete && IsSelectedIndexProper)
+      if (e.KeyCode == Keys.Delete && Utils.IsIndexOk(listBox1.SelectedIndex, listBox1.Items))
       {
         Delete(listBox1.SelectedIndex);
       }
@@ -151,13 +142,14 @@ namespace ContentExtractor.Gui
 
     private void delButton_Click(object sender, EventArgs e)
     {
-      if (IsSelectedIndexProper)
+      if (Utils.IsIndexOk(listBox1.SelectedIndex, listBox1.Items))
         Delete(listBox1.SelectedIndex);
     }
 
     private void upButton_Click(object sender, EventArgs e)
     {
-      if (IsSelectedIndexProper && listBox1.SelectedIndex > 0)
+      if (Utils.IsIndexOk(listBox1.SelectedIndex, listBox1.Items) &&
+          listBox1.SelectedIndex > 0)
       {
         int old_index = listBox1.SelectedIndex;
         Swap(old_index, old_index - 1);
@@ -167,7 +159,8 @@ namespace ContentExtractor.Gui
 
     private void downButton_Click(object sender, EventArgs e)
     {
-      if (IsSelectedIndexProper && listBox1.SelectedIndex < listBox1.Items.Count - 1)
+      if (Utils.IsIndexOk(listBox1.SelectedIndex, listBox1.Items) &&
+          listBox1.SelectedIndex < listBox1.Items.Count - 1)
       {
         int old_index = listBox1.SelectedIndex;
         Swap(old_index, old_index + 1);

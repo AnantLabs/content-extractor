@@ -236,5 +236,5 @@ namespace ContentExtractor.Core
   }
 
   public delegate void Callback<T>(T value);
-
+  public delegate T Getter<T>();
 }

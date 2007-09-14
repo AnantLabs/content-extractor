@@ -99,7 +99,7 @@ namespace ContentExtractor.Gui
       // downButton
       // 
       this.downButton.Image = global::ContentExtractor.Gui.Properties.Resources.down;
-      this.downButton.Location = new System.Drawing.Point(169, 3);
+      this.downButton.Location = new System.Drawing.Point(171, 3);
       this.downButton.Name = "downButton";
       this.downButton.Size = new System.Drawing.Size(75, 23);
       this.downButton.TabIndex = 1;
@@ -111,7 +111,7 @@ namespace ContentExtractor.Gui
       // upButton
       // 
       this.upButton.Image = global::ContentExtractor.Gui.Properties.Resources.up;
-      this.upButton.Location = new System.Drawing.Point(86, 3);
+      this.upButton.Location = new System.Drawing.Point(87, 3);
       this.upButton.Name = "upButton";
       this.upButton.Size = new System.Drawing.Size(75, 23);
       this.upButton.TabIndex = 2;

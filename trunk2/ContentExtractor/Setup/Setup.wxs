@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 
-<?define ProductVersion = "1.0.2812.33014"?>
+<?define ProductVersion = "1.0.2813.32778"?>
 <?define UpgradeCode = "173EEA21-7A44-48B1-935D-B1948DE9D363" ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">

@@ -62,6 +62,9 @@
       <DependentUpon>ResultsView.cs</DependentUpon>
     </Compile>
     <Compile Include="State.cs" />
+    <Compile Include="SynchronizedObject.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UrlsListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -91,7 +94,6 @@
     <EmbeddedResource Include="UrlsListBox.resx">
       <DependentUpon>UrlsListBox.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="setup.wxs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContentExtractor.Core\ContentExtractor.Core.csproj">

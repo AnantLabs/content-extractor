@@ -9,8 +9,8 @@
         <string>following::*[1]/text()</string>
       </Columns>
     </Template>
-    <Url>http://code.google.com/hosting/search?q=content+extractor&amp;btn=Search+Projects</Url>
+    <Url>http://code.google.com/p/content-extractor/wiki/ContentExtractorQuickstart</Url>
   </Project>
   <IsParseMode>false</IsParseMode>
-  <XmlBrowserUri>http://code.google.com/hosting/search?q=content+extractor&amp;btn=Search+Projects</XmlBrowserUri>
+  <XmlBrowserUri>http://code.google.com/p/content-extractor/wiki/ContentExtractorQuickstart</XmlBrowserUri>
 </State>

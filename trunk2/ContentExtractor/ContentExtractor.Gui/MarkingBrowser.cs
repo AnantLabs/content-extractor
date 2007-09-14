@@ -127,7 +127,12 @@ namespace ContentExtractor.Gui
 
     private void toolStripButton1_Click(object sender, EventArgs e)
     {
-      state.Project.Template.AddColumn(state.SelectedNodeXPath);
+      if (state.Project.Template.CanAutoModifyTemplate)
+        state.Project.Template.AddColumn(state.SelectedNodeXPath);
+      else
+        MessageBox.Show(Properties.Resources.NotAbleToAddSpecificColumnWarning,
+            Properties.Resources.NotAbleToAddSpecificColumnWarningCaption,
+            MessageBoxButtons.OK);
     }
   }
 

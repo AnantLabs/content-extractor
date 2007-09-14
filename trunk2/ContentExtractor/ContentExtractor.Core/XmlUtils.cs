@@ -131,6 +131,11 @@ namespace ContentExtractor.Core
       }
     }
 
+    public bool IsParsedRight
+    {
+      get { return this.XPath == "." || Parts.Length > 0; }
+    }
+
     private const string XPathHeadPattern = @"^((?<part>(" + XPathPart.Pattern + ")?)/)?";
     private const string XPathTailPattern = @"(?<part>" + XPathPart.Pattern + ")$";
 
