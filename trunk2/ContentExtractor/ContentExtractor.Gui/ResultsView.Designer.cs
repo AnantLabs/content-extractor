@@ -30,7 +30,6 @@ namespace ContentExtractor.Gui
     {
       this.components = new System.ComponentModel.Container();
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultsView));
       this.dataGrid = new System.Windows.Forms.DataGridView();
       this.timer1 = new System.Windows.Forms.Timer(this.components);
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -39,15 +38,12 @@ namespace ContentExtractor.Gui
       this.deleteColumnToolStripButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.saveResultButton = new System.Windows.Forms.ToolStripButton();
-      this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-      this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
       this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.rowsTextBox = new System.Windows.Forms.TextBox();
       this.columnTextBox = new System.Windows.Forms.TextBox();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-      this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
       ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
       this.toolStrip1.SuspendLayout();
       this.tableLayoutPanel1.SuspendLayout();
@@ -85,7 +81,6 @@ namespace ContentExtractor.Gui
       // 
       // timer1
       // 
-      this.timer1.Enabled = true;
       this.timer1.Interval = 500;
       this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
       // 
@@ -96,9 +91,7 @@ namespace ContentExtractor.Gui
             this.addColumnToolStripButton,
             this.deleteColumnToolStripButton,
             this.toolStripSeparator1,
-            this.saveResultButton,
-            this.toolStripSeparator2,
-            this.toolStripButton1});
+            this.saveResultButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.Size = new System.Drawing.Size(609, 25);
@@ -139,26 +132,12 @@ namespace ContentExtractor.Gui
       // 
       // saveResultButton
       // 
-      this.saveResultButton.Image = ((System.Drawing.Image)(resources.GetObject("saveResultButton.Image")));
+      this.saveResultButton.Image = global::ContentExtractor.Gui.Properties.Resources.save_result;
       this.saveResultButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.saveResultButton.Name = "saveResultButton";
       this.saveResultButton.Size = new System.Drawing.Size(81, 22);
       this.saveResultButton.Text = "Save result";
       this.saveResultButton.Click += new System.EventHandler(this.saveResultButton_Click);
-      // 
-      // toolStripSeparator2
-      // 
-      this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-      // 
-      // toolStripButton1
-      // 
-      this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-      this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.toolStripButton1.Name = "toolStripButton1";
-      this.toolStripButton1.Size = new System.Drawing.Size(98, 22);
-      this.toolStripButton1.Text = "Save Template";
-      this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
       // 
       // tableLayoutPanel1
       // 
@@ -223,11 +202,6 @@ namespace ContentExtractor.Gui
       this.saveFileDialog1.DefaultExt = "xml";
       this.saveFileDialog1.Filter = "Xml files|*.xml";
       // 
-      // saveFileDialog2
-      // 
-      this.saveFileDialog2.DefaultExt = "cet";
-      this.saveFileDialog2.Filter = "Content Extractor templates|*.cet";
-      // 
       // ResultsView
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -261,9 +235,6 @@ namespace ContentExtractor.Gui
     private System.Windows.Forms.TextBox columnTextBox;
     private System.Windows.Forms.ToolStripButton saveResultButton;
     private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-    private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-    private System.Windows.Forms.ToolStripButton toolStripButton1;
-    private System.Windows.Forms.SaveFileDialog saveFileDialog2;
     private System.Windows.Forms.ToolStripButton addColumnToolStripButton;
     private System.Windows.Forms.ToolStripButton deleteColumnToolStripButton;
   }

@@ -60,6 +60,15 @@ namespace ContentExtractor.Gui.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to About {0} ver. {1}.
+        /// </summary>
+        internal static string AboutCaption {
+            get {
+                return ResourceManager.GetString("AboutCaption", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap AddTableHS {
             get {
                 object obj = ResourceManager.GetObject("AddTableHS", resourceCulture);
@@ -125,6 +134,22 @@ namespace ContentExtractor.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to http://content-extractor.googlecode.com.
+        /// </summary>
+        internal static string HomePageUrl {
+            get {
+                return ResourceManager.GetString("HomePageUrl", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap infoBubble {
+            get {
+                object obj = ResourceManager.GetObject("infoBubble", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I&apos;m not able to add given cell to template. Try to add an empty column and then specify xpath you need..
         /// </summary>
         internal static string NotAbleToAddSpecificColumnWarning {
@@ -139,6 +164,34 @@ namespace ContentExtractor.Gui.Properties {
         internal static string NotAbleToAddSpecificColumnWarningCaption {
             get {
                 return ResourceManager.GetString("NotAbleToAddSpecificColumnWarningCaption", resourceCulture);
+            }
+        }
+        
+        internal static System.Drawing.Bitmap openHS {
+            get {
+                object obj = ResourceManager.GetObject("openHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap save_result {
+            get {
+                object obj = ResourceManager.GetObject("save_result", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap saveHS {
+            get {
+                object obj = ResourceManager.GetObject("saveHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap splash {
+            get {
+                object obj = ResourceManager.GetObject("splash", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

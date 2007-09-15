@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0"?>
 
-<?define ProductVersion = "1.0.2813.32778"?>
+<?define ProductName = "Content Extractor 1.0 (Beta)"?>
+<?define ProductVersion = "1.0.2814"?>
 <?define UpgradeCode = "173EEA21-7A44-48B1-935D-B1948DE9D363" ?>
 
+<?define ProductCode = "21365781-2B13-4703-B901-FFDF7CF4C5B0" ?>
+<?define PackageCode = "BF209FE7-D60A-435e-9E31-BA2C7591056E" ?>
+
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
-  <Product Id="C508F47B-C2F8-4274-A700-7D8B4C8E12D2" Name="Content Extractor" Language="1033"
+  <Product Id="$(var.ProductCode)" Name="$(var.ProductName)" Language="1033"
            Version="$(var.ProductVersion)"
            UpgradeCode="$(var.UpgradeCode)" Manufacturer="Sergey Babenko">
 
-    <!-- BF209FE7-D60A-435e-9E31-BA2C7591056E   new -->
-    <!-- 42E31696-03CB-417C-A4B8-B26403DC0C37  old -->
-    <Package Id="42E31696-03CB-417C-A4B8-B26403DC0C37"
+    <Package Id="$(var.PackageCode)"
              Description="#Description" Comments="Comments"
              InstallerVersion="200" Compressed="yes" />
 

@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>package</OutputType>
     <RootNamespace>Setup</RootNamespace>
-    <OutputName>ContentExtractor_1_0_2813_beta</OutputName>
+    <OutputName>ContentExtractor_1.0b.2814</OutputName>
     <WixToolPath Condition=" '$(WixToolPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixToolPath>
     <ToolPath>$(WixToolPath)</ToolPath>
     <WixMSBuildExtensionsPath Condition=" '$(WixMSBuildExtensionsPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixMSBuildExtensionsPath>
@@ -47,5 +47,13 @@
     <LinkExtension Include="WixNetFxExtension">
       <Class>Microsoft.Tools.WindowsInstallerXml.Extensions.NetFxCompiler</Class>
     </LinkExtension>
+    <ProjectReference Include="..\ContentExtractor.Console\ContentExtractor.Console.csproj">
+      <Project>{2E6276B7-BE47-4F11-AF2E-4C07C2C1276F}</Project>
+      <Name>ContentExtractor.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ContentExtractor.Gui\ContentExtractor.Gui.csproj">
+      <Project>{A9DF8EDF-6B3E-4894-8B95-2D5539C79D4A}</Project>
+      <Name>ContentExtractor.Gui</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

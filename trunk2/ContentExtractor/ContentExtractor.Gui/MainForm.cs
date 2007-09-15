@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using ContentExtractor.Core;
 
 namespace ContentExtractor.Gui
 {
@@ -60,6 +61,24 @@ namespace ContentExtractor.Gui
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
     {
       Core.XmlUtils.Serialize(statePath, state);
+    }
+
+    private void saveToolStripButton_Click(object sender, EventArgs e)
+    {
+      if (saveFileDialog2.ShowDialog() == DialogResult.OK)
+      {
+        ScrapingProject.SaveProject(saveFileDialog2.FileName, state.Project);
+      }
+    }
+
+    private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      this.Close();  
+    }
+
+    private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      new AboutForm().ShowDialog();
     }
 	}
 }

@@ -53,6 +53,7 @@ namespace ContentExtractor.Gui
         components.Add(colXPathSynchro);
         rowsTextBox.DataBindings.Add("Text", rowXPathSynchro, "Value");
         columnTextBox.DataBindings.Add("Text", colXPathSynchro, "Value");
+        timer1.Enabled = true;
       }
       else
       {
@@ -158,14 +159,6 @@ namespace ContentExtractor.Gui
       if (saveFileDialog1.ShowDialog() == DialogResult.OK)
       {
         resultDoc.Save(saveFileDialog1.FileName);
-      }
-    }
-
-    private void toolStripButton1_Click(object sender, EventArgs e)
-    {
-      if (saveFileDialog2.ShowDialog() == DialogResult.OK)
-      {
-        ScrapingProject.SaveProject(saveFileDialog2.FileName, state.Project);
       }
     }
 

@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ContentExtractor.Gui")]
+[assembly: AssemblyProduct("Content Extractor")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -29,3 +29,4 @@ using System.Runtime.InteropServices;
 // numbers with the '*' character (the default):
 
 [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyFileVersionAttribute("1.0")]

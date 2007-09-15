@@ -25,6 +25,7 @@ namespace ContentExtractor.Gui
       {
         this.state = state;
         state.SelectedNodeChanged += new EventHandler(SelectedNodeChanged);
+        timer1.Enabled = true;
       }
       else
         // TODO: Should warning to log
