@@ -1,3 +1,5 @@
+= The page is under construction =
+
 = Content Extractor Quickstart=
 
 Content Extractor is a desktop tool that allows you easily extract data from web-pages and save them into structured data format.
@@ -16,6 +18,8 @@ Here is the table describing climate in Death Valley, California:
 || *Mean daily minimum temperature* || 3 °C|| 7 °C|| 11 °C|| 16 °C|| 21 °C|| 26 °C|| 30 °C|| 29 °C|| 23 °C|| 15 °C|| 8 °C|| 3 °C|| *16 °C*||
 || *Mean monthly rainfall* || 0.3" || 0.4" || 0.3" || 0.1" || 0.1" || 0.0" || 0.1" || 0.1" || 0.2" || 0.1"|| 0.2" || 0.2" || *2.1"* ||
 || *Mean monthly rainfall* || 7.6mm || 10.2mm || 7.6mm|| 2.5mm || 2.5mm || 0.0mm || 2.5mm || 2.5mm || 5.1mm || 2.5mm || 5.1mm || 5.1mm || *53.3mm* ||
+ 
+ 
  
  
  
