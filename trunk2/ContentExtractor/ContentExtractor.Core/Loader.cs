@@ -33,14 +33,14 @@ namespace ContentExtractor.Core
     {
     }
     
-    public string LoadContentSync(Uri uri)
+    public string LoadContentSync(DocPosition pos)
     {
       try
       {
-        if (uri == ScrapingProject.EmptyUri)
+        if (pos.Url == DocPosition.Empty.Url)
           return string.Empty;
         
-        WebRequest request = WebRequest.Create(uri);
+        WebRequest request = WebRequest.Create(pos.Url);
         request.Proxy = WebRequest.DefaultWebProxy;
         // ToDo: Consider more complex proxy set up
         using(WebResponse response = request.GetResponse())
@@ -51,14 +51,14 @@ namespace ContentExtractor.Core
       catch(Exception exc)
       {
         throw new Exception("Could not process request to "
-                            + uri.ToString(),
+                            + pos.ToString(),
                             exc);
       }
     }
 
-    public XmlDocument LoadXmlSync(Uri uri)
+    public XmlDocument LoadXmlSync(DocPosition pos)
     {
-      string content = LoadContentSync(uri);
+      string content = LoadContentSync(pos);
       return Utils.HtmlParse(content);
     }
 
@@ -68,15 +68,16 @@ namespace ContentExtractor.Core
     /// <param name="uri">Url to get content and parse</param>
     /// <param name="callback">This callback will be called from another thread
     /// than parsing is done.</param>
-    public void LoadXmlAsync(Uri uri, Callback<XmlDocument> callback)
+    public void LoadXmlAsync(DocPosition pos, Callback<XmlDocument> callback)
     {
       Thread loadThread = new Thread(new ThreadStart(
         delegate
         {
-          XmlDocument result = LoadXmlSync(uri);
+          XmlDocument result = LoadXmlSync(pos);
           callback(result);
         }));
       loadThread.SetApartmentState(ApartmentState.STA);
+      loadThread.IsBackground = true;
       loadThread.Start();
     }
 
@@ -120,14 +121,14 @@ namespace ContentExtractor.Core
         }
 
         documentText = ReadStreamUsingEncoding(encoding, memory);
-        //Regex contentCode = new Regex(@"<meta[^>]*content=[""'][^'"">]*charset=(?<coding>[^""'>]*)[""']",
-        //  RegexOptions.IgnoreCase | RegexOptions.Compiled);
-        //Match match = contentCode.Match(documentText);
-        //if (match.Success)
-        //{
-        //  encoding = Encoding.GetEncoding(match.Groups["coding"].Value);
-        //  documentText = ReadStreamUsingEncoding(encoding, memory);
-        //}
+        Regex contentCode = new Regex(@"<meta[^>]*content=[""'][^'"">]*charset=(?<coding>[^""'>]*)[""']",
+          RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        Match match = contentCode.Match(documentText);
+        if (match.Success)
+        {
+          encoding = Encoding.GetEncoding(match.Groups["coding"].Value);
+          documentText = ReadStreamUsingEncoding(encoding, memory);
+        }
       }
       return documentText;
     }

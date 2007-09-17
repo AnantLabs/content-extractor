@@ -30,9 +30,13 @@ namespace ContentExtractor.Gui
       if (this.state == null)
       {
         this.state = state;
-        state.BrowserUriChanged += new EventHandler(BrowserUriChanged);
         state.SelectedNodeChanged += new EventHandler(SelectedNodeChanged);
-        this.BrowserUriChanged(this, EventArgs.Empty);
+
+        SynchronizedObject<Uri> uriSynchro = new SynchronizedObject<Uri>(
+          delegate { return new Uri(state.BrowserPosition.Url.AbsoluteUri); }, null);
+        this.components.Add(uriSynchro);
+
+        Browser.DataBindings.Add("Url", uriSynchro, "Value");
       }
       else
       {
@@ -55,15 +59,15 @@ namespace ContentExtractor.Gui
 
     private void BrowserUriChanged(object sender, EventArgs e)
     {
-      if (state.BrowserUri != null)
-        Browser.Navigate(state.BrowserUri.AbsoluteUri);
+      if (state.BrowserPosition != null)
+        Browser.Navigate(state.BrowserPosition.Url.AbsoluteUri);
       else
-        Browser.Navigate(ScrapingProject.EmptyUri);
+        Browser.Navigate(DocPosition.Empty.Url);
     }
 
     private void webBrowser1_BeforeNavigate(object sender, ExtendedNavigatingEventArgs e)
     {
-      e.Cancel = !Uri.Equals(Utils.ParseUrl(e.Url), state.BrowserUri);
+      e.Cancel = !Uri.Equals(Utils.ParseUrl(e.Url), state.BrowserPosition.Url);
       if (!e.Cancel && Browser.Document != null)
         DeInitDocument(Browser.Document);
     }

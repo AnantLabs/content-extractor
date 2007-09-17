@@ -35,28 +35,35 @@ namespace ContentExtractor.Gui
 		/// </summary>
 		private void InitializeComponent()
 		{
+      this.components = new System.ComponentModel.Container();
       this.listBox1 = new System.Windows.Forms.ListBox();
+      this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
       this.label1 = new System.Windows.Forms.Label();
       this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
       this.delButton = new System.Windows.Forms.Button();
       this.downButton = new System.Windows.Forms.Button();
       this.upButton = new System.Windows.Forms.Button();
+      ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
       this.tableLayoutPanel1.SuspendLayout();
       this.SuspendLayout();
       // 
       // listBox1
       // 
       this.listBox1.AllowDrop = true;
+      this.listBox1.DataSource = this.bindingSource1;
       this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.listBox1.FormattingEnabled = true;
       this.listBox1.Location = new System.Drawing.Point(0, 13);
       this.listBox1.Name = "listBox1";
       this.listBox1.Size = new System.Drawing.Size(252, 277);
       this.listBox1.TabIndex = 0;
-      this.listBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListBox1DragEnter);
       this.listBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListBox1DragDrop);
-      this.listBox1.SelectedIndexChanged += new System.EventHandler(this.ListBox1SelectedIndexChanged);
+      this.listBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListBox1DragEnter);
       this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyDown);
+      // 
+      // bindingSource1
+      // 
+      this.bindingSource1.CurrentItemChanged += new System.EventHandler(this.bindingSource1_CurrentItemChanged);
       // 
       // label1
       // 
@@ -129,6 +136,7 @@ namespace ContentExtractor.Gui
       this.Controls.Add(this.tableLayoutPanel1);
       this.Name = "UrlsListBox";
       this.Size = new System.Drawing.Size(252, 327);
+      ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
       this.tableLayoutPanel1.ResumeLayout(false);
       this.ResumeLayout(false);
 
@@ -139,5 +147,6 @@ namespace ContentExtractor.Gui
     private System.Windows.Forms.Button delButton;
     private System.Windows.Forms.Button downButton;
     private System.Windows.Forms.Button upButton;
+    private System.Windows.Forms.BindingSource bindingSource1;
 	}
 }

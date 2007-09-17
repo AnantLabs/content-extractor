@@ -46,7 +46,7 @@ namespace ContentExtractorTests.Gui
     [Test]
     public void BrowseWhenUriChanged()
     {
-      state.BrowserUri = pos;
+      state.BrowserPosition = new DocPosition(pos);
       DoEvents();
 
       Assert.AreEqual(pos, browser.Browser.Url);
@@ -55,7 +55,7 @@ namespace ContentExtractorTests.Gui
     [Test]
     public void NotExpectedBrowseIsForbiden()
     {
-      state.BrowserUri = pos;
+      state.BrowserPosition = new DocPosition(pos);
       DoEvents();
 
       browser.Browser.Navigate("http://www.google.com");

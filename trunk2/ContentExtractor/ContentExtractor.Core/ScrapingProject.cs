@@ -24,36 +24,23 @@ namespace ContentExtractor.Core
 
     public Template Template = new Template();
 
+    private List<DocPosition> _sourceUrls = new List<DocPosition>();
+
     [XmlElement("Url")]
-    public string[] XmlUrls
+    public List<DocPosition> SourcePositions
     {
-      get
-      {
-        return SourceUrls.ConvertAll<string>(
-          delegate(Uri u) { return u.AbsoluteUri; } ).ToArray();
-      }
-      set
-      {
-        SourceUrls = new List<Uri>(value.Length);
-        foreach(string uri in value)
-          SourceUrls.Add(Utils.ParseUrl(uri));
-      }
+      get { return _sourceUrls; }
+      set { _sourceUrls = value; }
     }
-    
-    [XmlIgnore]
-    public List<Uri> SourceUrls = new List<Uri>();
 
     public static void SaveProject(string filename, ScrapingProject project)
     {
       XmlUtils.Serialize(filename, project);
     }
 
-    public static Uri EmptyUri
+    public static ScrapingProject Load(string filename)
     {
-      get
-      {
-        return new Uri("about:blank");
-      }
+      return XmlUtils.Deserialize<ScrapingProject>(filename);
     }
 
   }

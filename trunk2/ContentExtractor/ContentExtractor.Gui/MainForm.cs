@@ -80,5 +80,13 @@ namespace ContentExtractor.Gui
     {
       new AboutForm().ShowDialog();
     }
+
+    private void toolStripButton1_Click(object sender, EventArgs e)
+    {
+      if (openFileDialog1.ShowDialog() == DialogResult.OK)
+      {
+        this.state.Project = ScrapingProject.Load(openFileDialog1.FileName);
+      }
+    }
 	}
 }

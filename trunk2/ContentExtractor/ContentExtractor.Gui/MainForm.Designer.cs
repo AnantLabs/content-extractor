@@ -53,6 +53,8 @@ namespace ContentExtractor.Gui
       this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+      this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
       this.totalSplitContainer.Panel1.SuspendLayout();
       this.totalSplitContainer.Panel2.SuspendLayout();
       this.totalSplitContainer.SuspendLayout();
@@ -157,6 +159,7 @@ namespace ContentExtractor.Gui
       // toolStrip1
       // 
       this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton1,
             this.saveToolStripButton});
       this.toolStrip1.Location = new System.Drawing.Point(0, 24);
       this.toolStrip1.Name = "toolStrip1";
@@ -232,9 +235,23 @@ namespace ContentExtractor.Gui
       this.aboutToolStripMenuItem.Image = global::ContentExtractor.Gui.Properties.Resources.infoBubble;
       this.aboutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
       this.aboutToolStripMenuItem.Text = "About";
       this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+      // 
+      // toolStripButton1
+      // 
+      this.toolStripButton1.Image = global::ContentExtractor.Gui.Properties.Resources.openHS;
+      this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.toolStripButton1.Name = "toolStripButton1";
+      this.toolStripButton1.Size = new System.Drawing.Size(130, 22);
+      this.toolStripButton1.Text = "Open saved template";
+      this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+      // 
+      // openFileDialog1
+      // 
+      this.openFileDialog1.FileName = "openFileDialog1";
+      this.openFileDialog1.Filter = "Content Extractor templates|*.cet";
       // 
       // MainForm
       // 
@@ -283,5 +300,7 @@ namespace ContentExtractor.Gui
     private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+    private System.Windows.Forms.ToolStripButton toolStripButton1;
+    private System.Windows.Forms.OpenFileDialog openFileDialog1;
 	}
 }

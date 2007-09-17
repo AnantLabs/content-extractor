@@ -36,55 +36,62 @@ namespace ContentExtractor.Gui
       if (this.state == null)
       {
         this.state = state;
-        UpdateListBox();
+        SynchronizedCollection<DocPosition> positionsSynchro;
+
+        positionsSynchro = new SynchronizedCollection<DocPosition>(
+          delegate { return (IList<DocPosition>)this.state.Project.SourcePositions; });
+        this.components.Add(positionsSynchro);
+
+        bindingSource1.DataSource = positionsSynchro;
       }
       else
         throw new InvalidOperationException("Cannot set state twice");
     }
 
-    public void UpdateListBox()
-    {
-      List<object> selected = Utils.CastList<object>(this.listBox1.SelectedItems);
-      listBox1.Items.Clear();
-      foreach (Uri uri in state.Project.SourceUrls)
-      {
-        Utils.CheckNotNull(uri);
-        listBox1.Items.Add(uri);
-      }
-      foreach (object item in selected)
-        if (listBox1.Items.Contains(item))
-        {
-          listBox1.SelectedItems.Add(item);
-        }
-    }
+    //  public void UpdateListBox()
+    //  {
+    //    List<object> selected = Utils.CastList<object>(this.listBox1.SelectedItems);
+    //    listBox1.Items.Clear();
+    //    foreach (Uri uri in state.Project.SourceUrls)
+    //    {
+    //      Utils.CheckNotNull(uri);
+    //      listBox1.Items.Add(uri);
+    //    }
+    //    foreach (object item in selected)
+    //      if (listBox1.Items.Contains(item))
+    //      {
+    //        listBox1.SelectedItems.Add(item);
+    //      }
+    //  }
 
-    public void AddUri(Uri uri)
-    {
-      try
-      {
-        Utils.CheckNotNull(uri);
-        state.Project.SourceUrls.Add(uri);
-        UpdateListBox();
-      }
-      catch (Exception exc)
-      {
-        string log = exc.ToString();
-        Console.WriteLine(exc);
-      }
-    }
+    //  public void AddUri(Uri uri)
+    //  {
+    //    try
+    //    {
+    //      Utils.CheckNotNull(uri);
+    //      listBox1.Items.Add(uri);
+    //      //state.Project.SourceUrls.Add(uri);
+    //      //UpdateListBox();
+    //    }
+    //    catch (Exception exc)
+    //    {
+    //      string log = exc.ToString();
+    //      Console.WriteLine(exc);
+    //    }
+    //  }
 
-    public void SelectUri(int index)
-    {
-      if (0 <= index && index < state.Project.SourceUrls.Count)
-      {
-        state.BrowserUri = state.Project.SourceUrls[index];
-      }
-      else
-      {
-        state.BrowserUri = ScrapingProject.EmptyUri;
-      }
-      //listBox1.SelectedIndex = index;
-    }
+    //  public void SelectUri(int index)
+    //  {
+    //    if (0 <= index && index < state.Project.SourceUrls.Count)
+    //    {
+    //      state.BrowserUri = state.Project.SourceUrls[index];
+    //    }
+    //    else
+    //    {
+    //      state.BrowserUri = ScrapingProject.EmptyUri;
+    //    }
+    //    //listBox1.SelectedIndex = index;
+    //  }
 
     void ListBox1DragEnter(object sender, DragEventArgs e)
     {
@@ -107,43 +114,32 @@ namespace ContentExtractor.Gui
 
       foreach (string link in links)
       {
-        Uri uri = Utils.ParseUrl(link);
-        if (uri != null)
-          AddUri(uri);
+        DocPosition position = new DocPosition(Utils.ParseUrl(link));
+        if (position != null)
+          state.Project.SourcePositions.Add(position);
       }
-    }
-
-    void ListBox1SelectedIndexChanged(object sender, EventArgs e)
-    {
-      SelectUri(listBox1.SelectedIndex);
-    }
-
-    public void Delete(int index)
-    {
-      state.Project.SourceUrls.RemoveAt(index);
-      UpdateListBox();
     }
 
     public void Swap(int leftIndex, int rightIndex)
     {
-      Uri old_position = state.Project.SourceUrls[leftIndex];
-      state.Project.SourceUrls[leftIndex] = state.Project.SourceUrls[rightIndex];
-      state.Project.SourceUrls[rightIndex] = old_position;
-      UpdateListBox();
+      DocPosition old_position = state.Project.SourcePositions[leftIndex];
+      state.Project.SourcePositions[leftIndex] = state.Project.SourcePositions[rightIndex];
+      state.Project.SourcePositions[rightIndex] = old_position;
     }
 
     private void listBox1_KeyDown(object sender, KeyEventArgs e)
     {
-      if (e.KeyCode == Keys.Delete && Utils.IsIndexOk(listBox1.SelectedIndex, listBox1.Items))
+      if (e.KeyCode == Keys.Delete &&
+        Utils.IsIndexOk(listBox1.SelectedIndex, state.Project.SourcePositions))
       {
-        Delete(listBox1.SelectedIndex);
+        state.Project.SourcePositions.RemoveAt(listBox1.SelectedIndex);
       }
     }
 
     private void delButton_Click(object sender, EventArgs e)
     {
-      if (Utils.IsIndexOk(listBox1.SelectedIndex, listBox1.Items))
-        Delete(listBox1.SelectedIndex);
+      if (Utils.IsIndexOk(listBox1.SelectedIndex, state.Project.SourcePositions))
+        state.Project.SourcePositions.RemoveAt(listBox1.SelectedIndex);
     }
 
     private void upButton_Click(object sender, EventArgs e)
@@ -166,6 +162,12 @@ namespace ContentExtractor.Gui
         Swap(old_index, old_index + 1);
         listBox1.SelectedIndex = old_index + 1;
       }
+    }
+
+    private void bindingSource1_CurrentItemChanged(object sender, EventArgs e)
+    {
+      if (Utils.IsIndexOk(listBox1.SelectedIndex, bindingSource1))
+        state.BrowserPosition = (DocPosition)bindingSource1[listBox1.SelectedIndex];
     }
   }
 }

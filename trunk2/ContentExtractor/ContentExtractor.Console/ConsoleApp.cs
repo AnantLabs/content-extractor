@@ -24,15 +24,6 @@ Run specified template over URLs
     [STAThread]
     public static int Main(string[] args)
     {
-//      ScrapingProject p = new ScrapingProject();
-//      p.Template = new Template();
-//      p.Template.RowXPath = "/html";
-//      p.Template.Columns.Add("/body");
-//      p.Template.Columns.Add("/body/p");
-//      p.SourceUrls = new Uri[] { Utils.ParseUrl("www.yandex.ru")};
-//      XmlUtils.Serialize("template.xml", p);
-//      return 0;
-            
       if (args.Length == 0 || args.Length == 1 && args[0].ToLower() == "help")
         System.Console.WriteLine(HelpString.Trim());
       else if (args.Length == 2)
@@ -41,16 +32,17 @@ Run specified template over URLs
         if(project == null) return 1;
         
         List<XmlDocument> input = new List<XmlDocument>();
-        foreach (Uri url in project.SourceUrls)
+        foreach (DocPosition pos in project.SourcePositions)
         {
           try
           {
-            input.Add(Utils.HtmlParse(Loader.Instance.LoadContentSync(url)));
+            System.Console.WriteLine("Starting to process {0}", pos);
+            input.Add(Utils.HtmlParse(Loader.Instance.LoadContentSync(pos)));
           }
           catch(Exception exc)
           {
             System.Console.Error.Write("Can't load given document: {0}\r\n{1}",
-                                       url,
+                                       pos,
                                        exc);
             return 2;
           }

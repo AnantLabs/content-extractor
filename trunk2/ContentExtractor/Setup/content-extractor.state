@@ -4,9 +4,6 @@
     <Template>
       <RowXPath>/HTML[1]/BODY[1]/DIV[2]/DIV[1]/*[position() mod 3 = 1]</RowXPath>
       <Columns>
-        <string>A[1]/text()[1]</string>
-        <string>A[1]/@href</string>
-        <string>following::*[1]/text()</string>
       </Columns>
     </Template>
     <Url>http://code.google.com/p/content-extractor/wiki/ContentExtractorQuickstart</Url>

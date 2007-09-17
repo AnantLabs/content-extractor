@@ -121,8 +121,8 @@ namespace ContentExtractor.Gui
       if (!ColumnsAreSame())
         SetupGridColumns(dataGrid.Columns, state.Project.Template.Columns);
 
-      List<XmlDocument> documents = state.Project.SourceUrls.ConvertAll<XmlDocument>(
-          delegate(Uri u) { return state.GetXmlAsync(u); });
+      List<XmlDocument> documents = state.Project.SourcePositions.ConvertAll<XmlDocument>(
+          delegate(DocPosition u) { return state.GetXmlAsync(u); });
       resultDoc = state.Project.Template.Transform(documents);
       dataGrid.RowCount = resultDoc.DocumentElement.ChildNodes.Count;
       if (Utils.IsIndexOk(SelectedCellPoint.X, dataGrid.Columns) &&

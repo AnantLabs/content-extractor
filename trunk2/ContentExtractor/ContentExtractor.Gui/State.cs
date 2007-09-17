@@ -24,38 +24,24 @@ namespace ContentExtractor.Gui
     }
 
     [XmlIgnore]
-    public Uri BrowserUri
+    public DocPosition BrowserPosition
     {
       get
       {
-        return browserUri_;
+        return browserPos_ ?? DocPosition.Empty;
       }
       set
       {
-        if (!Uri.Equals(value, browserUri_))
+        if (!Uri.Equals(value, browserPos_))
         {
-          browserUri_ = value;
+          browserPos_ = value;
           if (BrowserUriChanged != null)
             BrowserUriChanged(this, EventArgs.Empty);
         }
       }
     }
 
-    private Uri browserUri_ = null;
-
-    #region XmlHelpers
-    public string XmlBrowserUri
-    {
-      get
-      {
-        return BrowserUri != null ? BrowserUri.AbsoluteUri : "";
-      }
-      set
-      {
-        BrowserUri = value != null ? Utils.ParseUrl(value) : null;
-      }
-    }
-    #endregion
+    private DocPosition browserPos_ = null;
 
     public ScrapingProject Project = new ScrapingProject();
 
@@ -63,32 +49,32 @@ namespace ContentExtractor.Gui
 
     public event EventHandler BrowserUriChanged;
 
-    internal XmlDocument GetXmlAsync(Uri uri)
+    internal XmlDocument GetXmlAsync(DocPosition pos)
     {
-      if (uri == null)
+      if (pos == null)
       {
         return new XmlDocument();
       }
       bool shouldGet = false;
       lock (docCache)
       {
-        shouldGet = !docCache.ContainsKey(uri);
+        shouldGet = !docCache.ContainsKey(pos);
         // The stub added
         if (shouldGet)
-          docCache[uri] = new XmlDocument();
+          docCache[pos] = new XmlDocument();
       }
       if (shouldGet)
-        Loader.Instance.LoadXmlAsync(uri,
+        Loader.Instance.LoadXmlAsync(pos,
           delegate(XmlDocument doc)
           {
             lock (docCache)
-              docCache[uri] = doc;
+              docCache[pos] = doc;
           });
       lock (docCache)
-        return docCache[uri];
+        return docCache[pos];
     }
 
-    private Dictionary<Uri, XmlDocument> docCache = new Dictionary<Uri, XmlDocument>();
+    private Dictionary<DocPosition, XmlDocument> docCache = new Dictionary<DocPosition, XmlDocument>();
 
     [XmlIgnore]
     public string SelectedNodeXPath

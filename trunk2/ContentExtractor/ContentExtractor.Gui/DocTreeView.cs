@@ -36,7 +36,7 @@ namespace ContentExtractor.Gui
 
     private void timer1_Tick(object sender, EventArgs e)
     {
-      XmlDocument freshDoc = state.GetXmlAsync(state.BrowserUri);
+      XmlDocument freshDoc = state.GetXmlAsync(state.BrowserPosition);
       if (!IsXmlEqual(cachedDocument, freshDoc))
       {
         Refresh(freshDoc);
