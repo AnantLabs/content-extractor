@@ -9,6 +9,7 @@ There is an example which wil help you to start working with Content Extrator 1.
 == Example 1 : Simple extraction ==
 
 Here is the table describing climate in Death Valley, California:
+
 ||  || Jan || Feb || Mar || Apr || May || Jun || Jul || Aug || Sep || Oct || Nov || Dec || *Year* ||
 || *Mean daily maximum temperature* || 64 °F|| 71 °F|| 80 °F|| 89 °F|| 98 °F|| 107 °F|| 114 °F|| 113 °F|| 105 °F|| 91 °F|| 75 °F|| 64 °F|| *89 °F* ||
 || *Mean daily maximum temperature* || 18 °C|| 22 °C|| 27 °C|| 32 °C|| 37 °C|| 42 °C|| 46 °C|| 45 °C|| 41 °C|| 33 °C|| 24 °C|| 18 °C|| *32 °C* ||
@@ -16,11 +17,19 @@ Here is the table describing climate in Death Valley, California:
 || *Mean daily minimum temperature* || 3 °C|| 7 °C|| 11 °C|| 16 °C|| 21 °C|| 26 °C|| 30 °C|| 29 °C|| 23 °C|| 15 °C|| 8 °C|| 3 °C|| *16 °C*||
 || *Mean monthly rainfall* || 0.3" || 0.4" || 0.3" || 0.1" || 0.1" || 0.0" || 0.1" || 0.1" || 0.2" || 0.1"|| 0.2" || 0.2" || *2.1"* ||
 || *Mean monthly rainfall* || 7.6mm || 10.2mm || 7.6mm|| 2.5mm || 2.5mm || 0.0mm || 2.5mm || 2.5mm || 5.1mm || 2.5mm || 5.1mm || 5.1mm || *53.3mm* ||
+
+
  
 === Extract data from table into xml ===
 
-# At first you need to add this page in list of working pages in Content Extractor. You can check it by looking at left-bottom panel in your Content Extractor window (it's marked as "Drag file or URL here"). If you are looking at this page in Content Extractor you already have it the list. If your looking at this page from your browser you can just drag'n'drop
-
+  # At first you need to add this page in list of working pages in Content Extractor. You can check it by looking at URLs panel (in left-bottom) in your Content Extractor window (it's marked as "Drag file or URL here"). If you are looking at this page in Content Extractor you have it the list already. If your looking at this page from your browser you can just drag'n'drop the URL from browser window or [ContentExtractorQuickstart this link] into URLs panel.
+  # Wait for several seconds until Content Extractor loads this page and shows it in the Browser panel (in right-bottom)
+  # Click on "*Mean daily maximum temperature*" cell. 
+ 
+ 
+ 
+ 
+ 
  
  
  
