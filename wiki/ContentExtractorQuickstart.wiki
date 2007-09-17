@@ -4,11 +4,9 @@
 
 Content Extractor is a desktop tool that allows you easily extract data from web-pages and save them into structured data format.
 
-There are several examples:
+There is an example which wil help you to start working with Content Extrator 1.0
 
 == Example 1 : Simple extraction ==
-
-Let's try to create a template right now. 
 
 Here is the table describing climate in Death Valley, California:
 ||  || Jan || Feb || Mar || Apr || May || Jun || Jul || Aug || Sep || Oct || Nov || Dec || *Year* ||
@@ -18,6 +16,13 @@ Here is the table describing climate in Death Valley, California:
 || *Mean daily minimum temperature* || 3 °C|| 7 °C|| 11 °C|| 16 °C|| 21 °C|| 26 °C|| 30 °C|| 29 °C|| 23 °C|| 15 °C|| 8 °C|| 3 °C|| *16 °C*||
 || *Mean monthly rainfall* || 0.3" || 0.4" || 0.3" || 0.1" || 0.1" || 0.0" || 0.1" || 0.1" || 0.2" || 0.1"|| 0.2" || 0.2" || *2.1"* ||
 || *Mean monthly rainfall* || 7.6mm || 10.2mm || 7.6mm|| 2.5mm || 2.5mm || 0.0mm || 2.5mm || 2.5mm || 5.1mm || 2.5mm || 5.1mm || 5.1mm || *53.3mm* ||
+ 
+=== Extract data from table into xml ===
+
+# At first you need to add this page in list of working pages in Content Extractor. You can check it by looking at left-bottom panel in your Content Extractor window (it's marked as "Drag file or URL here"). If you are looking at this page in Content Extractor you already have it the list. If your looking at this page from your browser you can just drag'n'drop
+
+ 
+ 
  
  
  
