@@ -24,7 +24,9 @@ Here is the table describing climate in Death Valley, California:
 
   # At first you need to add this page in list of working pages in Content Extractor. You can check it by looking at URLs panel (in left-bottom) in your Content Extractor window (it's marked as "Drag file or URL here"). If you are looking at this page in Content Extractor you have it the list already. If your looking at this page from your browser you can just drag'n'drop the URL from browser window or [ContentExtractorQuickstart this link] into URLs panel.
   # Wait for several seconds until Content Extractor loads this page and shows it in the Browser panel (in right-bottom)
-  # Click on "*Mean daily maximum temperature*" cell. When you do it you'll see it highlighted (with light-red color). 
+  # When your mouse cursor under the Browser panel you can notice that it highlights HTML elements under cursor.
+  # Click on "*Mean daily maximum temperature*" cell. When you do it Content Extractor will highlight it with light-red color. You'll also may notice that the HTML Tree panel (in the top-left corner) will be expanded and the corresponding HTML node will be selected.
+  # Expand nodes inside TD (
  
  
  
