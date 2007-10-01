@@ -22,16 +22,18 @@ Here is the table describing climate in Death Valley, California:
  
 === Extract data from table into xml ===
 
-  # At first you need to add this page in list of working pages in Content Extractor. You can check it by looking at URLs panel (in left-bottom) in your Content Extractor window (it's marked as "Drag file or URL here"). If you are looking at this page in Content Extractor you have it the list already. If your looking at this page from your browser you can just drag'n'drop the URL from browser window or [ContentExtractorQuickstart just this link] into URLs panel.
-  # Wait for several seconds until Content Extractor loads this page and shows it in the Browser panel (in right-bottom)
-  # When your mouse cursor under the _Browser panel_ you can notice that it highlights HTML elements under cursor.
+  # At first you need to add this page in list of working pages in Content Extractor. Look at _URLs panel_ (left-bottom of Content Extractor window, marked as "Drag file or URL here") and check if the URL of this page is in it. If you are looking at this page in Content Extractor you have it in this list already. If your looking at this page from your browser just drag'n'drop the URL from browser window or [ContentExtractorQuickstart just this link] into _URLs panel_.
+  # Wait for several seconds until Content Extractor loads this page and shows it in the _Browser panel_ (right-bottom of your Content Extractor window)
+  # You can notice that the _Browser panel_ highlights HTML elements under your mouse cursor.
   # Click on "*Mean daily maximum temperature*" cell in the second table row. When you do it Content Extractor will highlight it with light-red color. You'll also may notice that the _HTML Tree panel_ (in the top-left corner) will be expanded and the corresponding HTML node will be selected.
-  # Expand nodes inside TD and select "text()" inside "STRONG" node.
-  # Now press right mouse button on "text()" and in the expanded menu click on "Add node". After this you'll see that _result panel_ (top-right corner of Content Extractor) contains one cell with "Mean daily maximum" text.
+  # Expand nodes in _HTML Tree panel_ inside selected "TD" node.
+  # Select "text()" inside "STRONG" node. Press right mouse button on "text()" and choose "Add node" item in opened context menu. 
+  # After this you'll see that _result panel_ (top-right corner of Content Extractor) contains only one cell with "Mean daily maximum" text.
   # Content Extractor template consists of rule defining the rows and a set of rules defining the cell values for each column. When you add the first HTML node to the template the row rule becomes to be the path to the node added (so there is only one row) and one column is added. The rule for this column is "." (identity rule). Content Extractor needs at least two nodes to suggest sensible rules.
   # So we need to add one more cell from the same table row to the template. So click on "64 °F" cell. You'll notice that another TD node is selected in _HTML Tree panel_. Expand it, select the "text()" node inside it. Press the right mouse button on this node and select "Add node" menu item.
   # You can see that Content Extractor recognized the row pattern and now you have 7 rows and 2 columns in your _result panel_. Now we need to add other columns (from Feb to *Year*) into our template.
   # So you just click on "71 °F" cell, select "text()" subnode in _HTML Tree panel_ and add it to the template.
+  # Repeat this steps for the rest of columns. If you need you can reorder columns by dragging its headers. You can also delete columns. Just select one of them (press on any cell inside the column) and click "Delete column" button in _result panel_
  
  
  
