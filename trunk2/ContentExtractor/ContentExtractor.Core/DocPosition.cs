@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ContentExtractor.Core
 {
-  public class DocPosition : System.Xml.Serialization.IXmlSerializable
+  public sealed class DocPosition : System.Xml.Serialization.IXmlSerializable
   {
     public DocPosition()
     {
@@ -14,9 +14,10 @@ namespace ContentExtractor.Core
     {
       this.Url = url;
     }
-    public DocPosition(string url_string)
+
+    public DocPosition(string url)
+      : this(new Uri(url))
     {
-      this.Url = new Uri(url_string);
     }
 
     public override string ToString()
@@ -26,7 +27,10 @@ namespace ContentExtractor.Core
 
     public Uri Url;
 
-    public static readonly DocPosition Empty = new DocPosition("about:blank");
+    public static DocPosition Empty
+    {
+      get { return new DocPosition(new Uri("about:blank")); }
+    }
 
     public override bool Equals(object obj)
     {
@@ -36,6 +40,11 @@ namespace ContentExtractor.Core
         return object.Equals(other.Url, this.Url);
       }
       return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return Url.GetHashCode();
     }
 
 

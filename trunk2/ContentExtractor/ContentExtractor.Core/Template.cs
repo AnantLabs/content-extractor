@@ -23,21 +23,21 @@ namespace ContentExtractor.Core
     {
     }
 
-    public const string CEXNamespace = "http://contentextractor.com/documentschema";
-    public const string CEXPrefix = "cex";
+    public const string CexNamespace = "http://contentextractor.com/documentschema";
+    public const string CexPrefix = "cex";
 
     public const string DocumentTag = "Document";
     public const string RowTag = "Row";
     public const string CellTag = "Cell";
 
     [XmlElement("RowXPath")]
-    public string _rowXPath = ".";
+    public string rowXPath_ = ".";
 
     [XmlIgnore]
     public string RowXPath
     {
-      get { return XPathInfo.GetPathWithoutBracets(_rowXPath); }
-      set { _rowXPath = value; }
+      get { return XPathInfo.GetPathWithoutBracets(rowXPath_); }
+      set { rowXPath_ = value; }
     }
 
     [XmlArray("Columns")]
@@ -73,15 +73,15 @@ namespace ContentExtractor.Core
       {
         foreach (XmlNode inRow in input.SelectNodes(RowXPath))
         {
-          XmlElement outRow = outDoc.OwnerDocument.CreateElement(CEXPrefix,
+          XmlElement outRow = outDoc.OwnerDocument.CreateElement(CexPrefix,
                                                                  RowTag,
-                                                                 CEXNamespace);
+                                                                 CexNamespace);
           outDoc.AppendChild(outRow);
           foreach (string cellXPath in Columns)
           {
-            XmlElement outCell = outDoc.OwnerDocument.CreateElement(CEXPrefix,
+            XmlElement outCell = outDoc.OwnerDocument.CreateElement(CexPrefix,
                                                                     CellTag,
-                                                                    CEXNamespace);
+                                                                    CexNamespace);
             outRow.AppendChild(outCell);
             foreach (XmlNode subNode in inRow.SelectNodes(cellXPath))
             {
@@ -99,7 +99,7 @@ namespace ContentExtractor.Core
     private static XmlDocument GetResultBillet()
     {
       XmlDocument result = new XmlDocument();
-      result.AppendChild(result.CreateElement(CEXPrefix, DocumentTag, CEXNamespace));
+      result.AppendChild(result.CreateElement(CexPrefix, DocumentTag, CexNamespace));
       return result;
     }
 
@@ -114,14 +114,14 @@ namespace ContentExtractor.Core
       string rowPath = xpath;
       for (int i = 0; i < Columns.Count; i++)
       {
-        string absPath = XPathInfo.CombineXPaths(_rowXPath, Columns[i]);
+        string absPath = XPathInfo.CombineXPaths(rowXPath_, Columns[i]);
         rowPath = XPathInfo.GetXPathsCommonPart(rowPath, absPath);
       }
 
       for (int i = 0; i < Columns.Count; i++)
-        Columns[i] = XPathInfo.GetRelativeXPath(XPathInfo.CombineXPaths(_rowXPath, Columns[i]), rowPath);
+        Columns[i] = XPathInfo.GetRelativeXPath(XPathInfo.CombineXPaths(rowXPath_, Columns[i]), rowPath);
 
-      _rowXPath = rowPath;
+      rowXPath_ = rowPath;
       Columns.Add(XPathInfo.GetRelativeXPath(xpath, rowPath));
       return true;
     }
@@ -146,14 +146,14 @@ namespace ContentExtractor.Core
 
     public bool CheckColumnXPath(string xpath)
     {
-      return !xpath.Trim().StartsWith("/") && CheckRowXPath(xpath);
+      return xpath != null && !xpath.Trim().StartsWith("/") && CheckRowXPath(xpath);
     }
 
     public bool CanAutoModifyTemplate
     {
       get
       {
-        bool result = XPathInfo.Parse(_rowXPath).IsParsedRight;
+        bool result = XPathInfo.Parse(rowXPath_).IsParsedRight;
         if (result)
           foreach (string column_xpath in Columns)
             result &= XPathInfo.Parse(column_xpath).IsParsedRight;

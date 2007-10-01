@@ -23,7 +23,7 @@ namespace ContentExtractor.Core
   [ComImport(), Guid("34A715A0-6587-11D0-924A-0020AFC7AC4D"),
     InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIDispatch),
     TypeLibType(TypeLibTypeFlags.FHidden)]
-  public interface DWebBrowserEvents2
+  public interface IDWebBrowserEvents2
   {
     [DispId(250)]
     void BeforeNavigate2([In, MarshalAs(UnmanagedType.IDispatch)] object pDisp, [In] ref object URL,
@@ -52,7 +52,7 @@ namespace ContentExtractor.Core
       //MAKE SURE TO CALL THE BASE or the normal events won't fire
       base.CreateSink();
       events = new WebBrowserExtendedEvents(this);
-      cookie = new AxHost.ConnectionPointCookie(this.ActiveXInstance, events, typeof(DWebBrowserEvents2));
+      cookie = new AxHost.ConnectionPointCookie(this.ActiveXInstance, events, typeof(IDWebBrowserEvents2));
     }
 
     protected override void DetachSink()
@@ -91,7 +91,7 @@ namespace ContentExtractor.Core
     }
 
     //This class will capture events from the WebBrowser
-    class WebBrowserExtendedEvents : StandardOleMarshalObject, DWebBrowserEvents2
+    class WebBrowserExtendedEvents : StandardOleMarshalObject, IDWebBrowserEvents2
     {
       ExtendedWebBrowser _Browser;
       public WebBrowserExtendedEvents(ExtendedWebBrowser browser) { _Browser = browser; }

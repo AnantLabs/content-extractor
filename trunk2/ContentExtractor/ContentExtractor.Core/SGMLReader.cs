@@ -325,7 +325,7 @@ namespace Sgml
     WhitespaceHandling whitespaceHandling;
     CaseFolding folding = CaseFolding.None;
     bool stripDocType = true;
-    string startTag;
+    //string startTag;
 
     public SgmlReader()
     {
@@ -1234,7 +1234,7 @@ namespace Sgml
       {
         return ParseStartTag(ch);
       }
-      return true;
+      //return true;
     }
 
     string ScanName(string terminators)
@@ -1271,7 +1271,7 @@ namespace Sgml
       }
       else
       {
-        name = this.startTag;
+        name = null;  // this.startTag;
         state = State.Markup;
       }
       Node n = Push(name, XmlNodeType.Element, null);

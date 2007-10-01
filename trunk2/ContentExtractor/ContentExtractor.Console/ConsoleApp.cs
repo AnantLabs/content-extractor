@@ -37,7 +37,7 @@ Run specified template over URLs
           try
           {
             System.Console.WriteLine("Starting to process {0}", pos);
-            input.Add(Utils.HtmlParse(Loader.Instance.LoadContentSync(pos)));
+            input.Add(Utils.HtmlParse(Loader.LoadContentSync(pos)));
           }
           catch(Exception exc)
           {

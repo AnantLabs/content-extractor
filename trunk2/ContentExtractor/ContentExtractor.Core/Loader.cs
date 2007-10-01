@@ -33,7 +33,7 @@ namespace ContentExtractor.Core
     {
     }
     
-    public string LoadContentSync(DocPosition pos)
+    public static string LoadContentSync(DocPosition pos)
     {
       try
       {
@@ -91,19 +91,21 @@ namespace ContentExtractor.Core
 
 
     
-    private string ReadResponse(WebResponse response)
+    private static string ReadResponse(WebResponse response)
     {
       string documentText = string.Empty;
       Encoding encoding = Encoding.Default;
-      if (response is HttpWebResponse)
+      HttpWebResponse httpResponse = response as HttpWebResponse;
+      if (httpResponse != null)
       {
         try
         {
-          encoding = Encoding.GetEncoding(((HttpWebResponse)response).CharacterSet);
+          encoding = Encoding.GetEncoding(httpResponse.CharacterSet);
         }
-        catch(Exception exc)
+        catch(ArgumentException exc)
         {
           // TODO: Need to log into INFO
+          Console.WriteLine(exc);
         }
       }
 

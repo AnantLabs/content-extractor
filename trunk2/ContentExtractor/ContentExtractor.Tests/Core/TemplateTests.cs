@@ -30,13 +30,13 @@ namespace ContentExtractorTests.Core
     {
       StringBuilder result = new StringBuilder();
       result.AppendFormat("<{0}:{1} xmlns:{0}='{2}'>",
-                          Template.CEXPrefix,
+                          Template.CexPrefix,
                           Template.DocumentTag,
-                          Template.CEXNamespace);
+                          Template.CexNamespace);
       foreach (string row in rows)
         result.Append(row);
       result.AppendFormat("</{0}:{1}>",
-                          Template.CEXPrefix,
+                          Template.CexPrefix,
                           Template.DocumentTag);
       return result.ToString();
     }
@@ -44,14 +44,14 @@ namespace ContentExtractorTests.Core
     private string Row(params string[] cells)
     {
       StringBuilder result = new StringBuilder();
-      result.AppendFormat("<{0}:{1}>", Template.CEXPrefix, Template.RowTag);
+      result.AppendFormat("<{0}:{1}>", Template.CexPrefix, Template.RowTag);
       foreach (string cell in cells)
       {
-        result.AppendFormat("<{0}:{1}>", Template.CEXPrefix, Template.CellTag);
+        result.AppendFormat("<{0}:{1}>", Template.CexPrefix, Template.CellTag);
         result.Append(cell);
-        result.AppendFormat("</{0}:{1}>", Template.CEXPrefix, Template.CellTag);
+        result.AppendFormat("</{0}:{1}>", Template.CexPrefix, Template.CellTag);
       }
-      result.AppendFormat("</{0}:{1}>", Template.CEXPrefix, Template.RowTag);
+      result.AppendFormat("</{0}:{1}>", Template.CexPrefix, Template.RowTag);
       return result.ToString();
     }
 

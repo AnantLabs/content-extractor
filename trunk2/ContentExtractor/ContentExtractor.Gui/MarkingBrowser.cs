@@ -93,8 +93,8 @@ namespace ContentExtractor.Gui
     {
       doc.Click -= doc_Click;
       doc.MouseMove -= doc_MouseMove;
-      currentHighlighter = null;
-      selectedHighlighter = null;
+      //currentHighlighter = null;
+      //selectedHighlighter = null;
     }
 
     void doc_Click(object sender, HtmlElementEventArgs e)
