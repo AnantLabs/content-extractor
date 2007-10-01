@@ -1,5 +1,4 @@
-= The page is under construction =
-
+#labels Featured
 = Content Extractor Quickstart=
 
 Content Extractor is a desktop tool that allows you easily extract data from web-pages and save them into structured data format.
@@ -33,7 +32,7 @@ Here is the table describing climate in Death Valley, California:
   # So we need to add one more cell from the same table row to the template. So click on "64 °F" cell. You'll notice that another TD node is selected in _HTML Tree panel_. Expand it, select the "text()" node inside it. Press the right mouse button on this node and select "Add node" menu item.
   # You can see that Content Extractor recognized the row pattern and now you have 7 rows and 2 columns in your _result panel_. Now we need to add other columns (from Feb to *Year*) into our template.
   # So you just click on "71 °F" cell, select "text()" subnode in _HTML Tree panel_ and add it to the template.
-  # Repeat this steps for the rest of columns. If you need you can reorder columns by dragging its headers. You can also delete columns. Just select one of them (press on any cell inside the column) and click "Delete column" button in _result panel_
+  # Repeat this steps for the rest of columns. If you need you can reorder columns by dragging its headers. You can also delete columns. Just select one of them (press on any cell inside the column) and click "Delete column" button in _result panel_.
  
  
  
