@@ -34,7 +34,12 @@ Here is the table describing climate in Death Valley, California:
   # So you just click on "71 °F" cell, select "text()" subnode in _HTML Tree panel_ and add it to the template.
   # Repeat this steps for the rest of columns. If you need you can reorder columns by dragging its headers. You can also delete columns. Just select one of them (press on any cell inside the column) and click "Delete column" button in _result panel_.
  
- 
+==Example 2: Google results parsing==
+Starting from version 1.0b.2847 Content Extractor is shipped with example files. One of them contains template to extract google search results. You can open this template in Content Extractor Gui and have a look at it.
+
+You also can use ContentExtractor.Console to apply template to any query you want. Open "Content Extractor Command Prompt" from "Content Extractor" folder in your "All programs" menu. Then execute the following command:
+
+> ContentExtractor.Console.exe Examples\google.cet output.xml http://www.google.com/search?q=foo+bar
  
  
  
