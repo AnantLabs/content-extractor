@@ -13,7 +13,7 @@
   * *Urls list panel* now selects correctly when user deletes selected urls.
   * Content Extractor after installation starts with [ContentExtractorQuickstart] page.
   * _Google.cet_ and _most-popular-of-download.com_ examples were added.
-  * Gui and Console now log to files. Look at *.log files in your Content Extractor directory (thanks to [http://logging.apache.org/log4net/ log4net]).
+  * Gui and Console now log to files. Look at .log files in your Content Extractor directory (thanks to [http://logging.apache.org/log4net/ log4net]).
   * Content Extractor now doesn't crash if it cannot load and parse a document.
   
 ==Previous versions==
