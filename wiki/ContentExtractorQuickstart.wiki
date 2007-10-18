@@ -37,9 +37,9 @@ Here is the table describing climate in Death Valley, California:
 ==Example 2: Google results parsing==
 Starting from version 1.0b.2847 Content Extractor is shipped with example files. One of them contains template to extract google search results. You can open this template in Content Extractor Gui and have a look at it.
 
-You also can use ContentExtractor.Console to apply template to any query you want. Open "Content Extractor Command Prompt" from "Content Extractor" folder in your "All programs" menu. Then execute the following command:
+You also can use ContentExtractor Console application to apply template to any query you want. Open "Content Extractor Command Prompt" from "Content Extractor" folder in your "All programs" menu. Then execute the following command: 
 
-> ContentExtractor.Console.exe Examples\google.cet output.xml http://www.google.com/search?q=foo+bar
+`ContentExtractor.Console.exe Examples\google.cet output.xml http://www.google.com/search?q=foo+bar`
  
  
  
