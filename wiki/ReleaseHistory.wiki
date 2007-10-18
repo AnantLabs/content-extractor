@@ -1,0 +1,20 @@
+#labels Featured
+=Release History=
+
+==Version 1.0b.2847 ([http://content-extractor.googlecode.com/files/ContentExtractor_1.0b.2847.msi Download])==
+
+  * Console application now can be provided with list of urls or file masks ([http://code.google.com/p/content-extractor/issues/detail?id=16 Issue 16]).
+  * *Browser panel* highlighting now works more stable and reliable.
+  * Reload button was added to *Browser panel*.
+  * *Document tree view* shows selected node XPath in its status bar.
+  * *Document tree view* panel tells if it's loading documents ([http://code.google.com/p/content-extractor/issues/detail?id=9 Issue 9]).
+  * *Document tree view* hints content of _text()_ and _@attributes_ nodes.
+  * Fixed column XPath checking in *Results View panel*.
+  * *Urls list panel* now selects correctly when user deletes selected urls.
+  * Content Extractor after installation starts with [ContentExtractorQuickstart] page.
+  * _Google.cet_ and _most-popular-of-download.com_ examples were added.
+  * Gui and Console now log to files. Look at *.log files in your Content Extractor directory (thanks to [http://logging.apache.org/log4net/ log4net]).
+  * Content Extractor now doesn't crash if it cannot load and parse a document.
+  
+==Previous versions==
+Sorry, but there is no history for previous versions.
