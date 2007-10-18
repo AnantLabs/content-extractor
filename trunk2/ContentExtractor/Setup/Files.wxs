@@ -13,10 +13,18 @@
                <Shortcut Id="GuiShortcut" Directory="ProgramMenuDir" Name="CntntExt" LongName="Content Extractor" />
             </File>
             <File Source="..\ContentExtractor.Gui\bin\Release\ContentExtractor.Core.dll" Name="CONTEN_1.DLL" Id="ContentExtractor.Core.dll" LongName="ContentExtractor.Core.dll" />
+            <File Source="..\ContentExtractor.Gui\bin\Release\log4net.dll" Name="log4net.dll" 
+                  Id="log4net" />
             <File Id="LicenseFile" Name="LICENSE.rtf" Source="license.rtf" />
             <File Id="NoticeFile" Name="NOTICE.txt" Source="NOTICE.txt" />
             <File Id="State" Name="cextstat.sta" 
                   LongName="content-extractor.state" Source="content-extractor.state" />
+            <File Id="GuiConfig" Name="guiconf.con" 
+                  LongName="ContentExtractor.Gui.exe.config" Source="ContentExtractor.Gui.exe.config" />
+            <File Id="ConsoleConfig" Name="conconf.con" 
+                  LongName="ContentExtractor.Console.exe.config" Source="ContentExtractor.Console.exe.config" />
+            <RemoveFile Id="logFile" Name="contextr.log" LongName="ContentExtractor.log" On="uninstall" />
+            <RemoveFile Id="logConsoleFile" Name="extrcons.log" LongName="ContentExtractor.Console.log" On="uninstall" />
             <Shortcut Name="Cmd_line" LongName="Content Extractor Command Prompt"
                       Id="CommandLine" Directory="ProgramMenuDir" 
                       Target="[System64Folder]cmd.exe" WorkingDirectory="INSTALLDIR" />
@@ -30,6 +38,13 @@
           <Component Guid="67605F7B-B785-4788-ADFE-161EB891831C" Id="Console" DiskId="1">
             <File Source="..\ContentExtractor.Console\bin\Release\ContentExtractor.Console.exe" Name="CONTEN_2.EXE" Id="ContentExtractor.Console.exe" LongName="ContentExtractor.Console.exe" />
           </Component>
+          <Directory Id="ExamplesDir" Name="Examples">
+            <Component Id="Examples" Guid="12AB4D08-5932-43d5-A70D-42DE8B0BBFF9" DiskId="1">
+              <File Source="google.cet" Name="google.cet" Id="GoogleCet"/>
+              <File Source="most-popular-of-download.com.cet" Name="download.cet"
+                    LongName="most-popular-of-download.com.cet" Id="DownloadCet" />
+            </Component>
+          </Directory>
         </Directory>
       </Directory>
     </DirectoryRef>

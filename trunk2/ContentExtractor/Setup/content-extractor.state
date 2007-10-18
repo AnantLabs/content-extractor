@@ -2,9 +2,8 @@
 <State xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Project>
     <Template>
-      <RowXPath>/HTML[1]/BODY[1]/DIV[2]/DIV[1]/*[position() mod 3 = 1]</RowXPath>
-      <Columns>
-      </Columns>
+      <RowXPath>.</RowXPath>
+      <Columns />
     </Template>
     <Url>http://code.google.com/p/content-extractor/wiki/ContentExtractorQuickstart</Url>
   </Project>

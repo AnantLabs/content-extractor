@@ -41,14 +41,14 @@ namespace ContentExtractor.Core
     }
 
     [XmlArray("Columns")]
-    public string[] XmlColumns
+    public Column[] XmlColumns
     {
       get { return Columns.ToArray(); }
-      set { Columns = new List<string>(value); }
+      set { Columns = new List<Column>(value); }
     }
 
     [XmlIgnore]
-    public List<string> Columns = new List<string>();
+    public List<Column> Columns = new List<Column>();
 
     public XmlDocument Transform(XmlNode input)
     {
@@ -77,13 +77,13 @@ namespace ContentExtractor.Core
                                                                  RowTag,
                                                                  CexNamespace);
           outDoc.AppendChild(outRow);
-          foreach (string cellXPath in Columns)
+          foreach (Column column in Columns)
           {
             XmlElement outCell = outDoc.OwnerDocument.CreateElement(CexPrefix,
                                                                     CellTag,
                                                                     CexNamespace);
             outRow.AppendChild(outCell);
-            foreach (XmlNode subNode in inRow.SelectNodes(cellXPath))
+            foreach (XmlNode subNode in inRow.SelectNodes(column.XPath))
             {
               if (subNode.NodeType != XmlNodeType.Attribute)
                 outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
@@ -114,28 +114,33 @@ namespace ContentExtractor.Core
       string rowPath = xpath;
       for (int i = 0; i < Columns.Count; i++)
       {
-        string absPath = XPathInfo.CombineXPaths(rowXPath_, Columns[i]);
+        string absPath = XPathInfo.CombineXPaths(rowXPath_, Columns[i].XPath);
         rowPath = XPathInfo.GetXPathsCommonPart(rowPath, absPath);
       }
 
       for (int i = 0; i < Columns.Count; i++)
-        Columns[i] = XPathInfo.GetRelativeXPath(XPathInfo.CombineXPaths(rowXPath_, Columns[i]), rowPath);
+      {
+        Columns[i].XPath = 
+            XPathInfo.GetRelativeXPath(XPathInfo.CombineXPaths(rowXPath_, Columns[i].XPath), rowPath);
+      }
 
       rowXPath_ = rowPath;
-      Columns.Add(XPathInfo.GetRelativeXPath(xpath, rowPath));
+      Columns.Add(new Column(XPathInfo.GetRelativeXPath(xpath, rowPath)));
       return true;
     }
 
     public void AddEmptyColumn()
     {
-      Columns.Add(".");
+      Columns.Add( new Column());
     }
 
     public bool CheckRowXPath(string xpath)
     {
       try
       {
-        System.Xml.XPath.XPathExpression.Compile(xpath);
+        XmlDocument doc = XmlUtils.LoadXml("<doc><node>text</node></doc>");
+        doc.SelectNodes(xpath);
+        //System.Xml.XPath.XPathExpression.Compile(xpath);
         return true;
       }
       catch (System.Xml.XPath.XPathException)
@@ -155,10 +160,24 @@ namespace ContentExtractor.Core
       {
         bool result = XPathInfo.Parse(rowXPath_).IsParsedRight;
         if (result)
-          foreach (string column_xpath in Columns)
-            result &= XPathInfo.Parse(column_xpath).IsParsedRight;
+          foreach (Column column in Columns)
+            result &= XPathInfo.Parse(column.XPath).IsParsedRight;
         return result;
       }
     }
+  }
+
+  public class Column
+  {
+    public string XPath;
+
+    public Column(string xpath)
+    {
+      this.XPath = xpath;
+    }
+
+    public Column()
+      : this(".")
+    { }
   }
 }

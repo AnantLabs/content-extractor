@@ -11,63 +11,80 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ContentExtractor.Core;
+using System.Collections.Generic;
+using log4net;
 
 namespace ContentExtractor.Gui
 {
   public partial class MarkingBrowser : UserControl
   {
-    // HACK: Need to make Sharp Develop designer work properly
     public MarkingBrowser()
     {
-      //
       // The InitializeComponent() call is required for Windows Forms designer support.
-      //
       InitializeComponent();
     }
 
-    internal void SetState(State state)
+    public void SetState(State state)
     {
       if (this.state == null)
       {
         this.state = state;
-        state.SelectedNodeChanged += new EventHandler(SelectedNodeChanged);
 
-        SynchronizedObject<Uri> uriSynchro = new SynchronizedObject<Uri>(
-          delegate { return new Uri(state.BrowserPosition.Url.AbsoluteUri); }, null);
-        this.components.Add(uriSynchro);
+        highlighter = new BrowserHighlighter(Browser);
+        highlighter.AddHighlighter(
+          delegate
+          {
+            if (Browser.Document != null && state != null && state.SelectedNodeXPath != null)
+              return Utils.SelectHtmlElement(Browser.Document, state.SelectedNodeXPath);
+            return null;
+          },
+          "BACKGROUND-COLOR: #FFAAAA");
+        Getter<HtmlElement> currentGetter =
+            delegate
+            {
+              if (Browser.Document != null)
+              {
+                Point p = Browser.PointToClient(Control.MousePosition);
+                if (Browser.ClientRectangle.Contains(p))
+                {
+                  HtmlElement element = Browser.Document.GetElementFromPoint(p);
+                  return element;
+                }
+              }
+              return null;
+            };
+        highlighter.AddHighlighter(currentGetter, "BACKGROUND-COLOR: #CCFF99");
 
-        Browser.DataBindings.Add("Url", uriSynchro, "Value");
+        this.components.Add(highlighter);
       }
       else
       {
-        throw new InvalidOperationException("Cannot assign state twice");
+        Logger.Warn("Cannot assign state twice");
       }
     }
 
-    public MarkingBrowser(State state)
-    {
-      InitializeComponent();
-      SetState(state);
-    }
-
     private State state;
+    private BrowserHighlighter highlighter;
+
+    public void ForceSynchronize()
+    {
+      ForceBrowserPosition();
+    }
 
     public ExtendedWebBrowser Browser
     {
       get { return webBrowser1; }
     }
 
-    private void BrowserUriChanged(object sender, EventArgs e)
-    {
-      if (state.BrowserPosition != null)
-        Browser.Navigate(state.BrowserPosition.Url.AbsoluteUri);
-      else
-        Browser.Navigate(DocPosition.Empty.Url);
-    }
-
     private void webBrowser1_BeforeNavigate(object sender, ExtendedNavigatingEventArgs e)
     {
-      e.Cancel = !Uri.Equals(Utils.ParseUrl(e.Url), state.BrowserPosition.Url);
+      Uri eventUri = new Uri(e.Url);
+      e.Cancel = !Uri.Equals(eventUri.AbsoluteUri, state.BrowserPosition.Url.AbsoluteUri) ||
+        (Browser.Url != null && Uri.Equals(Browser.Url.AbsoluteUri, eventUri.AbsoluteUri));
+      if (e.Cancel)
+        Logger.DebugFormat("Browser navigation to '{0}' canceled", e.Url);
+      else
+        Logger.InfoFormat("Browser is navigating to {0}", e.Url);
       if (!e.Cancel && Browser.Document != null)
         DeInitDocument(Browser.Document);
     }
@@ -79,22 +96,19 @@ namespace ContentExtractor.Gui
 
     private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
     {
-      InitDocument(Browser.Document);
+      Logger.DebugFormat("Navigation to {0} completed", e.Url.AbsoluteUri);
+      //InitDocument(Browser.Document);
     }
 
     private void InitDocument(HtmlDocument doc)
     {
       doc.Click += doc_Click;
-      doc.MouseMove += doc_MouseMove;
-      currentHighlighter = new BrowserHighlighter("BACKGROUND-COLOR: #CCFF99");
-      selectedHighlighter = new BrowserHighlighter("BACKGROUND-COLOR: #FFAAAA");
+      Logger.DebugFormat("Document {0} inited", doc.Url.AbsoluteUri);
     }
     private void DeInitDocument(HtmlDocument doc)
     {
       doc.Click -= doc_Click;
-      doc.MouseMove -= doc_MouseMove;
-      //currentHighlighter = null;
-      //selectedHighlighter = null;
+      Logger.DebugFormat("Document {0} deinited", doc.Url.AbsoluteUri);
     }
 
     void doc_Click(object sender, HtmlElementEventArgs e)
@@ -102,32 +116,10 @@ namespace ContentExtractor.Gui
       e.BubbleEvent = false;
       HtmlElement element = Browser.Document.GetElementFromPoint(e.ClientMousePosition);
       state.SelectedNodeXPath = Utils.HtmlElementXPath(element);
+      Logger.DebugFormat("Clicked on '{0}'", state.SelectedNodeXPath);
     }
 
-    void doc_MouseMove(object sender, HtmlElementEventArgs e)
-    {
-      e.BubbleEvent = false;
-      if (e.MouseButtonsPressed == MouseButtons.None)
-      {
-        HtmlElement element = Browser.Document.GetElementFromPoint(e.ClientMousePosition);
-        currentHighlighter.Highlight(element);
-      }
-    }
-
-    void SelectedNodeChanged(object sender, EventArgs e)
-    {
-      HtmlElement element = Utils.SelectHtmlElement(Browser.Document, state.SelectedNodeXPath);
-      selectedHighlighter.Highlight(element);
-    }
-
-    private BrowserHighlighter currentHighlighter;
-    private BrowserHighlighter selectedHighlighter;
-
-    private void timer1_Tick(object sender, EventArgs e)
-    {
-      if (selectedHighlighter != null)
-        selectedHighlighter.Force();
-    }
+    private static ILog Logger = LogManager.GetLogger(typeof(MarkingBrowser)); //Logger.Instance; 
 
     private void toolStripButton1_Click(object sender, EventArgs e)
     {
@@ -138,45 +130,157 @@ namespace ContentExtractor.Gui
             Properties.Resources.NotAbleToAddSpecificColumnWarningCaption,
             MessageBoxButtons.OK);
     }
+
+    public bool IsBusy
+    {
+      get
+      {
+        return Browser.ReadyState == WebBrowserReadyState.Loading;
+        //!(Browser.ReadyState == WebBrowserReadyState.Complete || 
+        //Browser.ReadyState == WebBrowserReadyState.Uninitialized);
+      }
+    }
+
+    private Uri lastLoadedUri = null;
+
+    private void timer1_Tick(object sender, EventArgs e)
+    {
+      if (!IsBusy && lastLoadedUri != Browser.Url)
+      {
+        lastLoadedUri = Browser.Url;
+        if (Browser.Document != null)
+        {
+          InitDocument(Browser.Document);
+        }
+      }
+
+      toolStripButton1.Enabled = !string.IsNullOrEmpty(state.SelectedNodeXPath);
+
+      //bool isBusy = IsBusy;
+      //if (isBusy != _IsBusyCached_timer1_Tick_)
+      //{
+      //  if (!isBusy && Browser.Document != null)
+      //    InitDocument(Browser.Document);
+      //  _IsBusyCached_timer1_Tick_ = isBusy;
+      //}
+      ForceBrowserPosition();
+    }
+
+    private void ForceBrowserPosition()
+    {
+      if (Browser != null && Browser.ReadyState != WebBrowserReadyState.Loading &&
+          (Browser.Url == null || 
+            Browser.Url.AbsoluteUri != state.BrowserPosition.Url.AbsoluteUri))
+      {
+        Browser.Navigate(state.BrowserPosition.Url.AbsoluteUri);
+      }
+    }
+
+    private void toolStripButton2_Click(object sender, EventArgs e)
+    {
+      if (Browser != null)
+      {
+        Browser.Refresh();
+        lastLoadedUri = null; //HACK - to refresh highlighter.
+      }
+    }
   }
 
-  internal class BrowserHighlighter
+  internal class BrowserHighlighter : Component
   {
-    public BrowserHighlighter(string style)
+    public BrowserHighlighter(WebBrowser browser)
     {
-      Utils.CheckNotNull(style);
-      this.style = style;
-    }
-    private string style;
+      Utils.CheckNotNull(browser);
+      this.browser = browser;
 
-    public void Highlight(HtmlElement element)
+      this.timer = new Timer();
+      this.timer.Interval = 250;
+      this.timer.Tick += new EventHandler(timer_Tick);
+      this.timer.Enabled = true;
+    }
+
+    /// <summary>
+    /// The first highlighter pair is considered as the most strong, so 
+    /// if first highlighter says to highlight element other highlighters
+    /// won't highlight it.
+    /// </summary>
+    public void AddHighlighter(Getter<HtmlElement> selector, string style)
     {
-      if (highlightedElement != element)
+      Utils.CheckNotNull(selector);
+      Utils.CheckNotNull(style);
+      highlighters.Add(new HighlightData(selector, style));
+    }
+
+    private class HighlightData
+    {
+      public HighlightData(Getter<HtmlElement> selector, string style)
       {
-        if (highlightedElement != null)
-          highlightedElement.Style = highlightedElementStyle;
-        if (element != null)
+        this.selector = selector;
+        this.style = style;
+        this.lastElement = null;
+        this.lastElementStyle = null;
+      }
+
+      public Getter<HtmlElement> selector;
+      public string style;
+      public HtmlElement lastElement;
+      public string lastElementStyle;
+    }
+
+    private WebBrowser browser;
+    private List<HighlightData> highlighters = new List<HighlightData>();
+    private Timer timer;
+    private Dictionary<HtmlElement, string> original_styles = new Dictionary<HtmlElement, string>();
+
+    private static bool ElementShouldBeCleaned(HtmlElement elem, List<HtmlElement> fresh_elems, int index)
+    {
+      Predicate<HtmlElement> is_overriden = delegate(HtmlElement e) { return elem == e; };
+      return elem != null &&
+        (elem != fresh_elems[index] || (index > 0 && fresh_elems.FindIndex(0, index - 1, is_overriden) >= 0));
+    }
+
+    void timer_Tick(object sender, EventArgs e)
+    {
+      if (browser.Document != null && browser.ReadyState != WebBrowserReadyState.Loading)
+      {
+        List<HtmlElement> fresh_elements = new List<HtmlElement>();
+        List<HtmlElement> old_elements = new List<HtmlElement>();
+        foreach (HighlightData data in highlighters)
         {
-          highlightedElementStyle = element.Style;
-          highlightedElement = element;
-          highlightedElement.Style += ";" + style;
+          HtmlElement fresh = data.selector();
+          if (!fresh_elements.Contains(fresh))
+            fresh_elements.Add(data.selector());
+          else
+            fresh_elements.Add(null);
+          old_elements.Add(data.lastElement);
         }
-        else
+        for (int i = 0; i < highlighters.Count; i++)
         {
-          highlightedElement = null;
-          highlightedElementStyle = null;
+          if (ElementShouldBeCleaned(old_elements[i], fresh_elements, i))
+            old_elements[i].Style = highlighters[i].lastElementStyle;
+        }
+        for (int i = 0; i < highlighters.Count; i++)
+        {
+          if (fresh_elements[i] != old_elements[i])
+          {
+            if (fresh_elements[i] != null)
+            {
+              highlighters[i].lastElementStyle = fresh_elements[i].Style;
+              fresh_elements[i].Style = fresh_elements[i].Style + ";" + highlighters[i].style;
+            }
+            highlighters[i].lastElement = fresh_elements[i];
+          }
         }
       }
     }
-    public void Force()
+
+    protected override void Dispose(bool disposing)
     {
-      if (highlightedElement != null &&
-        highlightedElement.Style != highlightedElementStyle + ";" + style)
+      if (disposing)
       {
-        highlightedElement.Style = highlightedElementStyle + ";" + style;
+        timer.Dispose();
       }
+      base.Dispose(disposing);
     }
-    private HtmlElement highlightedElement = null;
-    private string highlightedElementStyle = null;
   }
 }

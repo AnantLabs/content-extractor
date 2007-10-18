@@ -59,7 +59,7 @@ namespace ContentExtractorTests.Core
     public void SimplestTemplate()
     {
       template.RowXPath = "/html/body/p";
-      template.Columns.Add("text()");
+      template.Columns.Add(new Column("text()"));
 
       XmlDocument input =
         XmlUtils.LoadXml("<html><body><p> #1 </p><p>#2</p></body></html>");
@@ -85,8 +85,8 @@ namespace ContentExtractorTests.Core
                          "</A>"));
 
       template.RowXPath = "/A/B";
-      template.Columns.Add("Col1/text()");
-      template.Columns.Add("Col2/text()");
+      template.Columns.Add(new Column("Col1/text()"));
+      template.Columns.Add(new Column("Col2/text()"));
 
       XmlDocument result = template.Transform(input);
       TestUtils.AssertXmlAreEqual(
@@ -103,7 +103,7 @@ namespace ContentExtractorTests.Core
     {
       XmlDocument input = XmlUtils.LoadXml("<A><B>text<tag>other</tag></B></A>");
       template.RowXPath = "/A/B";
-      template.Columns.Add("*|text()");
+      template.Columns.Add(new Column("*|text()"));
 
       XmlDocument result = template.Transform(input);
       TestUtils.AssertXmlAreEqual(
@@ -125,7 +125,7 @@ namespace ContentExtractorTests.Core
       template.AddColumn("/html[1]/body[1]/p[1]");
       Assert.AreEqual("/html[1]/body[1]/p", template.RowXPath);
       Assert.AreEqual(1, template.Columns.Count);
-      Assert.AreEqual(".", template.Columns[0]);
+      Assert.AreEqual(".", template.Columns[0].XPath);
     }
 
     [Test]
@@ -136,8 +136,8 @@ namespace ContentExtractorTests.Core
 
       Assert.AreEqual("/Doc[1]/Line", template.RowXPath);
       Assert.AreEqual(2, template.Columns.Count);
-      Assert.AreEqual("Item[1]/text()", template.Columns[0]);
-      Assert.AreEqual("Item[2]/text()", template.Columns[1]);
+      Assert.AreEqual("Item[1]/text()", template.Columns[0].XPath);
+      Assert.AreEqual("Item[2]/text()", template.Columns[1].XPath);
     }
 
     [Test]
@@ -149,10 +149,10 @@ namespace ContentExtractorTests.Core
       template.AddColumn("/html[1]/body[1]/ol[1]/li[1]/div[2]");
 
       Assert.AreEqual("/html[1]/body[1]/ol[1]/li", template.RowXPath);
-      Assert.AreEqual("div[1]", template.Columns[0]);
-      Assert.AreEqual("div[1]/a[1]/@href", template.Columns[1]);
-      Assert.AreEqual("div[1]/a[2]/@href", template.Columns[2]);
-      Assert.AreEqual("div[2]", template.Columns[3]);
+      Assert.AreEqual("div[1]", template.Columns[0].XPath);
+      Assert.AreEqual("div[1]/a[1]/@href", template.Columns[1].XPath);
+      Assert.AreEqual("div[1]/a[2]/@href", template.Columns[2].XPath);
+      Assert.AreEqual("div[2]", template.Columns[3].XPath);
     }
 
 

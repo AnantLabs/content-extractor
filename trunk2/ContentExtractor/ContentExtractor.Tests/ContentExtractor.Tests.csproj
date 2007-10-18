@@ -70,6 +70,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="google.cet" />
+    <None Include="google_test.bat" />
     <None Include="Resources\sheremetyevo.htm" />
   </ItemGroup>
 </Project>

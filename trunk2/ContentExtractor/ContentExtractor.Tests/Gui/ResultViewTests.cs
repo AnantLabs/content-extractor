@@ -38,7 +38,7 @@ namespace ContentExtractorTests.Gui
       File.WriteAllText(filename, "<html><body><ol><li>1<li>2<li>3</ol></body></html>");
       state.Project.SourcePositions.Add(pos);
       state.Project.Template.RowXPath = "/html/body/ol/li";
-      state.Project.Template.Columns.Add("text()");
+      state.Project.Template.Columns.Add(new Column("text()"));
       // “ест получаетс€ не надежный, т.к. парсинг и загрузка могут происходить асинхронно.
     }
   }

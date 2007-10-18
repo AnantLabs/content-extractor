@@ -12,6 +12,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using ContentExtractor.Core;
+using log4net;
 
 namespace ContentExtractor.Gui
 {
@@ -25,8 +26,17 @@ namespace ContentExtractor.Gui
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+      try
+      {
+        Application.Run(new MainForm());
+      }
+      catch (Exception exc)
+      {
+        Logger.Fatal("Unhandled exception occuried.", exc);
+      }
 		}
+
+    private static readonly ILog Logger = LogManager.GetLogger(typeof(MainForm));
 		
 		private ContentExtractor.Gui.State state;
     private readonly string statePath = Core.Utils.ApplicationMapPath("content-extractor.state"); 
@@ -48,8 +58,7 @@ namespace ContentExtractor.Gui
         }
         catch (Exception exc)
         {
-          //TODO: Should log to WARNING
-          Console.WriteLine("Cannot load saved state:\r\n{0}", exc);
+          Logger.Warn("Cannot load saved state", exc);
         }
       }
       browser.SetState(state);

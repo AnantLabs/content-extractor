@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<ScrapingProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Template>
+    <RowXPath>/HTML[1]/BODY[1]/DIV/DIV[1]/DIV[1]</RowXPath>
+    <Columns>
+      <Column>
+        <XPath>.//H2[1]/A[1]//text()</XPath>
+      </Column>
+      <Column>
+        <XPath>.//H2[1]/A[1]/@href</XPath>
+      </Column>
+      <Column>
+        <XPath>.//TABLE[1]/TBODY[1]/TR[1]/TD[1]/FONT[1]/text()|.//TABLE[1]/TBODY[1]/TR[1]/TD[1]/FONT[1]/B/text()|.//TABLE[1]/TBODY[1]/TR[1]/TD[2]/FONT/A[1]//text()</XPath>
+      </Column>
+    </Columns>
+  </Template>
+  <Url>http://www.google.com/search?hl=en&amp;safe=off&amp;q=google&amp;btnG=Search</Url>
+</ScrapingProject>

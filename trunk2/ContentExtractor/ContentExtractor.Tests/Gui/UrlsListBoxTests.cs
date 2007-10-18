@@ -21,7 +21,7 @@ namespace ContentExtractorTests.Gui
   {
     private State state;
     private UrlsListBox urlsBox;
-    
+
     [SetUp]
     public void SetUp()
     {
@@ -29,7 +29,7 @@ namespace ContentExtractorTests.Gui
       urlsBox = new UrlsListBox();
       urlsBox.SetState(state);
     }
-    
+
     private void AssertAllUrlsVisible()
     {
       FieldInfo field = typeof(UrlsListBox).GetField(
@@ -38,55 +38,72 @@ namespace ContentExtractorTests.Gui
       ListBox box = (ListBox)field.GetValue(urlsBox);
       Assert.AreEqual(state.Project.SourcePositions.Count, box.Items.Count);
     }
-    
-    //[Test]
-    //public void AddingItemsChangeUls()
-    //{
-    //  Assert.AreEqual(0, state.Project.SourceUrls.Count);
-    //  AssertAllUrlsVisible();
-    //  Uri uri = Utils.ParseUrl(@"c:\data.txt");
-    //  urlsBox.AddUri(uri);
-    //  Assert.AreEqual(1, state.Project.SourceUrls.Count);
-    //  Assert.AreEqual(uri, state.Project.SourceUrls[0]);
-    //  AssertAllUrlsVisible();
-    //}
 
-    //[Ignore("Have no idea how to test it")]
-    //[Test]
-    //public void DragNDrop()
-    //{
-    //}
+    private ListBox ListBox
+    {
+      get
+      {
+        FieldInfo field = typeof(UrlsListBox).GetField(
+          "listBox1",
+          BindingFlags.NonPublic | BindingFlags.Instance);
+        ListBox box = (ListBox)field.GetValue(urlsBox);
+        return box;
+      }
+    }
 
-    //public Uri TestUrl(int index)
-    //{
-    //  return Utils.ParseUrl(string.Format(@"c:\data{0}.txt", index));
-    //}
+    [Test]
+    public void T001_AddedItemsAreShown()
+    {
+      state.Project.SourcePositions.Add(new DocPosition(@"C:\test1.html"));
+      state.Project.SourcePositions.Add(new DocPosition(@"C:\test2.html"));
+      urlsBox.ForceSynchronize();
+      Assert.AreEqual(2, ListBox.Items.Count);
+    }
 
-    //[Test]
-    //public void SelectUrl()
-    //{
-    //  urlsBox.AddUri(TestUrl(0));
-    //  urlsBox.AddUri(TestUrl(1));
-    //  urlsBox.AddUri(TestUrl(2));
-    //  AssertAllUrlsVisible();
-    //  urlsBox.SelectUri(1);
-    //  AssertAllUrlsVisible();
-    //  Assert.AreEqual(TestUrl(1), state.BrowserUri);
-    //  AssertAllUrlsVisible();
-    //}
+    [Test]
+    public void T002_AutoSelectionForcesBrowse()
+    {
+      state.Project.SourcePositions.Add(new DocPosition(@"C:\test1.html"));
+      state.Project.SourcePositions.Add(new DocPosition(@"C:\test2.html"));
+      urlsBox.ForceSynchronize();
+      Assert.AreEqual(0, ListBox.SelectedIndex);
+      Assert.AreEqual(state.Project.SourcePositions[0], state.BrowserPosition);
+    }
 
-    //[Test]
-    //public void DeleteUrl()
-    //{
-    //  AssertAllUrlsVisible();
-    //  urlsBox.AddUri(TestUrl(0));
-    //  urlsBox.AddUri(TestUrl(1));
-    //  urlsBox.AddUri(TestUrl(2));
-    //  AssertAllUrlsVisible();
-    //  urlsBox.Delete(1);
-    //  Assert.AreEqual(2, state.Project.SourceUrls.Count);
-    //  Assert.AreEqual(TestUrl(0), state.Project.SourceUrls[0]);
-    //  Assert.AreEqual(TestUrl(2), state.Project.SourceUrls[1]);
-    //}
+    [Test]
+    public void T003_DeletionForceBrowse()
+    {
+      state.Project.SourcePositions.Add(new DocPosition(@"C:\test1.html"));
+      state.Project.SourcePositions.Add(new DocPosition(@"C:\test2.html"));
+      state.Project.SourcePositions.Add(new DocPosition(@"C:\test3.html"));
+      
+      urlsBox.ForceSynchronize();
+      Assert.AreEqual(state.Project.SourcePositions[0], state.BrowserPosition);
+      
+      ListBox.SelectedIndex = 1;
+      urlsBox.ForceSynchronize();
+      Assert.AreEqual(state.Project.SourcePositions[1], state.BrowserPosition);
+
+      state.Project.SourcePositions.RemoveAt(1);
+      urlsBox.ForceSynchronize();
+      Assert.AreEqual(state.Project.SourcePositions[1], state.BrowserPosition);
+    }
+
+    [Test]
+    public void T004()
+    {
+      state.Project.SourcePositions.Add(new DocPosition(@"C:\test1.html"));
+      urlsBox.ForceSynchronize();
+
+      state.Project.SourcePositions.RemoveAt(0);
+      urlsBox.ForceSynchronize();
+
+      DocPosition lastPosition = new DocPosition(@"C:\test2.html");
+      state.Project.SourcePositions.Add(lastPosition);
+      urlsBox.ForceSynchronize();
+
+      Assert.AreEqual(lastPosition, state.BrowserPosition);
+    }
+  
   }
 }

@@ -45,10 +45,16 @@ namespace ContentExtractor.Gui
 
     void timer_Tick(object sender, EventArgs e)
     {
+      ForceSynchronize();
+    }
+
+    public void ForceSynchronize()
+    {
       if (!cachedValueInited)
       {
-        cachedValue = _getter();
         cachedValueInited = true;
+        cachedValue = _getter();
+        RaisePropertyChanged();
       }
       else
       {
@@ -56,10 +62,15 @@ namespace ContentExtractor.Gui
         if (!object.Equals(cachedValue, value))
         {
           cachedValue = value;
-          if (PropertyChanged != null)
-            PropertyChanged(this, new PropertyChangedEventArgs("Value"));
+          RaisePropertyChanged();
         }
       }
+    }
+
+    private void RaisePropertyChanged()
+    {
+      if (PropertyChanged != null)
+        PropertyChanged(this, new PropertyChangedEventArgs("Value"));
     }
 
     protected override void Dispose(bool disposing)
@@ -76,6 +87,7 @@ namespace ContentExtractor.Gui
     public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
+
   }
 
   public class SynchronizedCollection<TValue> : Component, IBindingList
@@ -124,21 +136,7 @@ namespace ContentExtractor.Gui
 
     private void timer_Tick(object sender, EventArgs e)
     {
-      if (cachedValueInited)
-      {
-        IList<TValue> value = _getter();
-        if (!IsCollectionsEqual(cache, value))
-        {
-          CacheCollection(value);
-          IBindingList this_as_bindinglist = (IBindingList)this;
-          if (_listChanged != null)
-          {
-            _listChanged(this, new ListChangedEventArgs(ListChangedType.Reset, -1));
-          }
-        }
-      }
-      else
-        CacheCollection(Value);
+      ForceSynchronize();
     }
 
     protected override void Dispose(bool disposing)
@@ -333,5 +331,32 @@ namespace ContentExtractor.Gui
     }
 
     #endregion
+
+    internal void ForceSynchronize()
+    {
+      if (cachedValueInited)
+      {
+        IList<TValue> value = _getter();
+        if (!IsCollectionsEqual(cache, value))
+        {
+          CacheCollection(value);
+          RaiseListChanged();
+        }
+      }
+      else
+      {
+        CacheCollection(Value);
+        RaiseListChanged();
+      }
+    }
+
+    private void RaiseListChanged()
+    {
+      if (_listChanged != null)
+      {
+        _listChanged(this, new ListChangedEventArgs(ListChangedType.Reset, -1));
+      }
+    }
+
   }
 }

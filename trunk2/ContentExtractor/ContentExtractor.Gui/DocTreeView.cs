@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Collections;
 using ContentExtractor.Core;
+using log4net;
 
 namespace ContentExtractor.Gui
 {
@@ -28,8 +29,7 @@ namespace ContentExtractor.Gui
         timer1.Enabled = true;
       }
       else
-        // TODO: Should warning to log
-        throw new InvalidOperationException("Cannot assign state twice");
+        Logger.Warn("Cannot assign state twice");
     }
 
     XmlDocument cachedDocument = null;
@@ -41,6 +41,16 @@ namespace ContentExtractor.Gui
       {
         Refresh(freshDoc);
       }
+
+      if (Loader.Instance.IsWorking)
+        toolStripStatusLabel1.Text = Properties.Resources.DocTreeLoading;
+      else
+        toolStripStatusLabel1.Text = Properties.Resources.DocTreeCompleted;
+
+      toolStripProgressBar1.Visible = Loader.Instance.IsWorking;
+      toolStripStatusLabel2.Visible = !Loader.Instance.IsWorking && state != null;
+      if (state != null)
+        toolStripStatusLabel2.Text = state.SelectedNodeXPath;
     }
 
     private void Refresh(XmlDocument freshDoc)
@@ -78,8 +88,11 @@ namespace ContentExtractor.Gui
       }
     }
 
+    private static readonly ILog Logger = LogManager.GetLogger(typeof(DocTreeView));
+
     private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
     {
+      Logger.DebugFormat("Select node {0}", e.Node.Tag);
       InvokeSelectNode(e.Node);
     }
 
@@ -104,19 +117,24 @@ namespace ContentExtractor.Gui
         TreeNode tNode = CorrespondentNode(collection, child);
         if (tNode != null)
         {
-          tNode.ImageKey = NodeType.Attribute;
-          tNode.SelectedImageKey = NodeType.Attribute;
           if (child.NodeType == XmlNodeType.Text || child.NodeType == XmlNodeType.CDATA)
           {
             tNode.ImageKey = NodeType.Text;
             tNode.SelectedImageKey = NodeType.Text;
+            tNode.ToolTipText = child.Value;
           }
-          if (child.NodeType == XmlNodeType.Element)
+          else if (child.NodeType == XmlNodeType.Element)
           {
             tNode.ImageKey = NodeType.Tag;
             tNode.SelectedImageKey = NodeType.Tag;
             LoadXmlNode(tNode.Nodes, child.Attributes);
             LoadXmlNode(tNode.Nodes, child.ChildNodes);
+          }
+          else
+          {
+            tNode.ImageKey = NodeType.Attribute;
+            tNode.SelectedImageKey = NodeType.Attribute;
+            tNode.ToolTipText = child.Value;
           }
         }
       }

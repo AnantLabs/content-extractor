@@ -26,7 +26,8 @@ namespace ContentExtractorTests.Gui
     public void SetUp()
     {
       state = new State();
-      browser = new MarkingBrowser(state);
+      browser = new MarkingBrowser();
+      browser.SetState(state);
       File.WriteAllText(filename,
                         "<html><body>Some text here <p> Hello world!</html>");
     }
@@ -37,17 +38,12 @@ namespace ContentExtractorTests.Gui
       File.Delete(filename);
     }
 
-    private void DoEvents()
-    {
-      for (int i = 0; i < 3; i++)
-        System.Windows.Forms.Application.DoEvents();
-    }
-
     [Test]
-    public void BrowseWhenUriChanged()
+    public void BrowseWhenUriChangedToFile()
     {
       state.BrowserPosition = new DocPosition(pos);
-      DoEvents();
+      browser.ForceSynchronize();
+      TestUtils.DoEvents(2);
 
       Assert.AreEqual(pos, browser.Browser.Url);
     }
@@ -56,10 +52,12 @@ namespace ContentExtractorTests.Gui
     public void NotExpectedBrowseIsForbiden()
     {
       state.BrowserPosition = new DocPosition(pos);
-      DoEvents();
+      browser.ForceSynchronize();
+      TestUtils.DoEvents(2);
 
       browser.Browser.Navigate("http://www.google.com");
-      DoEvents();
+      browser.ForceSynchronize();
+      TestUtils.DoEvents(2);
       Assert.AreEqual(pos, browser.Browser.Url);
     }
   }

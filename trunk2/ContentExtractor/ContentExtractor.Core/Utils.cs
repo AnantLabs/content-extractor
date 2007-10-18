@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using log4net;
 
 namespace ContentExtractor.Core
 {
@@ -141,10 +142,12 @@ namespace ContentExtractor.Core
       }
     }
 
+    private static readonly ILog Logger = LogManager.GetLogger(typeof(Utils));
+
     public static void CheckNotNull(object value)
     {
       if (value == null)
-        throw new ArgumentException("Value mustn't be null");
+        Logger.Fatal("CheckNotNull failed");
     }
 
     public static string ApplicationMapPath(string localFileName)
@@ -156,12 +159,14 @@ namespace ContentExtractor.Core
     {
       if (element != null)
       {
-        if (element.Parent != null)
+        HtmlElement parent = GetRealParent(element);
+        if (parent != null)
         {
+
           return string.Format("{0}/{1}[{2}]",
-            HtmlElementXPath(element.Parent),
+            HtmlElementXPath(parent),
             element.TagName,
-            HtmlElementIndexToParent(element));
+            HtmlElementIndexToParent(element, parent));
         }
         else
           return "/" + element.TagName + "[1]";
@@ -169,12 +174,38 @@ namespace ContentExtractor.Core
       return null;
     }
 
-    private static int HtmlElementIndexToParent(HtmlElement element)
+    /// <summary>
+    /// It happens so that element can be not a child of his parent 
+    /// (element.Parent.Children doesn't contain element)
+    /// "<![CDATA[<html><head><base target="_top"></head><body>Some text</body></html>]]> "
+    /// BASE's parent is HTML but HTML says it has only one child - HEAD.
+    /// </summary>
+    private static HtmlElement GetRealParent(HtmlElement element)
+    {
+      if (element != null && element.Parent != null)
+      {
+        if (HtmlElementIndexToParent(element, element.Parent) > 0)
+        {
+          return element.Parent;
+        }
+        else
+        {
+          foreach (HtmlElement parents_child in element.Parent.Children)
+          {
+            if (HtmlElementIndexToParent(element, parents_child) > 0)
+              return parents_child;
+          }
+        }
+      }
+      return null;
+    }
+
+    private static int HtmlElementIndexToParent(HtmlElement element, HtmlElement parent)
     {
       int index = 0;
-      if (element.Parent != null)
+      if (parent != null && parent != null)
       {
-        foreach (HtmlElement brother in element.Parent.Children)
+        foreach (HtmlElement brother in parent.Children)
           if (brother.TagName == element.TagName)
           {
             index++;
@@ -226,7 +257,7 @@ namespace ContentExtractor.Core
             return child;
         }
       return null;
-   }
+    }
 
     public static bool IsIndexOk(int index, ICollection collection)
     {

@@ -13,6 +13,8 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Xml;
 using System.Threading;
+using System.Collections.Generic;
+using log4net;
 
 namespace ContentExtractor.Core
 {
@@ -22,33 +24,35 @@ namespace ContentExtractor.Core
   public sealed class Loader
   {
     private static Loader instance = new Loader();
-    
-    public static Loader Instance {
-      get {
+
+    public static Loader Instance
+    {
+      get
+      {
         return instance;
       }
     }
-    
+
     private Loader()
     {
     }
-    
+
     public static string LoadContentSync(DocPosition pos)
     {
       try
       {
         if (pos.Url == DocPosition.Empty.Url)
           return string.Empty;
-        
+
         WebRequest request = WebRequest.Create(pos.Url);
         request.Proxy = WebRequest.DefaultWebProxy;
         // ToDo: Consider more complex proxy set up
-        using(WebResponse response = request.GetResponse())
+        using (WebResponse response = request.GetResponse())
         {
           return ReadResponse(response);
         }
       }
-      catch(Exception exc)
+      catch (Exception exc)
       {
         throw new Exception("Could not process request to "
                             + pos.ToString(),
@@ -56,11 +60,27 @@ namespace ContentExtractor.Core
       }
     }
 
+    private const int kLoadAttemptNumber = 5;
     public XmlDocument LoadXmlSync(DocPosition pos)
     {
-      string content = LoadContentSync(pos);
-      return Utils.HtmlParse(content);
+      for (int i = 0; i < kLoadAttemptNumber; i++)
+      {
+        try
+        {
+          string content = LoadContentSync(pos);
+          return Utils.HtmlParse(content);
+        }
+        catch (Exception exc)
+        {
+          Logger.WarnFormat("Attempt {0}. Cannot load page {1}.\nError description:\n{2}",
+              i + 1, pos, exc);
+        }
+      }
+      Logger.Error("Cannot load page {0}");
+      return null;
     }
+
+    List<Thread> threads = new List<Thread>();
 
     /// <summary>
     /// Warning! callback is called in other thread
@@ -76,21 +96,28 @@ namespace ContentExtractor.Core
           XmlDocument result = LoadXmlSync(pos);
           callback(result);
         }));
+      AddThread(loadThread);
       loadThread.SetApartmentState(ApartmentState.STA);
       loadThread.IsBackground = true;
       loadThread.Start();
+    }
+
+    private void AddThread(Thread loadThread)
+    {
+      threads.RemoveAll(delegate(Thread th) { return th.IsAlive == false; });
+      threads.Add(loadThread);
     }
 
     public bool IsWorking
     {
       get
       {
-        return false;
+        return threads.Exists(delegate(Thread th) { return th.IsAlive; });
       }
     }
 
+    private static readonly ILog Logger = LogManager.GetLogger(typeof(Loader));
 
-    
     private static string ReadResponse(WebResponse response)
     {
       string documentText = string.Empty;
@@ -102,10 +129,9 @@ namespace ContentExtractor.Core
         {
           encoding = Encoding.GetEncoding(httpResponse.CharacterSet);
         }
-        catch(ArgumentException exc)
+        catch (ArgumentException exc)
         {
-          // TODO: Need to log into INFO
-          Console.WriteLine(exc);
+          Logger.Warn(exc);
         }
       }
 
@@ -134,7 +160,7 @@ namespace ContentExtractor.Core
       }
       return documentText;
     }
-    
+
     private static string ReadStreamUsingEncoding(Encoding encoding, MemoryStream memory)
     {
       memory.Position = 0;

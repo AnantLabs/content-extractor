@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using log4net.Config;
 
 // Information about this assembly is defined by the following
 // attributes.
@@ -30,3 +31,6 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyFileVersionAttribute("1.0")]
+
+// This attribute tells log4net to use the settings in the app.config file for configuration 
+[assembly: XmlConfigurator()]

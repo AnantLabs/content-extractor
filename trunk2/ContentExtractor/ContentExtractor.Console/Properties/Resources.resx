@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,57 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>217, 17</value>
-  </metadata>
-  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>112, 17</value>
-  </metadata>
-  <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj0yLjAuMC4w
-        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAADU
-        BwAAAk1TRnQBSQFMAgEBAwEAAQQBAAEEAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEFIAQP+UAAEtAgECQwIBAXYBQwIBAXYBQwIBAXYBJAIBATIYAED/jAABLQIB
-        AUMBYwIEAdwBXAIDAcsBSgICAYcBQwIBAXYBSgICAYcBXAIDAcsBYwIEAdwBNQIBAVQQAED/iAABJAIB
-        ATIBXwEHARIB7QE1AgEBVBQAAS0CAQFDAWMCBAHcAUoCAgGHDABA/wQAASQCAQEyAS0CAQFDAQ0CAQEQ
-        CAABDQIBARABLQIBAUMBLQIBAUNkAAFcAgMBywE1AgEBVBwAAQ0CAQEQAVwCAwHLAUMCAQF2CAAY/wHy
-        AskJ/wHoAqAB/wHaAn0J/wHyAskB/wHMAkcF/wFDAgEBdgFHAcwBRwH/AVgCAgG6AUMCAQF2BAABQwIB
-        AXYBRwHMAUcB/wFYAgIBugFYAgIBugFfAREBBwHtAS0CAQFDAT0CAQFlAUcBzAFHAf8BLQIBAUMEAAEZ
-        AgEBIUQAARkCAQEhAWMCBAHcCAABQwIBAXYBYwIEAdwBVQICAakBQwIBAXYCFAL/AWMCBAHcAT0CAQFl
-        AQ0CAQEQAT0CAQFlCAAQ/wHrAq4B/wHTAmIB/wHaAn0J/wHoAqAB/wHaAn0J/wHyAskB/wHMAkcF/wFY
-        AgIBugFKAgIBhwgAARkCAQEhAUcBzAFHAf8BLQIBAUMIAAENAgEBEAEkAgEBMgQAAT0CAQFlAV8BEQEH
-        Ae0BJAIBATIBTwICAZhEAAEtAgEBQwFYAgIBugQAARkCAQEhAWMCBAHcAQ0CAQEQBAABQwIBAXYCFAL/
-        AQ0CAQEQAU8CAgGYAUoCAgGHDAAE/wH8AvIB/wHoAqAB/wHQAlQB/wHhAoUB/wH1AtcN/wHoAqAB/wHa
-        An0J/wHyAskB/wHMAkcF/wFKAgIBhwFYAgIBuggAAS0CAQFDAUcBzAFHAf8cAAE9AgEBZQFcAgMBywFH
-        AcwBRwH/RAABLQIBAUMBWAICAboEAAEtAgEBQwFYAgIBugwAAhQC/wENAgEBEAQAAWMCBAHcARkCAQEh
-        CAAB6AKgAf8B0AJUAf8B6AKgAf8B+QLkFf8B6AKgAf8B2gJ9Cf8B8gLJAf8BzAJHBf8BPQIBAWUBYwIE
-        AdwIAAEZAgEBIQFHAcwBRwH/AUcBzAFHAf8BRwHMAUcB/wFHAcwBRwH/AUcBzAFHAf8BRwHMAUcB/wEZ
-        AgEBIQgAAVwCAwHLAWMCBAHcSAACFAL/BAABDQIBARABXwEHARIB7QwAAVwCAwHLAS0CAQFDBAABSgIC
-        AYcBQwIBAXYIAAHuArsB/wHXAnAB/wHaAn0B/wHrAq4V/wHoAqAB/wHaAn0J/wHyAskB/wHMAkcF/wEt
-        AgEBQwFHAcwBRwH/DAABWAICAboBQwIBAXYMAAFHAcwBRwH/AS0CAQFDBAABPQIBAWUBXwERAQcB7QFD
-        AgEBdkgAAVUCAgGpAT0CAQFlBAABQwIBAXYBTwICAZgIAAFVAgIBqQFDAgEBdgQAAUMCAQF2AUMCAQF2
-        CAAI/wHyAskB/wHdAoEB/wHTAmIB/wHoAqAB/wH8AvIJ/wHoAqAB/wHMAkcB/wHoAqAB/wHyAskB/wHd
-        AoEB/wHXAnAF/wE9AgEBZQFHAcwBRwH/AU8CAgGYAUMCAQF2AS0CAQFDASQCAQEyAV8BEQEHAe0BQwIB
-        AXYBLQIBAUMBSgICAYcBXwERAQcB7QENAgEBEAENAgEBEAFfAREBBwHtAUMCAQF2TAABJAIBATIBXwEH
-        ARIB7QEkAgEBMgQAAUMCAQF2AVgCAgG6AVgCAgG6AV8BBwESAe0BSgICAYcEAAFVAgIBqQE9AgEBZQgA
-        EP8B+QLkAf8B4QKFAf8B0wJiCf8B6AKgAf8B2gJ9Af8B6wKuAf8B2gJ9Af8B3QKBAf8B9QLXBf8BPQIB
-        AWUBYwIEAdwBWAICAboBQwIBAXYBLQIBAUMEAAENAgEBEAFKAgIBhwFYAgIBugFVAgIBqQEtAgEBQwQA
-        ASQCAQEyAUMCAQF2AQ0CAQEQUAABPQIBAWUBXwEHARIB7QEtAgEBQxQAAT0CAQFlAV8BBwESAe0BDQIB
-        ARAIABj/AfwC8gn/AegCoAH/AdoCfRX/BAABVQICAakBSgICAYeEAAEtAgEBQwFYAgIBugFjAgQB3AFK
-        AgIBhwFDAgEBdgFDAgEBdgFcAgMBywFjAgQB3AEkAgEBMgwAJP8B6AKgAf8B2gJ9Ff8EAAEtAgEBQwE9
-        AgEBZYwAASQCAQEyAUMCAQF2AUMCAQF2AUMCAQF2ATUCAQFUFAAk/wH5AuQB/wH1AtcV/8AAQP/AAED/
-        gAABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEAAQEFAAGAFwAD/wEAAv8CAAL/AgAB+AE/AgAC/wIA
-        AeABDwIAAv8CAALHAgABjAF/AgABzwHjAgABCAECAgABmAEDAgABMQGQAgABkQEHAgABMwH4AgACkwIA
-        ATABDAIAAdMBkwIAATkByAIAAckBkwMAAQECAAHEARMCAAEEARECAALjAgABnwH/AgAB8AEHAgABnwH/
-        AgAB/AEfAgAC/wIAAv8CAAL/AgAC/wIAAv8CAAs=
-</value>
+  <data name="CannotLoadDocumentError" xml:space="preserve">
+    <value>Cannot load given document: {0}\r\n{1}</value>
+    <comment>{0} - document URL, {1} - Exception</comment>
   </data>
-  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>362, 17</value>
-  </metadata>
+  <data name="CannotPerformTransformationError" xml:space="preserve">
+    <value>Cannot perform transformation using template: {0}\r\n{1}</value>
+    <comment>{0} - template filename {1} - Exception</comment>
+  </data>
+  <data name="CannotSaveResult" xml:space="preserve">
+    <value>Cannot save result to file {0}\r\n{1}</value>
+    <comment>{0} - output filename {1} - Exception</comment>
+  </data>
+  <data name="CantParseDocumentAddressWarn" xml:space="preserve">
+    <value>No documents with address '{0}' were found.</value>
+    <comment>{0} - the string that was tried to parse</comment>
+  </data>
+  <data name="HelpString" xml:space="preserve">
+    <value>Applies specified template and saves resulting data
+Usage:
+  ContentExtractor.Console.exe &lt;template file&gt; &lt;output&gt; [&lt;urls list&gt;]
+
+  &lt;template file&gt; - The ".cet" file you created with Content Extractor Gui
+  &lt;output&gt; - The destination file where the resulting XML will be stored.
+  &lt;urls list&gt; (optional) - a comma separated list of urls or files. 
+    Files can be provided using a mask.
+
+Examples:
+&gt; ContentExtractor.Console template1.cet output.xml
+      Applies "template1.cet" to urls saved in the template
+      and saves the data to "output.xml"
+&gt; ContentExtractor.Console google.cet foo_bar.xml http://www.google.com/search?q=foo+bar
+      Applies "google.cet" to google search results for query "foo bar"
+      and saves the data to "foo_bar.xml"
+&gt; ContentExtractor.Console template2.cet output.xml C:\Downloads\1.html,C:\Downloads\2.html,C:Download\dir\*.html
+    Applies "extractdata.cet" to the list of files and saves the results to "output.xml"</value>
+  </data>
+  <data name="StartProcessDocumentInfo" xml:space="preserve">
+    <value>Starting to process document {0}</value>
+    <comment>{0} - document URL</comment>
+  </data>
+  <data name="TemplateCannotBeParsedError" xml:space="preserve">
+    <value>The template '{0}' cannot be parsed</value>
+    <comment>{0} - template filename</comment>
+  </data>
+  <data name="UrlsOrFilesCannotBeParsedError" xml:space="preserve">
+    <value>'{0}' cannot be parsed as URLs of file names</value>
+    <comment>{0} - the &lt;urls list&gt; command line parameter</comment>
+  </data>
 </root>

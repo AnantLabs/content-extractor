@@ -29,7 +29,7 @@ namespace ContentExtractor.Gui
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       this.dataGrid = new System.Windows.Forms.DataGridView();
       this.timer1 = new System.Windows.Forms.Timer(this.components);
       this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -37,13 +37,13 @@ namespace ContentExtractor.Gui
       this.addColumnToolStripButton = new System.Windows.Forms.ToolStripButton();
       this.deleteColumnToolStripButton = new System.Windows.Forms.ToolStripButton();
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+      this.saveResultButton = new System.Windows.Forms.ToolStripButton();
       this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
       this.label1 = new System.Windows.Forms.Label();
       this.label2 = new System.Windows.Forms.Label();
       this.rowsTextBox = new System.Windows.Forms.TextBox();
       this.columnTextBox = new System.Windows.Forms.TextBox();
       this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-      this.saveResultButton = new System.Windows.Forms.ToolStripButton();
       ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
       this.toolStrip1.SuspendLayout();
       this.tableLayoutPanel1.SuspendLayout();
@@ -54,15 +54,16 @@ namespace ContentExtractor.Gui
       this.dataGrid.AllowUserToAddRows = false;
       this.dataGrid.AllowUserToDeleteRows = false;
       this.dataGrid.AllowUserToOrderColumns = true;
+      this.dataGrid.AllowUserToResizeRows = false;
       this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-      dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-      dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-      dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.dataGrid.DefaultCellStyle = dataGridViewCellStyle2;
+      dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+      dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+      dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+      dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+      this.dataGrid.DefaultCellStyle = dataGridViewCellStyle1;
       this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.dataGrid.Location = new System.Drawing.Point(0, 81);
       this.dataGrid.MultiSelect = false;
@@ -130,6 +131,15 @@ namespace ContentExtractor.Gui
       this.toolStripSeparator1.Name = "toolStripSeparator1";
       this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
       // 
+      // saveResultButton
+      // 
+      this.saveResultButton.Image = global::ContentExtractor.Gui.Properties.Resources.save_result;
+      this.saveResultButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+      this.saveResultButton.Name = "saveResultButton";
+      this.saveResultButton.Size = new System.Drawing.Size(81, 22);
+      this.saveResultButton.Text = "Save result";
+      this.saveResultButton.Click += new System.EventHandler(this.saveResultButton_Click);
+      // 
       // tableLayoutPanel1
       // 
       this.tableLayoutPanel1.ColumnCount = 2;
@@ -192,15 +202,6 @@ namespace ContentExtractor.Gui
       // 
       this.saveFileDialog1.DefaultExt = "xml";
       this.saveFileDialog1.Filter = "Xml files|*.xml";
-      // 
-      // saveResultButton
-      // 
-      this.saveResultButton.Image = global::ContentExtractor.Gui.Properties.Resources.save_result;
-      this.saveResultButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-      this.saveResultButton.Name = "saveResultButton";
-      this.saveResultButton.Size = new System.Drawing.Size(81, 22);
-      this.saveResultButton.Text = "Save result";
-      this.saveResultButton.Click += new System.EventHandler(this.saveResultButton_Click);
       // 
       // ResultsView
       // 

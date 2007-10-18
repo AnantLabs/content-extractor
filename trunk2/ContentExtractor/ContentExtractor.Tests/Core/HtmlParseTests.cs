@@ -168,5 +168,17 @@ alt='Рейтинг@Mail.ru'/></a><!--/LOGO-->
       Assert.IsNotNull(node, "Document hasn't been parsed correctly");
     }
 
+    [Test]
+    public void BrokenChildParent()
+    {
+      string code = @"<html><head>
+<title>Open Directory - Arts: Animation: Anime: Multimedia</title>
+<base target='_top'>
+</head>
+<body><p></body></html>";
+      XmlDocument doc = Utils.HtmlParse(code);
+
+    }
+
 	}
 }

@@ -31,6 +31,8 @@
     <Compile Include="_Dummy.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="log4net.dll" />
+    <Content Include="log4net.xml" />
     <Content Include="Microsoft.mshtml.dll" />
   </ItemGroup>
 </Project>

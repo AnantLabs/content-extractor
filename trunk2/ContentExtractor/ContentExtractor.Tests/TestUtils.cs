@@ -65,6 +65,12 @@ namespace ContentExtractorTests
           break;
       }
     }
+
+    public static void DoEvents(int iterations)
+    {
+      for (int i = 0; i < iterations; i++)
+        System.Windows.Forms.Application.DoEvents();
+    }
     
 
   }

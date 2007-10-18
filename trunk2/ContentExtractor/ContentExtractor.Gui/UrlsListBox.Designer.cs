@@ -57,6 +57,7 @@ namespace ContentExtractor.Gui
       this.listBox1.Name = "listBox1";
       this.listBox1.Size = new System.Drawing.Size(252, 277);
       this.listBox1.TabIndex = 0;
+      this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
       this.listBox1.DragDrop += new System.Windows.Forms.DragEventHandler(this.ListBox1DragDrop);
       this.listBox1.DragEnter += new System.Windows.Forms.DragEventHandler(this.ListBox1DragEnter);
       this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyDown);
@@ -64,6 +65,7 @@ namespace ContentExtractor.Gui
       // bindingSource1
       // 
       this.bindingSource1.CurrentItemChanged += new System.EventHandler(this.bindingSource1_CurrentItemChanged);
+      this.bindingSource1.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.bindingSource1_ListChanged);
       // 
       // label1
       // 

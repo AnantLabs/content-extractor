@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ScrapingProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Template>
+    <RowXPath>/HTML[1]/BODY[1]/DIV[1]/DIV[3]/DIV[5]/DIV[1]/DIV[1]/DIV[1]/DIV[2]/DIV[1]/DIV[2]/TABLE[1]/TBODY[1]/TR[2]</RowXPath>
+    <Columns>
+      <Column>
+        <XPath>TD[2]/text()[1]</XPath>
+      </Column>
+      <Column>
+        <XPath>TD[3]/DIV[2]/H2[1]/A[1]/text()[1]</XPath>
+      </Column>
+      <Column>
+        <XPath>TD[3]/DIV[2]/P[1]/text()[1]</XPath>
+      </Column>
+      <Column>
+        <XPath>TD[3]/DIV[2]/text()[1]</XPath>
+      </Column>
+      <Column>
+        <XPath>TD[3]/DIV[2]/text()[2]</XPath>
+      </Column>
+      <Column>
+        <XPath>TD[3]/DIV[2]/text()[3]</XPath>
+      </Column>
+      <Column>
+        <XPath>TD[5]/text()[1]</XPath>
+      </Column>
+      <Column>
+        <XPath>TD[5]/text()[2]</XPath>
+      </Column>
+    </Columns>
+  </Template>
+  <Url>http://www.download.com/3101-20-0-1.html?tag=pop.software</Url>
+  <Url>http://www.download.com/3101-20_4-0-2.html?tag=nav_2</Url>
+  <Url>http://www.download.com/3101-20_4-0-3.html?tag=nav_3</Url>
+</ScrapingProject>

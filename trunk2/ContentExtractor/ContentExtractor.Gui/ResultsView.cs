@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using ContentExtractor.Core;
+using log4net;
 
 namespace ContentExtractor.Gui
 {
@@ -32,21 +33,27 @@ namespace ContentExtractor.Gui
           delegate(string value)
           {
             if (state.Project.Template.CheckRowXPath(value))
+            {
               this.state.Project.Template.RowXPath = value;
+              dataGrid.Invalidate(); // Hack - DataGrid needs to have all cells recalculated.
+            }
           });
 
         colXPathSynchro = new SynchronizedObject<string>(
             delegate
             {
               if (Utils.IsIndexOk(SelectedCellPoint.X, state.Project.Template.Columns))
-                return this.state.Project.Template.Columns[SelectedCellPoint.X];
+                return this.state.Project.Template.Columns[SelectedCellPoint.X].XPath;
               return string.Empty;
             },
             delegate(string value)
             {
               if (Utils.IsIndexOk(SelectedCellPoint.X, state.Project.Template.Columns) &&
                 state.Project.Template.CheckColumnXPath(value))
-                this.state.Project.Template.Columns[SelectedCellPoint.X] = value;
+              {
+                this.state.Project.Template.Columns[SelectedCellPoint.X].XPath = value;
+                dataGrid.InvalidateColumn(SelectedCellPoint.X);
+              }
             });
 
         components.Add(rowXPathSynchro);
@@ -57,10 +64,11 @@ namespace ContentExtractor.Gui
       }
       else
       {
-        //TODO: Should log to warning
-        throw new InvalidOperationException("Cannot assign state twice");
+        Logger.Warn("Cannot assign state twice");
       }
     }
+
+    private static readonly ILog Logger = LogManager.GetLogger(typeof(ResultsView));
 
     SynchronizedObject<string> rowXPathSynchro;
     SynchronizedObject<string> colXPathSynchro;
@@ -84,17 +92,17 @@ namespace ContentExtractor.Gui
       set { this._selectedCellPoint = value; }
     }
 
-    private void SetupColumn(DataGridViewColumn dgv_column, string column)
+    private void SetupColumn(DataGridViewColumn dgv_column, Column column)
     {
       dgv_column.SortMode = DataGridViewColumnSortMode.NotSortable;
-      dgv_column.HeaderText = column;
+      dgv_column.HeaderText = column.XPath;
       dgv_column.Tag = column;
       dgv_column.DisplayIndex = dgv_column.Index;
     }
 
     private bool columnsOrderHasBeenChanged = false;
 
-    private void SetupGridColumns(DataGridViewColumnCollection dgv_columns, List<string> columns)
+    private void SetupGridColumns(DataGridViewColumnCollection dgv_columns, List<Column> columns)
     {
       int index;
       for (index = 0; index < Math.Min(dgv_columns.Count, columns.Count); index++)
@@ -126,8 +134,10 @@ namespace ContentExtractor.Gui
       resultDoc = state.Project.Template.Transform(documents);
       dataGrid.RowCount = resultDoc.DocumentElement.ChildNodes.Count;
       if (Utils.IsIndexOk(SelectedCellPoint.X, dataGrid.Columns) &&
-         Utils.IsIndexOk(SelectedCellPoint.Y, dataGrid.Rows))
+         Utils.IsIndexOk(SelectedCellPoint.Y, dataGrid.Rows) &&
+         !dataGrid.Rows[SelectedCellPoint.Y].Cells[SelectedCellPoint.X].Selected)
       {
+        dataGrid.Columns[SelectedCellPoint.X].Selected = true;
         dataGrid.Rows[SelectedCellPoint.Y].Cells[SelectedCellPoint.X].Selected = true;
       }
     }
@@ -249,7 +259,7 @@ namespace ContentExtractor.Gui
 
       if (left != right && !columnsOrderHasBeenChanged)
       {
-        string left_col = state.Project.Template.Columns[left];
+        Column left_col = state.Project.Template.Columns[left];
         state.Project.Template.Columns.RemoveAt(left);
         state.Project.Template.Columns.Insert(right, left_col);
 

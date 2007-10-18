@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 
 using ContentExtractor.Core;
+using log4net;
 
 namespace ContentExtractor.Gui
 {
@@ -36,7 +37,6 @@ namespace ContentExtractor.Gui
       if (this.state == null)
       {
         this.state = state;
-        SynchronizedCollection<DocPosition> positionsSynchro;
 
         positionsSynchro = new SynchronizedCollection<DocPosition>(
           delegate { return (IList<DocPosition>)this.state.Project.SourcePositions; });
@@ -47,51 +47,14 @@ namespace ContentExtractor.Gui
       else
         throw new InvalidOperationException("Cannot set state twice");
     }
-
-    //  public void UpdateListBox()
-    //  {
-    //    List<object> selected = Utils.CastList<object>(this.listBox1.SelectedItems);
-    //    listBox1.Items.Clear();
-    //    foreach (Uri uri in state.Project.SourceUrls)
-    //    {
-    //      Utils.CheckNotNull(uri);
-    //      listBox1.Items.Add(uri);
-    //    }
-    //    foreach (object item in selected)
-    //      if (listBox1.Items.Contains(item))
-    //      {
-    //        listBox1.SelectedItems.Add(item);
-    //      }
-    //  }
-
-    //  public void AddUri(Uri uri)
-    //  {
-    //    try
-    //    {
-    //      Utils.CheckNotNull(uri);
-    //      listBox1.Items.Add(uri);
-    //      //state.Project.SourceUrls.Add(uri);
-    //      //UpdateListBox();
-    //    }
-    //    catch (Exception exc)
-    //    {
-    //      string log = exc.ToString();
-    //      Console.WriteLine(exc);
-    //    }
-    //  }
-
-    //  public void SelectUri(int index)
-    //  {
-    //    if (0 <= index && index < state.Project.SourceUrls.Count)
-    //    {
-    //      state.BrowserUri = state.Project.SourceUrls[index];
-    //    }
-    //    else
-    //    {
-    //      state.BrowserUri = ScrapingProject.EmptyUri;
-    //    }
-    //    //listBox1.SelectedIndex = index;
-    //  }
+    private SynchronizedCollection<DocPosition> positionsSynchro;
+    public void ForceSynchronize()
+    {
+      if (positionsSynchro != null)
+      {
+        positionsSynchro.ForceSynchronize();
+      }
+    }
 
     void ListBox1DragEnter(object sender, DragEventArgs e)
     {
@@ -120,7 +83,7 @@ namespace ContentExtractor.Gui
       }
     }
 
-    public void Swap(int leftIndex, int rightIndex)
+    private void Swap(int leftIndex, int rightIndex)
     {
       DocPosition old_position = state.Project.SourcePositions[leftIndex];
       state.Project.SourcePositions[leftIndex] = state.Project.SourcePositions[rightIndex];
@@ -164,10 +127,31 @@ namespace ContentExtractor.Gui
       }
     }
 
-    private void bindingSource1_CurrentItemChanged(object sender, EventArgs e)
+    private void ForceSelect()
     {
       if (Utils.IsIndexOk(listBox1.SelectedIndex, bindingSource1))
-        state.BrowserPosition = (DocPosition)bindingSource1[listBox1.SelectedIndex];
+      {
+        DocPosition position = (DocPosition)bindingSource1[listBox1.SelectedIndex];
+        state.BrowserPosition = position;
+        LogManager.GetLogger("UrlsListBox").DebugFormat("Position '{0}' selected.", position);
+      }
+      else
+        LogManager.GetLogger("UrlsListBox").Debug("Nothing selected.");
+    }
+
+    private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+    {
+      ForceSelect();
+    }
+
+    private void bindingSource1_CurrentItemChanged(object sender, EventArgs e)
+    {
+      ForceSelect();
+    }
+
+    private void bindingSource1_ListChanged(object sender, ListChangedEventArgs e)
+    {
+      ForceSelect();
     }
   }
 }

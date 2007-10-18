@@ -126,6 +126,24 @@ namespace ContentExtractor.Gui.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to Completed.
+        /// </summary>
+        internal static string DocTreeCompleted {
+            get {
+                return ResourceManager.GetString("DocTreeCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading....
+        /// </summary>
+        internal static string DocTreeLoading {
+            get {
+                return ResourceManager.GetString("DocTreeLoading", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap down {
             get {
                 object obj = ResourceManager.GetObject("down", resourceCulture);
@@ -170,6 +188,13 @@ namespace ContentExtractor.Gui.Properties {
         internal static System.Drawing.Bitmap openHS {
             get {
                 object obj = ResourceManager.GetObject("openHS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap refresh {
+            get {
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

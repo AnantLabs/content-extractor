@@ -252,6 +252,7 @@ namespace ContentExtractor.Gui
       // 
       this.openFileDialog1.FileName = "openFileDialog1";
       this.openFileDialog1.Filter = "Content Extractor templates|*.cet";
+      this.openFileDialog1.InitialDirectory = System.Windows.Forms.Application.StartupPath;
       // 
       // MainForm
       // 
