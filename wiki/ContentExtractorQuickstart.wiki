@@ -3,7 +3,7 @@
 
 Content Extractor is a desktop tool that allows you easily extract data from web-pages and save them into structured data format.
 
-There is an example which wil help you to start working with Content Extrator 1.0
+There are examples to help you to start working with Content Extrator 1.0
 
 == Example 1 : Simple extraction ==
 
