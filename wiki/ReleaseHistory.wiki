@@ -1,6 +1,11 @@
 #labels Featured
 =Release History=
 
+
+==Version 1.0b.2847 ([http://content-extractor.googlecode.com/files/ContentExtractor_1.0b.2864.msi Download])==
+
+  * Bug fix: Template with rows XPath "." lead to the failure.
+
 ==Version 1.0b.2847 ([http://content-extractor.googlecode.com/files/ContentExtractor_1.0b.2847.msi Download])==
 
   * Console application now can be provided with list of urls or file masks ([http://code.google.com/p/content-extractor/issues/detail?id=16 Issue 16]).
