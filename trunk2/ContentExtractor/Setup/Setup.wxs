@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0"?>
 
 <?define ProductName = "Content Extractor 1.0 (Beta)"?>
-<?define ProductVersion = "1.0.2847"?>
+<?define ProductVersion = "1.0.2864"?>
 <?define UpgradeCode = "173EEA21-7A44-48B1-935D-B1948DE9D363" ?>
 
-<?define ProductCode = "EF7B3603-FAA6-42b4-B78B-4DDFC65C93F0" ?>
-<?define PackageCode = "7B91FB62-7BF0-4b77-86DD-BDE577743574" ?>
+<?define ProductCode = "CBDAF4F8-F44A-48f6-B066-48B294715A94" ?>
+<?define PackageCode = "CC8DF31B-BC45-4166-AA22-22965D20BFCF" ?>
 
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
@@ -70,7 +70,7 @@
           <ComponentRef Id="Examples" />
         </Feature>
       </Feature>
-      <Feature Id="ConsoleFeature" Title="Console extention" Level="10">
+      <Feature Id="ConsoleFeature" Title="Console extention" Level="1">
         <ComponentRef Id="Console" />
       </Feature>
     </Feature>

@@ -85,11 +85,16 @@ namespace ContentExtractor.Core
             outRow.AppendChild(outCell);
             foreach (XmlNode subNode in inRow.SelectNodes(column.XPath))
             {
-              if (subNode.NodeType != XmlNodeType.Attribute)
-                outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
-              else
-                outCell.AppendChild(outDoc.OwnerDocument.CreateTextNode(subNode.Value));
-              outCell.AppendChild(outDoc.OwnerDocument.CreateWhitespace(" "));
+              if ((subNode.NodeType &
+                (XmlNodeType.Document | XmlNodeType.DocumentFragment |
+                XmlNodeType.DocumentType | XmlNodeType.XmlDeclaration)) == 0)
+              {
+                if (subNode.NodeType != XmlNodeType.Attribute)
+                  outCell.AppendChild(outDoc.OwnerDocument.ImportNode(subNode, true));
+                else
+                  outCell.AppendChild(outDoc.OwnerDocument.CreateTextNode(subNode.Value));
+                outCell.AppendChild(outDoc.OwnerDocument.CreateWhitespace(" "));
+              }
             }
           }
         }
@@ -120,7 +125,7 @@ namespace ContentExtractor.Core
 
       for (int i = 0; i < Columns.Count; i++)
       {
-        Columns[i].XPath = 
+        Columns[i].XPath =
             XPathInfo.GetRelativeXPath(XPathInfo.CombineXPaths(rowXPath_, Columns[i].XPath), rowPath);
       }
 
@@ -131,7 +136,7 @@ namespace ContentExtractor.Core
 
     public void AddEmptyColumn()
     {
-      Columns.Add( new Column());
+      Columns.Add(new Column());
     }
 
     public bool CheckRowXPath(string xpath)

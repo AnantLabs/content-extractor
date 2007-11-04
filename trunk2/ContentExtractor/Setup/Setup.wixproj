@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>package</OutputType>
     <RootNamespace>Setup</RootNamespace>
-    <OutputName>ContentExtractor_1.0b.2847</OutputName>
+    <OutputName>ContentExtractor_1.0b.2864</OutputName>
     <WixToolPath Condition=" '$(WixToolPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixToolPath>
     <ToolPath>$(WixToolPath)</ToolPath>
     <WixMSBuildExtensionsPath Condition=" '$(WixMSBuildExtensionsPath)' == '' ">$(SharpDevelopBinPath)\Tools\Wix</WixMSBuildExtensionsPath>
